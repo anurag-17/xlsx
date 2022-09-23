@@ -1,7 +1,6 @@
 {
   "name": "xlsx",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -19,6 +18,17 @@
     "mongo": "^0.1.0",
     "mongoose": "^6.6.1",
     "multer": "^1.4.5-lts.1",
-    "xlsx": "^0.18.5"
-  }
+    "xlsx": "^0.18.5",
+    "xslx": "^1.0.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anurag-17/xlsx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anurag-17/xlsx/issues"
+  },
+  "homepage": "https://github.com/anurag-17/xlsx#readme",
+  "description": ""
 }
