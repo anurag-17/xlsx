@@ -21,7 +21,6 @@
     "xlsx": "^0.18.5",
     "xslx": "^1.0.0"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anurag-17/xlsx.git"
