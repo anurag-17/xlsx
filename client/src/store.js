@@ -6,7 +6,7 @@ import { userReducer } from "./reducers/userReducer.js"
 
 
 const reducer = combineReducers({
-    user:userReducer,
+    user:userReducer
 
 
 })

@@ -1,29 +1,74 @@
 const express = require("express");
-const xlsx = require("xlsx");
+const Excell = require('./model/xlsx')
+var multer = require("multer")
+const XLSX = require('xlsx')
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 const connectDB = require("./config/db");
+const bodyparser = require("body-parser");
+const cookiesparser = require("cookie-parser");
+const cors =require("cors")
  const fs=require("fs")
  const app = express();
  app.use(express.json())
  app.use(express.urlencoded({extended: true}))
  connectDB();
+app.use(cors())
+app.use(cookiesparser());
+app.use(bodyparser.urlencoded({ extended: true }));
 //connect router
 app.use("/api/auth", require("./route/roter"))
 
  //  step 1: ReAD EXCEL FILE
  
- const WB =xlsx.readFile('SampleData(3).xlsx',{dateNF:"mm/dd/yyyy"})
- //  step 2: ReAD SHEET FROM WORKBOOKEXCEL FILE
-  const ws= WB.Sheets.Sheet1;
+//  const WB =xlsx.readFile('SampleData(3).xlsx',{dateNF:"mm/dd/yyyy"})
+//  //  step 2: ReAD SHEET FROM WORKBOOKEXCEL FILE
+//   const ws= WB.Sheets.Sheet1;
 
- // step 3:READ SGHEET DATA AND CONVERT IT JSON
-console.log(ws);
- const data= xlsx.utils.sheet_to_json(ws,{raw:false})
-//  console.log(data);
-//  STEP-5  WRITE JSON DATA INTO JSON FILE BY STRINGIFY DATA
-fs.writeFileSync("./data.json",JSON.stringify(data,null,2))
- 
+//  // step 3:READ SGHEET DATA AND CONVERT IT JSON
+// console.log(ws);
+//  const data= xlsx.utils.sheet_to_json(ws,{raw:false})
+// //  console.log(data);
+// //  STEP-5  WRITE JSON DATA INTO JSON FILE BY STRINGIFY DATA
+// fs.writeFileSync("./data.json",JSON.stringify(data,null,2))
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+var upload = multer({storage:storage})
+const uploadXLSX = async(req, res, next) => {
+  try{
+    let path = req.file.path;
+    var workbook = XLSX.readFile(path);
+    var sheet_name_list = workbook.SheetNames;
+    let jsonData = XLSX.utils.sheet_to_json(
+      workbook.Sheets[sheet_name_list[0]]
+    );
+    if(jsonData.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "xml sheet has no data",
+      });
+    }
+    console.log(jsonData)
+    let savedData = await Excell.insertMany(jsonData);
+
+    return res.status(201).json({
+      success: true,
+      message: savedData.length + " rows added to the database",
+      data:savedData
+    });
+  } catch (err) {
+    return res.status(500).json({ success: false, message: err.message });
+  }
+};
+
+app.post("/upload", upload.single("xlsx"),uploadXLSX);
+
 app.listen(process.env.PORT, () => {
   console.log(`server is running on ${process.env.PORT}`);
 });

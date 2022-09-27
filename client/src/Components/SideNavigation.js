@@ -7,17 +7,18 @@ export const SideNavigation = () => {
         <>
             <div className="navbox">
 
-                <Link to="/addlist" className='nav-link'>
+                <Link to="/addlist" className='nav-link navbar-link'>
                     <div className="flex">
                         <h4>Add List</h4>
                         <h5>{`>`}</h5>
                     </div>
                 </Link>
-
+                <Link to="/viewlist" className='nav-link navbar-link'>
                 <div className="flexA">
                     <h4>View List</h4>
                     <h5>{`>`}</h5>
                 </div>
+                </Link>
 
                 <div className="flexA">
                     <h4>Check Grade</h4>

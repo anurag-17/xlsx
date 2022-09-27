@@ -5,6 +5,10 @@
    padding-top: 204px;
   
 }
+.navbar-link{
+    text-decoration: none;
+    color: black;
+}
 .flex{
     display: flex;
     flex-direction: row;

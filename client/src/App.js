@@ -1,5 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
+import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
+
 import { useEffect, useState } from "react";
 import * as XLSX from "xlsx";
 import {
@@ -15,27 +17,53 @@ import {
 import { Uploadexcle } from "./Components/Uploadexcle";
 import { Tabl } from "./Components/Table";
 import { Upload } from "./Components/Upload";
+import { AdminLogin } from "./Components/AdminLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { SideNavigation } from "./Components/SideNavigation";
+import { AddList } from "./Components/AddList";
+import { loaduser } from "./action/useraction";
+import { Viewlist } from "./Components/Viewlist";
 
 function App() {
+  const dispatch = useDispatch();
+  dispatch(loaduser());
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [sheet, setSheet] = useState(null);
   const [objj, setObjj] = useState(null);
-  let data=null
+  let data = null;
 
   const getHeadings = () => {
     return Object.keys(data[0]);
-  }
+  };
   return (
     <div className="container">
-      <Upload/>
+      {/* <Upload/> */}
       
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Protectedroute><AdminLogin /></Protectedroute>}/>
+          <Route path="/addlist" element={<AddList/>}/>
+          <Route path="/viewlist" element={<Viewlist/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-
 }
 
 export default App;
+
+export function Protectedroute(props) {
+  const { user,isAuthenticated } = useSelector((state) => state.user);
+  if (user) {
+    if (isAuthenticated === true) {
+      return <Navigate to="/addlist" />;
+    }
+  } else {
+    return props.children;
+  }
+}
+
 // data= [
 //     {
 //       "S.No": "1",
@@ -334,50 +362,49 @@ export default App;
 //     }
 //   ]
 
-  // const readfromexcel = (data1) => {
-  //   const workbook = XLSX.readFile(data1);
-  //   let sheetname = workbook.SheetNames;
-  //   var mySheetData = sheetname.map(function (sheet) {
-  //     const worksheet = workbook.Sheets[sheet];
-  //     const jsonData = XLSX.utils.sheet_to_json(worksheet, null, 1);
-  //     return jsonData;
-  //   });
-  //   setdata(mySheetData);
-  //   setSheet(sheetname);
-  // };
+// const readfromexcel = (data1) => {
+//   const workbook = XLSX.readFile(data1);
+//   let sheetname = workbook.SheetNames;
+//   var mySheetData = sheetname.map(function (sheet) {
+//     const worksheet = workbook.Sheets[sheet];
+//     const jsonData = XLSX.utils.sheet_to_json(worksheet, null, 1);
+//     return jsonData;
+//   });
+//   setdata(mySheetData);
+//   setSheet(sheetname);
+// };
 
-  // if (data !== null) {
-  //   const getHeadings = () => {
-  //     return Object.keys(data[0]);
-  //   };
-  //   return getHeadings;
-  // }
-  // const handleFile = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (!file) return;
-  //   setFileName(file.name);
-  //   setFile(file);
-  //   //read file
-  //   const data1 = await file.arrayBuffer();
-  //   const wb = XLSX.read(data1);
-  //   readfromexcel(data1);
-  //   setObjj(wb.Sheets);
-  // };
-  // return (
-  //   <div className="container">
-  //     <input
-  //       title="selectFile"
-  //       type="file"
-  //       name="file"
-  //       accept=".xlsx"
-  //       required
-  //       onChange={(e) => handleFile(e)}
-  //     />
-  //     {data !== null ? (
-  //       <Tabl theadData={getHeadings()} tbodyData={data}></Tabl>
-  //     ) : (
-  //       ""
-  //     )}
-  //   </div>
-  // );
-
+// if (data !== null) {
+//   const getHeadings = () => {
+//     return Object.keys(data[0]);
+//   };
+//   return getHeadings;
+// }
+// const handleFile = async (e) => {
+//   const file = e.target.files[0];
+//   if (!file) return;
+//   setFileName(file.name);
+//   setFile(file);
+//   //read file
+//   const data1 = await file.arrayBuffer();
+//   const wb = XLSX.read(data1);
+//   readfromexcel(data1);
+//   setObjj(wb.Sheets);
+// };
+// return (
+//   <div className="container">
+//     <input
+//       title="selectFile"
+//       type="file"
+//       name="file"
+//       accept=".xlsx"
+//       required
+//       onChange={(e) => handleFile(e)}
+//     />
+//     {data !== null ? (
+//       <Tabl theadData={getHeadings()} tbodyData={data}></Tabl>
+//     ) : (
+//       ""
+//     )}
+//   </div>
+// );
