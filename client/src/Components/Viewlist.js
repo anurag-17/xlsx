@@ -8,7 +8,7 @@ export const Viewlist = () => {
   const [object, setObject] = useState();
 
   const getdata = async () => {
-    const res = await axios.get("api/auth/getxlsxfile");
+    const res = await axios.get("http://localhost:5000/api/auth/getxlsxfile");
     setdata(res.data);
     res.data.map((items, index) => {
       console.log(items);
