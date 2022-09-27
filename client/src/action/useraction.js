@@ -8,11 +8,12 @@ import {
   LOGIN_SUCCESS,
 } from "../constant/userconstant";
 import axios from "axios";
+const bashurl="https://excelconvert.herokuapp.com"
 export const login = (email, password) => async (dispatch) => {
   try {
     console.log(email, password);
     dispatch({ type: LOGIN_REQUEST });
-    const { data } = await axios.post(`/api/auth/login`, {
+    const { data } = await axios.post(`${bashurl}/api/auth/login`, {
       email,
       password,
     });
@@ -26,7 +27,7 @@ export const login = (email, password) => async (dispatch) => {
 export const loaduser = () => async (dispatch) => {
     try {
       dispatch({ type: DETAIL_USER_REQUEST });
-      const { data } = await axios.get(`/api/auth/me`);
+      const { data } = await axios.get(`${bashurl}/api/auth/me`);
   
       dispatch({ type: DETAIL_USER_SUCCESS, payload: data.user });
   
