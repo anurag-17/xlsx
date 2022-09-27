@@ -4,8 +4,10 @@ export const TopNav = () => {
   return (
  <>
   <ul class="nav justify-content-center">
+    {/* demo */}
         <li class="nav-item">
           <Link class="nav-link" to="/adminlogin">Admin Login</Link>
+          
         </li>
         <li class="nav-item">
           <Link class="nav-link" to="/employeelogin">Employee Login</Link>
