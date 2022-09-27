@@ -2,6 +2,7 @@ const express = require("express");
 const Excell = require('./model/xlsx')
 var multer = require("multer")
 const XLSX = require('xlsx')
+const path = require('path')
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 const connectDB = require("./config/db");
@@ -66,6 +67,21 @@ const uploadXLSX = async(req, res, next) => {
     return res.status(500).json({ success: false, message: err.message });
   }
 };
+// --------------------------deployment------------------------------
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "./client/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+  );
+} else {
+  app.get("/", (req, res) => {
+    res.send("API is running..");
+  });
+}
+("hi");
+
+// --------------------------deployment------------------------------
 
 app.post("/upload", upload.single("xlsx"),uploadXLSX);
 
