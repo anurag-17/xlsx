@@ -71,7 +71,7 @@ export const Viewlist = () => {
     <div>
       <div className="AddFlex">
         <SideNavigation/>
-        <div style={{width:"70%"}}>
+        <div style={{width:"100%"}}>
           {data.length >= 1 ? (
             <>
               <div
