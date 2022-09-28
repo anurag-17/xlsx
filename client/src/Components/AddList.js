@@ -17,7 +17,7 @@ export const AddList = () => {
       },
     };
     const res = await axios.post(
-      "upload",
+      "http://localhost:5000/upload",
       formdata,
       config
     );
