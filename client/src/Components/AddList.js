@@ -27,7 +27,7 @@ export const AddList = () => {
     <>
       <div className="AddFlex">
         <SideNavigation />
-        <div>
+        <div style={{    margin:"1% 00 0 15%"}}>
           <form onSubmit={handlesubmit} action="">
             <input
               type="file"
