@@ -5,6 +5,7 @@ import { Link, Outlet } from 'react-router-dom'
 export const SideNavigation = () => {
     return (
         <>
+        <button>sdfghgjhsdsdfgjh</button>
             <div className="navbox">
 
                 <Link to="/addlist" className='nav-link navbar-link'>

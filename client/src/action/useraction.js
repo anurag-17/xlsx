@@ -6,6 +6,9 @@ import {
   LOGIN_FAIL,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
+  LOGOUT_USER_FAIL,
+  LOGOUT_USER_REQUEST,
+  LOGOUT_USER_SUCCESS,
 } from "../constant/userconstant";
 import axios from "axios";
 const bashurl="http://localhost:5000";
@@ -38,7 +41,18 @@ export const loaduser = () => async (dispatch) => {
   };
 
 
-
+  export const logout = () => async (dispatch) => {
+    try {
+      dispatch({ type: LOGOUT_USER_REQUEST });
+      await axios.get(`/api/auth/logout`);
+      
+      dispatch({ type: LOGOUT_USER_SUCCESS });
+   
+      
+    } catch (error) {
+      dispatch({ type: LOGOUT_USER_FAIL, payload: error.response.data.message });
+    }
+  };
 
 //clearing errors
 export const clearErrors = () => async (dispatch) => {

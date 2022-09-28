@@ -112,7 +112,17 @@ exports.xlsxget=catchAsyncerror(async(req,res,next)=>{
   return res.status(200).json(data)
 })
 
+exports.logout = catchAsyncerror(async (req, res, next) => {
+  await res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
+  });
 
+  res.status(200).json({
+    success: true,
+    message: "Logged Out",
+  });
+});
 
 exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
   const { token } = req.cookies;

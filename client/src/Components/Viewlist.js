@@ -75,7 +75,7 @@ export const Viewlist = () => {
           {data.length >= 1 ? (
             <>
               <div
-                style={{ overflow: "scroll", width: "70%", margin: "80px auto" }}
+                style={{ overflow: "scroll", width: "70%", margin: "0 21%" }}
                 className="table-responsive"
               >
                 <table className="table" responsive="true">
