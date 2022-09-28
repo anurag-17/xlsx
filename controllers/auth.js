@@ -108,7 +108,7 @@ exports.uploadXLSX=catchAsyncerror(async(req,res,next)=>{
   }
 })
 exports.xlsxget=catchAsyncerror(async(req,res,next)=>{
-  const data = await Excell.find()
+  const data = await Excell.find({},{_id: 0 })
   return res.status(200).json(data)
 })
 const sendToken = (user, statusCode, res) => {

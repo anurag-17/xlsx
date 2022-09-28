@@ -15,6 +15,7 @@ export const Viewlist = () => {
       if (index === 1) {
         setKeys(Object.keys(items));
       }
+      console.log(keys);
     });
   };
   useEffect(() => {
@@ -22,10 +23,11 @@ export const Viewlist = () => {
   }, []);
   const fmap = () => {
     try {
-      const ffmap = data.map((row, index) => {
+      const ffmap = data.slice(0).map((row, index) => {
         return (
           <tr>
             {Object.keys(data[0]).map((key, index) => {
+              console.log(key);
               return <td>{row[key]}</td>;
             })}
           </tr>
@@ -39,7 +41,7 @@ export const Viewlist = () => {
   const hmap = () => {
     try {
       const hhmap = Object.keys(data[0]).map((heading) => {
-        console.log(heading);
+        console.log(heading.split(0));
         return <th>{heading}</th>;
       });
       return hhmap;
