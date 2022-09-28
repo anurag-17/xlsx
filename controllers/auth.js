@@ -108,9 +108,35 @@ exports.uploadXLSX=catchAsyncerror(async(req,res,next)=>{
   }
 })
 exports.xlsxget=catchAsyncerror(async(req,res,next)=>{
-  const data = await Excell.find({},{_id: 0 })
+  const data = await Excell.find({},{_id: 0 ,__v:0})
   return res.status(200).json(data)
 })
+
+
+
+exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
+  const { token } = req.cookies;
+  if (!token) {
+    return res.status(401).json({ message: "plese login to access this resource" })
+  }
+  else{
+    const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+  req.user = await User.findById(decodedData.id);
+  next();
+  }
+});
+exports.dashboard = catchAsyncerror(async (req, res, next) => {
+  if (!req.user) {
+    return res.status(401).json({ message: "plese login to access this resource" })
+  }
+
+  const user = await User.findById(req.user.id);
+
+  res.status(200).json({
+    sucess: true,
+    user,
+  });
+});
 const sendToken = (user, statusCode, res) => {
   const token = user.getSignedToken();
   // option for cookie
