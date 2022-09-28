@@ -25,6 +25,7 @@ import { loaduser } from "./action/useraction";
 import { Viewlist } from "./Components/Viewlist";
 import { BankForm } from "./Components/BankForm";
 import { Header } from "./Components/Header";
+import { EmployeeLogin } from "./Components/EmployeeLogin";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function App() {
           <Route path="/addlist" element={<AddList/>}/>
           <Route path="/viewlist" element={<Viewlist/>}/>
           <Route path="/bankform" element={<BankForm/>}/>
+          <Route path="/employeelogin" element={<Protectedroute><EmployeeLogin/></Protectedroute>}/>
         </Routes>
       </BrowserRouter>
     </div>
@@ -58,8 +60,11 @@ export default App;
 export function Protectedroute(props) {
   const { user,isAuthenticated } = useSelector((state) => state.user);
   if (user) {
-    if (isAuthenticated === true) {
+    if (user.role === "admin") {
       return <Navigate to="/addlist" />;
+    }
+    else if(user.role==="user"){
+      return <Navigate to="/bankform" />
     }
   } else {
     return props.children;

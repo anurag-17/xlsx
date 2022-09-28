@@ -1,6 +1,7 @@
 const catchAsyncerror = require("../middleware/catchAsyncerror");
 const emailValidator = require("deep-email-validator");
 const User = require("../model/User");
+const Employy = require("../model/employuser");
 const jwt = require("jsonwebtoken");
 const Excell = require('../model/xlsx')
 
@@ -23,9 +24,9 @@ async function isEmailValid(email) {
 //   //  STEP-5  WRITE JSON DATA INTO JSON FILE BY STRINGIFY DATA
 //   fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
 // };
-exports.register = catchAsyncerror(async (req, res, next) => {
+exports.employregister = catchAsyncerror(async (req, res, next) => {
   console.log(req.body);
-  const { email, password } = req.body;
+  const { email, password ,role} = req.body;
 
   if (!email || !password) {
     return res.status(400).json("plese fill all input ");
@@ -34,7 +35,7 @@ exports.register = catchAsyncerror(async (req, res, next) => {
     return res.status(400).json("password must be 8 character long");
   }
   try {
-    user.findOne({ email }, async (err, user) => {
+    User.findOne({ email }, async (err, user) => {
       const { valid, reason, validators } = await isEmailValid(email);
       // console.log(validators);
 
@@ -45,9 +46,10 @@ exports.register = catchAsyncerror(async (req, res, next) => {
       } else if (user) {
         return res.status(500).json("user already registered");
       } else {
-        const userData = await User.create({
+        const userData = await Employy.create({
           email,
           password,
+          role
         });
 
         sendToken(userData, 201, res);
@@ -56,6 +58,59 @@ exports.register = catchAsyncerror(async (req, res, next) => {
     });
   } catch (error) {
     console.log(error.message);
+  }
+});
+exports.register = catchAsyncerror(async (req, res, next) => {
+  console.log(req.body);
+  const { email, password ,role} = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json("plese fill all input ");
+  }
+  if (password.length < 8) {
+    return res.status(400).json("password must be 8 character long");
+  }
+  try {
+    User.findOne({ email }, async (err, user) => {
+      const { valid, reason, validators } = await isEmailValid(email);
+      // console.log(validators);
+if (user) {
+        return res.status(500).json("user already registered");
+      } else {
+        const userData = await User.create({
+          email,
+          password,
+          role:"admin"
+        });
+
+        sendToken(userData, 201, res);
+      }
+      return;
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+});
+exports.employylogin = catchAsyncerror(async (req, res, next) => {
+  const { email, password } = req.body;
+  try {
+    if (!email || !password) {
+      return res.status(400).json("plz fill all input");
+    }
+    const user = await Employy.findOne({ email }).select("+password");
+    // console.log(user);
+    if (!user) {
+      return res.status(500).json("invalid credentials user not found");
+    }
+    const isMatch = await user.matchPassword(password);
+    if (!isMatch) {
+      return res.status(500).json("password is not valid please register");
+    }
+    // res.status(201).json(user)
+
+    sendToken(user, 200, res);
+  } catch (error) {
+    throw new Error(error);
   }
 });
 exports.login = catchAsyncerror(async (req, res, next) => {

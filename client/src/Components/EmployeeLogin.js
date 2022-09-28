@@ -1,6 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useAlert } from 'react-alert';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearErrors, emplyelogin, login } from '../action/useraction';
 import "./EmployeeLogin.css";
 export const EmployeeLogin = () => {
+    const alert = useAlert();
+    const { user, isAuthenticated, loading, error } = useSelector(
+      (state) => state.user
+    );
+    const dispatch = useDispatch();
     const [employeeData, setEmployeeData] = useState({
         username: "",
         userpwd: ""
@@ -12,12 +20,18 @@ export const EmployeeLogin = () => {
     e.preventDefault()
     setEmployeeData(employeeData)
     console.log(employeeData);
-    setEmployeeData({
-        username: "",
-        userpwd: ""
-    })
+    try {
+        dispatch(emplyelogin(employeeData.username, employeeData.userpwd));
+      } catch (error) {
+        return error;
+      }
     }
-    
+    useEffect(() => {
+        if (error) {
+          alert.error(error);
+          dispatch(clearErrors());
+        }
+      }, [error]);
     
   return (
     <>
