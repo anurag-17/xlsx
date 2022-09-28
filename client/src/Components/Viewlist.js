@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Pagination } from "./Pagination";
 import { SideNavigation } from "./SideNavigation";
+import"./viewlist.css"
 
 export const Viewlist = () => {
   const [data, setdata] = useState([]);
