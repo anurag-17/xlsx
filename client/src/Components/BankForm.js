@@ -3,23 +3,25 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./BankForm.css";
-import { loaduser, logout, updateprofile, uploadform } from "../action/useraction";
-import {  useNavigate } from "react-router-dom";
+import {
+  loaduser,
+  logout,
+  updateprofile,
+  uploadform,
+} from "../action/useraction";
+import { useNavigate } from "react-router-dom";
 import { Header } from "./Header";
 
 export const BankForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const { user, isAuthenticated } = useSelector((state) => state.user);
   if (user === null) {
-   
-      navigate('/employeelogin')
-  
-  } 
-  useEffect(() => {
-  }, [isAuthenticated,user]);
-  
+    navigate("/employeelogin");
+  }
+  useEffect(() => {}, [isAuthenticated, user]);
+
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -31,7 +33,9 @@ export const BankForm = () => {
   const [checked8, setChecked8] = useState(false);
   const [checked9, setChecked9] = useState(false);
   const [checked10, setChecked10] = useState(false);
-  let SHGID = "q";
+  const [sghid, setsghid] = useState("");
+
+  let SHGID = "";
   const [bankdetail, setBankdetail] = useState({
     bank_name: "",
     acc_number: "",
@@ -343,6 +347,7 @@ export const BankForm = () => {
   const searchSHG = async (e) => {
     SHGID = e.target.value;
     console.log(SHGID);
+    setsghid(SHGID);
     const res = await axios.post("http://localhost:5000/api/auth/finddata", {
       SHGID,
     });
@@ -555,7 +560,7 @@ export const BankForm = () => {
     console.log(formData.SHGID);
     dispatch(
       updateprofile({
-        SHGID,
+        sghid,
         bankdetail,
         saving,
         slfloan,
@@ -573,37 +578,62 @@ export const BankForm = () => {
   };
   console.log(SHGID);
   const buut = () => {};
-  const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
-  const logoutUser=()=>{
+  const uppercaseWords = (str) =>
+    str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
+  const logoutUser = () => {
     dispatch(logout());
     navigate("/employeelogin");
-  }
+  };
   return (
     <>
-    <div style={{position:"absolute", right:"40px"}}>  <span className="home_btn">
-  {isAuthenticated ===true? (<><div>
-    <ul className="navbar-nav top-btn ml-auto">
+      <div style={{ position: "absolute", right: "40px" }}>
+        {" "}
+        <span className="home_btn">
+          {isAuthenticated === true ? (
+            <>
+              <div>
+                <ul className="navbar-nav top-btn ml-auto">
+                  <button style={{}} className="user_btn">
+                    {uppercaseWords(user.email)}
+                  </button>
 
-<button style = {{}} className="user_btn">{uppercaseWords(user.email)}</button>
-    
-   <a ><button onClick={logoutUser} className='btn btn-2'>Logout</button>  </a>
-   </ul></div>
-    </>): (
-     ""
-    )
-  }
-</span></div>;
-      <div className="container">
-
+                  <a>
+                    <button onClick={logoutUser} className="btn btn-2">
+                      Logout
+                    </button>{" "}
+                  </a>
+                </ul>
+              </div>
+            </>
+          ) : (
+            ""
+          )}
+        </span>
+      </div>
+      ;
+      <div className="containe">
         <form action="" encType="multipart/form-data" onSubmit={form_submit}>
           <div className="flexsearchX">
-            <p>Search name</p>
+            <p>SHGID </p>
             <input
               type="text"
               onChange={searchSHG}
               placeholder="search by SHG ID"
               name="search"
             />
+            <select >
+              <option>2020</option>
+              <option>2021</option>
+              <option>2022</option>
+              <option>2023</option>
+              <option>2024</option>
+              <option>2025</option>
+              <option>2026</option>
+              <option>2027</option>
+              <option>2028</option>
+              <option>2029</option>
+              <option>2030</option>
+            </select>
           </div>
           <div className="sectionA">
             <div className="flexAX">
@@ -631,7 +661,6 @@ export const BankForm = () => {
                   </div>
                 </div>
               </div>
-              <div className="flexBX"></div>
             </div>
           </div>
           {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////              */}

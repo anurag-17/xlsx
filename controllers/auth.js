@@ -175,10 +175,13 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
 });
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
   console.log(req.body);
+
+ const{sghid}=req.body
+
   
 
   try {
-    let savedData = await UploadFormData.bulk(req.body); 
+    let savedData = await UploadFormData.insertMany(req.body.sghid); 
     return res.status(201).json({
       success: true,
       message: savedData.length + " rows added to the database",

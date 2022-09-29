@@ -5,6 +5,10 @@
     margin-bottom: 30px;
     font-family: 'Inter', sans-serif;
 }
+.containe{
+    width: 80%;
+    margin: 0 auto;
+}
 .flexsearchX{
     display: flex;
     flex-direction: row;

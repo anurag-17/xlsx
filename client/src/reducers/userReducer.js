@@ -22,6 +22,7 @@ import {
   NEW_FORM_SUCCESS,
   NEW_FORM_FAIL,
   LOGOUT_USER_REQUEST,
+ 
 } from "../constant/userconstant";
 const INTIAL_STATE={
   user:{},
@@ -38,6 +39,7 @@ export const userReducer = (state =INTIAL_STATE, action) => {
         loading: true,
         // isAuthenticated: false,
       };
+
 
     case LOGIN_SUCCESS:
     case REGISTER_USER_SUCCESS:

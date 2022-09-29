@@ -15,6 +15,9 @@ import {
   UPDATE_PROFIE_FAIL,
   UPDATE_PROFIE_REQUEST,
   UPDATE_PROFIE_SUCCESS,
+  VIEW_LIST_FAIL,
+  VIEW_LIST_REQUEST,
+  VIEW_LIST_SUCCESS,
 } from "../constant/userconstant";
 import axios from "axios";
 const bashurl = "http://localhost:5000";
@@ -101,6 +104,8 @@ export const updateprofile = (updatedata) => async (dispatch) => {
     });
   }
 };
+
+  
 //clearing errors
 export const clearErrors = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });
