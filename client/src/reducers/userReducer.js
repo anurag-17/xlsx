@@ -78,6 +78,7 @@ export const userReducer = (state =INTIAL_STATE, action) => {
     case DETAIL_USER_REQUEST:
       return {
         loading: true,
+        user:"loading",
         // isAuthenticated: false,
       };
     case DETAIL_USER_SUCCESS:

@@ -89,7 +89,7 @@ export const updateprofile = (updatedata) => async (dispatch) => {
     const config = { headers: { "Content-Type": "multipart/form-data" } };
       const data = await axios.post(
         `/api/auth/uploadForm`,
-        updatedata,config
+        updatedata
         
       );
     // console.log(updatedata);

@@ -3,6 +3,7 @@ import { useAlert } from 'react-alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, emplyelogin, login } from '../action/useraction';
 import "./EmployeeLogin.css";
+import { Header } from './Header';
 export const EmployeeLogin = () => {
     const alert = useAlert();
     const { user, isAuthenticated, loading, error } = useSelector(

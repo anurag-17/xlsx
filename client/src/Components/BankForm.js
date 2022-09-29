@@ -3,11 +3,23 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
 import "./BankForm.css";
-import { updateprofile, uploadform } from "../action/useraction";
+import { loaduser, logout, updateprofile, uploadform } from "../action/useraction";
+import {  useNavigate } from "react-router-dom";
+import { Header } from "./Header";
 
 export const BankForm = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  
+  const { user, isAuthenticated } = useSelector((state) => state.user);
+  if (user === null) {
+   
+      navigate('/employeelogin')
+  
+  } 
+  useEffect(() => {
+  }, [isAuthenticated,user]);
+  
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -19,7 +31,7 @@ export const BankForm = () => {
   const [checked8, setChecked8] = useState(false);
   const [checked9, setChecked9] = useState(false);
   const [checked10, setChecked10] = useState(false);
-  let SHGID = "";
+  let SHGID = "q";
   const [bankdetail, setBankdetail] = useState({
     bank_name: "",
     acc_number: "",
@@ -526,30 +538,64 @@ export const BankForm = () => {
     setChecked8(false);
     setChecked9(false);
     setChecked10(false);
+    let formData = new FormData();
+    formData.set("SHGID", SHGID);
+    formData.set("bankdetail", bankdetail.acc_number);
+    formData.set("saving", saving);
+    formData.set("slfloan", slfloan);
+    formData.set("bankloan", bankloan);
+    formData.set("srinidhiLoan", srinidhiLoan);
+    formData.set("covidloan", covidloan);
+    formData.set("internalMemberLoan", internalMemberLoan);
+    formData.set("slfMemberLoan", slfMemberLoan);
+    formData.set("bankLinkageMemberLoan", bankLinkageMemberLoan);
+    formData.set("srinidhiMemberLoan", srinidhiMemberLoan);
+    formData.set("covidMemberLoans", covidMemberLoans);
+    formData.set("openingBankBalance", openingBankBalance);
+    console.log(formData.SHGID);
+    dispatch(
+      updateprofile({
+        SHGID,
+        bankdetail,
+        saving,
+        slfloan,
+        bankloan,
+        srinidhiLoan,
+        covidloan,
+        internalMemberLoan,
+        slfMemberLoan,
+        bankLinkageMemberLoan,
+        srinidhiMemberLoan,
+        covidMemberLoans,
+        openingBankBalance,
+      })
+    );
   };
   console.log(SHGID);
-  const buut = () => {
-    let myForm = new FormData();
-    myForm.set("SHGID", SHGID);
-    myForm.set("bankdetail", bankdetail.acc_number);
-    myForm.set("saving", saving);
-    myForm.set("slfloan", slfloan);
-    myForm.set("bankloan", bankloan);
-    myForm.set("srinidhiLoan", srinidhiLoan);
-    myForm.set("covidloan", covidloan);
-    myForm.set("internalMemberLoan", internalMemberLoan);
-    myForm.set("slfMemberLoan", slfMemberLoan);
-    myForm.set("bankLinkageMemberLoan", bankLinkageMemberLoan);
-    myForm.set("srinidhiMemberLoan", srinidhiMemberLoan);
-    myForm.set("covidMemberLoans", covidMemberLoans);
-    myForm.set("openingBankBalance", openingBankBalance);
-    console.log(myForm);
-    dispatch(updateprofile(myForm));
-  };
+  const buut = () => {};
+  const uppercaseWords = str => str.replace(/^(.)|\s+(.)/g, c => c.toUpperCase());
+  const logoutUser=()=>{
+    dispatch(logout());
+    navigate("/employeelogin");
+  }
   return (
     <>
+    <div style={{position:"absolute", right:"40px"}}>  <span className="home_btn">
+  {isAuthenticated ===true? (<><div>
+    <ul className="navbar-nav top-btn ml-auto">
+
+<button style = {{}} className="user_btn">{uppercaseWords(user.email)}</button>
+    
+   <a ><button onClick={logoutUser} className='btn btn-2'>Logout</button>  </a>
+   </ul></div>
+    </>): (
+     ""
+    )
+  }
+</span></div>;
       <div className="container">
-        <form action="" enctype="multipart/form-data" onSubmit={form_submit}>
+
+        <form action="" encType="multipart/form-data" onSubmit={form_submit}>
           <div className="flexsearchX">
             <p>Search name</p>
             <input

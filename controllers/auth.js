@@ -4,6 +4,7 @@ const User = require("../model/User");
 const Employy = require("../model/employuser");
 const jwt = require("jsonwebtoken");
 const Excell = require("../model/xlsx");
+const UploadFormData = require("../model/Form");
 
 async function isEmailValid(email) {
   return emailValidator.validate(email);
@@ -174,6 +175,18 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
 });
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
   console.log(req.body);
+  
+
+  try {
+    let savedData = await UploadFormData.bulk(req.body); 
+    return res.status(201).json({
+      success: true,
+      message: savedData.length + " rows added to the database",
+      data:savedData
+    });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
 });
 exports.logout = catchAsyncerror(async (req, res, next) => {
   await res.cookie("token", null, {
