@@ -3,11 +3,11 @@ const emailValidator = require("deep-email-validator");
 const User = require("../model/User");
 const Employy = require("../model/employuser");
 const jwt = require("jsonwebtoken");
-const Excell = require('../model/xlsx')
+const Excell = require("../model/xlsx");
 
 async function isEmailValid(email) {
-    return emailValidator.validate(email);
-  }
+  return emailValidator.validate(email);
+}
 // exports.register = (req, res, next) => {
 //   // res.send("hello people");
 
@@ -26,7 +26,7 @@ async function isEmailValid(email) {
 // };
 exports.employregister = catchAsyncerror(async (req, res, next) => {
   console.log(req.body);
-  const { email, password ,role} = req.body;
+  const { email, password, role } = req.body;
 
   if (!email || !password) {
     return res.status(400).json("plese fill all input ");
@@ -49,7 +49,7 @@ exports.employregister = catchAsyncerror(async (req, res, next) => {
         const userData = await Employy.create({
           email,
           password,
-          role
+          role,
         });
 
         sendToken(userData, 201, res);
@@ -62,7 +62,7 @@ exports.employregister = catchAsyncerror(async (req, res, next) => {
 });
 exports.register = catchAsyncerror(async (req, res, next) => {
   console.log(req.body);
-  const { email, password ,role} = req.body;
+  const { email, password, role } = req.body;
 
   if (!email || !password) {
     return res.status(400).json("plese fill all input ");
@@ -74,13 +74,13 @@ exports.register = catchAsyncerror(async (req, res, next) => {
     User.findOne({ email }, async (err, user) => {
       const { valid, reason, validators } = await isEmailValid(email);
       // console.log(validators);
-if (user) {
+      if (user) {
         return res.status(500).json("user already registered");
       } else {
         const userData = await User.create({
           email,
           password,
-          role:"admin"
+          role: "admin",
         });
 
         sendToken(userData, 201, res);
@@ -136,37 +136,45 @@ exports.login = catchAsyncerror(async (req, res, next) => {
   }
 });
 
-exports.uploadXLSX=catchAsyncerror(async(req,res,next)=>{
-  try{
-    let path = req.file.path;
-    var workbook = XLSX.readFile(path);
-    var sheet_name_list = workbook.SheetNames;
-    let jsonData = XLSX.utils.sheet_to_json(
-      workbook.Sheets[sheet_name_list[0]]
-    );
-    if(jsonData.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: "xml sheet has no data",
-      });
-    }
-    // console.log(jsonData)
-    let savedData = await Excell.insertMany(jsonData);
+// exports.uploadXLSX=catchAsyncerror(async(req,res,next)=>{
+//   try{
+//     let path = req.file.path;
+//     var workbook = XLSX.readFile(path);
+//     var sheet_name_list = workbook.SheetNames;
+//     let jsonData = XLSX.utils.sheet_to_json(
+//       workbook.Sheets[sheet_name_list[0]]
+//     );
+//     if(jsonData.length === 0) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "xml sheet has no data",
+//       });
+//     }
+//     // console.log(jsonData)
+//     let savedData = await Excell.insertMany(jsonData);
 
-    return res.status(201).json({
-      success: true,
-      message: savedData.length + " rows added to the database",
-      data:savedData
-    });
-  } catch (err) {
-    return res.status(500).json({ success: false, message: err.message });
-  }
-})
-exports.xlsxget=catchAsyncerror(async(req,res,next)=>{
-  const data = await Excell.find({},{_id: 0 ,__v:0})
-  return res.status(200).json(data)
-})
+//     return res.status(201).json({
+//       success: true,
+//       message: savedData.length + " rows added to the database",
+//       data:savedData
+//     });
+//   } catch (err) {
+//     return res.status(500).json({ success: false, message: err.message });
+//   }
+// })
+exports.xlsxget = catchAsyncerror(async (req, res, next) => {
+  const data = await Excell.find({}, { _id: 0, __v: 0 });
+  return res.status(200).json(data);
+});
 
+exports.filterdata = catchAsyncerror(async (req, res, next) => {
+  const sghid = req.body.SHGID;
+  const data = await Excell.findOne({ "SHG ID": sghid });
+  return res.status(200).json(data);
+});
+exports.uploadform = catchAsyncerror(async (req, res, next) => {
+  console.log(req.body);
+});
 exports.logout = catchAsyncerror(async (req, res, next) => {
   await res.cookie("token", null, {
     expires: new Date(Date.now()),
@@ -182,17 +190,20 @@ exports.logout = catchAsyncerror(async (req, res, next) => {
 exports.isAuthuser = catchAsyncerror(async (req, res, next) => {
   const { token } = req.cookies;
   if (!token) {
-    return res.status(401).json({ message: "plese login to access this resource" })
-  }
-  else{
+    return res
+      .status(401)
+      .json({ message: "plese login to access this resource" });
+  } else {
     const decodedData = jwt.verify(token, process.env.JWT_SECRET);
-  req.user = await User.findById(decodedData.id);
-  next();
+    req.user = await User.findById(decodedData.id);
+    next();
   }
 });
 exports.dashboard = catchAsyncerror(async (req, res, next) => {
   if (!req.user) {
-    return res.status(401).json({ message: "plese login to access this resource" })
+    return res
+      .status(401)
+      .json({ message: "plese login to access this resource" });
   }
 
   const user = await User.findById(req.user.id);
@@ -202,6 +213,7 @@ exports.dashboard = catchAsyncerror(async (req, res, next) => {
     user,
   });
 });
+
 const sendToken = (user, statusCode, res) => {
   const token = user.getSignedToken();
   // option for cookie

@@ -18,9 +18,9 @@ import {
   UPDATE_PROFIE_FAIL,
   UPDATE_PROFIE_REQUEST,
   UPDATE_PROFIE_SUCCESS,
-  UPDATE_PROFILE_IMAGE_request,
-  UPDATE_PROFILE_IMAGE_SUCCESS,
-  UPDATE_PROFILE_IMAGE_FAIL,
+  NEW_FORM_request,
+  NEW_FORM_SUCCESS,
+  NEW_FORM_FAIL,
   LOGOUT_USER_REQUEST,
 } from "../constant/userconstant";
 const INTIAL_STATE={
@@ -97,14 +97,14 @@ export const userReducer = (state =INTIAL_STATE, action) => {
       };
     case UPDATE_PASSWORD_REQUEST:
     case UPDATE_PROFIE_REQUEST:
-    case UPDATE_PROFILE_IMAGE_request:
+    case NEW_FORM_request:
       return {
         ...state,
         loading: true,
       };
     case UPDATE_PASSWORD_SUCCESS:
     case UPDATE_PROFIE_SUCCESS:
-    case UPDATE_PROFILE_IMAGE_SUCCESS:
+    case NEW_FORM_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -112,7 +112,7 @@ export const userReducer = (state =INTIAL_STATE, action) => {
       };
     case UPDATE_PASSWORD_FAIL:
     case UPDATE_PROFIE_FAIL:
-    case UPDATE_PROFILE_IMAGE_FAIL:
+    case NEW_FORM_FAIL:
       return {
         ...state,
         loading: false,
