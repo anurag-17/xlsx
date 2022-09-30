@@ -44,7 +44,6 @@ if(isAuthenticated===false){
     dispatch(uploadsheet(formdata))
     if(res!==""  ){
       setloading(false)
-      alert()
 
      
      
