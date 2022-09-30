@@ -43,7 +43,7 @@ var storage = multer.diskStorage({
 });
 var upload = multer({storage:storage})
 const uploadXLSX = async(req, res, next) => {
-  // console.log(req.file);
+  console.log(req.file);
   try{
     let path = req.file.path;
     var workbook = XLSX.readFile(path);
