@@ -26,13 +26,17 @@ if(isAuthenticated===false){
     setloading(true)
     const config = {
       headers: {
-        "content-type": "multipart/form-data",
+        "Content-type": "multipart/form-data",
       },
     };
     const res = await axios.post(
       "/upload",
       formdata,
-      config
+      {
+        headers: {
+        'Content-Type': "multipart/form-data"
+        }
+      }
     );
     console.log(res.data.success);
 if(res.data.success===true){
