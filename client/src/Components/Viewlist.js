@@ -73,8 +73,8 @@ export const Viewlist = () => {
   };
   return (
     <div>
-      {loading?(<LOader/>):(<><div className="AddFlex">
         <SideNavigation/>
+      {loading?(<LOader/>):(<><div className="AddFlex">
         <div style={{width:"100%"}}>
           {filedata.length >1 ? (
             <>

@@ -5,11 +5,15 @@ import axios from "axios";
 import { Header } from "./Header";
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import { LOader } from "./LOader";
+import { useAlert } from "react-alert";
 
 export const AddList = () => {
   const [selectedfile, setselectedfile] = useState();
-  const { user, isAuthenticated, loading} = useSelector((state) =>state.user);
+  const { user, isAuthenticated} = useSelector((state) =>state.user);
   const navigate=useNavigate()
+  const [loading, setloading] = useState(false);
+  const alert=useAlert()
 if(isAuthenticated===false){
   navigate("/")
 }
@@ -18,6 +22,7 @@ if(isAuthenticated===false){
     const formdata = new FormData();
     console.log(selectedfile);
     formdata.append("xlsx", selectedfile);
+    setloading(true)
     const config = {
       headers: {
         "content-type": "multipart/form-data",
@@ -28,14 +33,21 @@ if(isAuthenticated===false){
       formdata,
       config
     );
-    console.log(res.data);
+    console.log(res.data.success);
+if(res.data.success===true){
+  setloading(false)
+  alert.success("updloaded")
+
+}
   };
+console.log(loading);
   return (
     <>
       <Header/>
 
       <div className="AddFlex">
         <SideNavigation />
+       {loading===true?(<LOader/>):(<>
         <div style={{    margin:"5% auto auto"}}>
           <form onSubmit={handlesubmit} action="">
             <input
@@ -44,7 +56,7 @@ if(isAuthenticated===false){
             />
             <input type="submit" value="Upload" />
           </form>
-        </div>
+        </div></>)}
       </div>
     </>
   );
