@@ -85,6 +85,20 @@ catch(error){
   dispatch({type:NEW_FORM_FAIL})
 }
 }
+export const uploadsheet=(formdata)=>async(dispatch)=>{
+  console.log(formdata);
+try{
+  dispatch({type:NEW_FORM_request});
+  const config = { headers: { "Content-Type": "multipart/form-data" } };
+  const{data}=await axios.post(`/api/auth/upload`,
+    formdata,config
+  )
+  dispatch({type:NEW_FORM_SUCCESS,payload:data});
+}
+catch(error){
+  dispatch({type:NEW_FORM_FAIL})
+}
+}
 export const updateprofile = (updatedata) => async (dispatch) => {
   try {
     console.log(updatedata)

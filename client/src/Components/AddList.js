@@ -3,17 +3,19 @@ import { SideNavigation } from "./SideNavigation";
 import "./AddList.css";
 import axios from "axios";
 import { Header } from "./Header";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { LOader } from "./LOader";
 import { useAlert } from "react-alert";
+import { uploadsheet } from "../action/useraction";
 
 export const AddList = () => {
   const [selectedfile, setselectedfile] = useState();
-  const { user, isAuthenticated} = useSelector((state) =>state.user);
+  const { user, isAuthenticated,res} = useSelector((state) =>state.user);
   const navigate=useNavigate()
   const [loading, setloading] = useState(false);
   const alert=useAlert()
+  const dispatch=useDispatch()
 if(isAuthenticated===false){
   navigate("/")
 }
@@ -29,16 +31,17 @@ if(isAuthenticated===false){
         "Content-type": "multipart/form-data",
       },
     };
-    const res = await axios.post(
-      "/upload",
-      formdata,
-      {
-        headers: {
-        'Content-Type': "multipart/form-data"
-        }
-      }
-    );
-    console.log(res.data.success);
+    // const res = await axios.post(
+    //   "https://excelconvert.herokuapp.com/upload",
+    //   formdata,
+    //   {
+    //     headers: {
+    //     'Content-Type': "multipart/form-data"
+    //     }
+    //   }
+    // );
+    // console.log(res.data.success);
+    dispatch(uploadsheet(formdata))
 if(res.data.success===true){
   setloading(false)
   alert.success("updloaded")

@@ -43,7 +43,7 @@ dispatch(apidata())
     return Object.keys(data[0]);
   };
   return (
-    <div className="container">
+    <div className="containe">
       {/* <Upload/> */}
       <BrowserRouter>
         <Routes>

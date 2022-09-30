@@ -610,10 +610,10 @@ export const BankForm = () => {
           )}
         </span>
       </div>
-      ;
+      
       <div className="containe">
         <form action="" encType="multipart/form-data" onSubmit={form_submit}>
-          <div className="flexsearchX">
+          <div className="flexsearchX ">
             <p>SHGID </p>
             <input
               type="text"
@@ -636,33 +636,24 @@ export const BankForm = () => {
             </select>
           </div>
           <div className="sectionA">
-            <div className="flexAX">
-              <div className="flexBX">
-                <div className="flexTopX ">
-                  <h4>Bank Details</h4>
+                        <div className="flexAX">
+                            <div className="flexBXf">
+                                <h4>Bank Details</h4>
+                                <div className="flexTopX ">
 
-                  <div className="flexC">
-                    <p>Bank name</p>
-                    <input
-                      type="text"
-                      name="bank_name"
-                      onChange={inputA}
-                      value={bankdetail.bank_name}
-                    />
-                  </div>
-                  <div className="flexC">
-                    <p>Account Number</p>
-                    <input
-                      type="text"
-                      name="acc_number"
-                      onChange={inputA}
-                      value={bankdetail.acc_number}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                                    <div className="flexC givmargin givpad">
+                                        <p>Bank name</p>
+                                        <input type="text" name='bank_name' onChange={inputA} value={bankdetail.bank_name} />
+                                    </div>
+                                    <div className="flexC givmargin givpadd">
+                                        <p>Account Number</p>
+                                        <input type="text" name='acc_number' onChange={inputA} value={bankdetail.acc_number} />
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+                    </div>
           {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////              */}
           {/* sectionB */}
           <div className="sectionB">
@@ -1331,7 +1322,10 @@ export const BankForm = () => {
                     value={openingBankBalance.closing_bank_balance}
                   />
                 </div>
-                <div className="flexC">
+              
+              </div>
+              <div className="flexBaX">
+              <div className="flexC ccin_margin">
                   <p>Closing Cash in Hand</p>
                   <input
                     type="number"
@@ -1350,7 +1344,6 @@ export const BankForm = () => {
                   />
                 </div>
               </div>
-              <div className="flexBaX"></div>
             </div>
           </div>
           <div className="endbutton">

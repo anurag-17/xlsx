@@ -107,11 +107,12 @@ export const userReducer = (state =INTIAL_STATE, action) => {
       };
     case UPDATE_PASSWORD_SUCCESS:
     case UPDATE_PROFIE_SUCCESS:
-    case NEW_FORM_SUCCESS:
+ 
       return {
         ...state,
         loading: false,
         isUpdated: true,
+        
       };
     case UPDATE_PASSWORD_FAIL:
     case UPDATE_PROFIE_FAIL:
@@ -126,7 +127,13 @@ export const userReducer = (state =INTIAL_STATE, action) => {
         ...state,
         isUpdated: false,
       };
-
+      case NEW_FORM_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          isUpdated: true,
+          res:action.payload
+        };
     default:
       return state;
   }

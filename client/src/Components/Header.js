@@ -30,5 +30,5 @@ export const Header = () => {
      ""
     )
   }
-</span></div>;
-};
+</span></div>
+}
