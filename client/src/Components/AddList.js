@@ -53,7 +53,7 @@ export const AddList = () => {
       // console.log(res.data.success);
       dispatch(uploadsheet(formdata));
     } catch (error) {
-      alert.error(error.message);
+      alert.error(error);
       dispatch(clearErrors())
       console.log(error);
     }

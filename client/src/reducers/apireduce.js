@@ -25,7 +25,7 @@ switch(action.type){
     case API_FAIL:
         return {
             ...state,
-            loading:true,
+            loading:false,
             isapi:true,
             error:action.payload,
 

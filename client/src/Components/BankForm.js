@@ -1314,7 +1314,7 @@ export const BankForm = () => {
                   />
                 </div>
                 <div className="flexC">
-                  <p>Cloasing Bank Balance</p>
+                  <p>Closing Bank Balance</p>
                   <input
                     type="number"
                     name="closing_bank_balance"
