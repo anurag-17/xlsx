@@ -57,7 +57,6 @@ const uploadXLSX = async(req, res, next) => {
         message: "xml sheet has no data",
       });
     }
-    console.log(jsonData)
     let savedData = await Excell.insertMany(jsonData);
 
     return res.status(201).json({
