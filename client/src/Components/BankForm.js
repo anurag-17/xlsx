@@ -1351,7 +1351,6 @@ export const BankForm = () => {
           </div>
         </form>
       </div>
-      <button onClick={buut}>gsdgsdgh</button>
     </>
   );
 };
