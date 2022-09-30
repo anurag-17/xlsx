@@ -42,9 +42,12 @@ if(isAuthenticated===false){
     // );
     // console.log(res.data.success);
     dispatch(uploadsheet(formdata))
-if(res.data.success===true){
-  setloading(false)
-  alert.success("updloaded")
+    if(res!==""  ){
+      setloading(false)
+      alert()
+
+     
+     
   
 }
 } catch (error) {
