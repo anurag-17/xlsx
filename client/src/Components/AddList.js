@@ -18,6 +18,7 @@ if(isAuthenticated===false){
   navigate("/")
 }
   const handlesubmit = async (e) => {
+   try {
     e.preventDefault();
     const formdata = new FormData();
     console.log(selectedfile);
@@ -37,8 +38,13 @@ if(isAuthenticated===false){
 if(res.data.success===true){
   setloading(false)
   alert.success("updloaded")
-
+  
 }
+} catch (error) {
+  alert.error(error.message)
+  console.log(error);
+  setloading(false)
+   }
   };
 console.log(loading);
   return (
