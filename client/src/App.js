@@ -26,10 +26,13 @@ import { Viewlist } from "./Components/Viewlist";
 import { BankForm } from "./Components/BankForm";
 import { Header } from "./Components/Header";
 import { EmployeeLogin } from "./Components/EmployeeLogin";
+import { apidata } from "./action/apiaction";
 
 function App() {
   const dispatch = useDispatch();
   dispatch(loaduser());
+dispatch(apidata())
+
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState(null);
   const [sheet, setSheet] = useState(null);

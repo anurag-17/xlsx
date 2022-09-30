@@ -7,7 +7,7 @@ export const apidata =()=> async(dispatch)=> {
     const { data } = await axios.get("/api/auth/getxlsxfile");
     console.log(data);
 
-    dispatch({ type: API_SUCCESS, payload: data});
+    dispatch({ type: API_SUCCESS, payload:data});
   } catch (error) {
     dispatch({ type: API_FAIL });
 

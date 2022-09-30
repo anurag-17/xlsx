@@ -2,16 +2,16 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { apidata } from "../action/apiaction";
+import { LOader } from "./LOader";
 import { Pagination } from "./Pagination";
 import { SideNavigation } from "./SideNavigation";
 import"./viewlist.css"
 
 export const Viewlist = () => {
-  let { filedata} = useSelector((state) =>state.apidata);
-  const [data, setdata] = useState([]);
+  const { filedata,loading} = useSelector((state) =>state.apidata);
+  // const [data, setdata] = useState([]);
   const [keys, setKeys] = useState([]);
   const [object, setObject] = useState();
-  filedata=[]
   const [currentPage, setCurrentPage] = useState(1);
   
   const [recordsPerPage] = useState(10);
@@ -22,7 +22,7 @@ export const Viewlist = () => {
 
   let currentRecords = filedata.slice(indexOfFirstRecord, indexOfLastRecord);
   const dispatch =useDispatch()
-  const { user, isAuthenticated, loading} = useSelector((state) =>state.user);
+  const { user, isAuthenticated, } = useSelector((state) =>state.user);
 
   const getdata = async () => {
     dispatch(apidata())
@@ -36,13 +36,10 @@ export const Viewlist = () => {
     // });
   };
   let pagelimit=20
-  const fd=filedata.filter((item,index)=>{
-     // console.log(index);
-     return index <=pagelimit
-   })
- 
+
+ console.log(filedata);
   useEffect(() => {
-dispatch(apidata())
+
   }, []);
   const fmap = () => {
     try {
@@ -76,7 +73,7 @@ dispatch(apidata())
   };
   return (
     <div>
-      <div className="AddFlex">
+      {loading?(<LOader/>):(<><div className="AddFlex">
         <SideNavigation/>
         <div style={{width:"100%"}}>
           {filedata.length >1 ? (
@@ -84,7 +81,7 @@ dispatch(apidata())
               <div
                 style={{ overflow: "scroll", width: "70%", margin: "0 21%" }}
                 className="table-responsive"
-              >sssss
+              >
                 <table className="table" responsive="true">
                   <thead>
                     <tr>{hmap()}</tr>
@@ -103,7 +100,8 @@ dispatch(apidata())
             ""
           )}
         </div>
-      </div>
+      </div></>)}
+      
     </div>
   );
 };
