@@ -41,7 +41,7 @@ var storage = multer.diskStorage({
     }
   };
 const router = express.Router();
-const { register, login, xlsxget, isAuthuser, dashboard, logout, employregister, employylogin, filterdata ,uploadform,  uploadsheet} = require("../controllers/auth");
+const { register, login, xlsxget, isAuthuser, dashboard, logout, employregister, employylogin, filterdata ,uploadform,  uploadsheet, sghidsearch} = require("../controllers/auth");
 
 router.route("/adminregister").post(register);
 router.route("/employregister").post(employregister);
@@ -49,6 +49,7 @@ router.route("/login").post(login);
 router.route("/employlogin").post(employylogin);
 router.route("/getxlsxfile").get(xlsxget);
 router.route("/finddata").post(filterdata);
+router.route("/sghidsearch").post(sghidsearch);
 router.route("/uploadForm").post(uploadform);
 router.route("/upload").post(upload.single("xlsx"),uploadXLSX);
 router.route("/me").get(isAuthuser, dashboard);

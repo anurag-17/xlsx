@@ -174,6 +174,12 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
   const data = await Excell.findOne({ "SHG ID": sghid });
   return res.status(200).json(data);
 });
+exports.sghidsearch = catchAsyncerror(async (req, res, next) => {
+  console.log(req.body);
+  const sghid = req.body.SHGID;
+  const data = await UploadFormData.findOne({ "sghid": sghid });
+  return res.status(200).json(data);
+});
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
   console.log(req.body);
 
@@ -182,7 +188,7 @@ exports.uploadform = catchAsyncerror(async (req, res, next) => {
   
 
   try {
-    let savedData = await UploadFormData.insertMany(req.body.sghid); 
+    let savedData = await UploadFormData.insertMany(req.body[0]); 
     return res.status(201).json({
       success: true,
       message: savedData.length + " rows added to the database",

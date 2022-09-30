@@ -559,8 +559,8 @@ export const BankForm = () => {
     formData.set("openingBankBalance", openingBankBalance);
     console.log(formData.SHGID);
     dispatch(
-      updateprofile({
-        sghid,
+      updateprofile(
+        [{sghid,
         bankdetail,
         saving,
         slfloan,
@@ -572,8 +572,8 @@ export const BankForm = () => {
         bankLinkageMemberLoan,
         srinidhiMemberLoan,
         covidMemberLoans,
-        openingBankBalance,
-      })
+        openingBankBalance}]
+      )
     );
   };
   console.log(SHGID);
