@@ -55,8 +55,3 @@ router.route("/me").get(isAuthuser, dashboard);
 router.route("/logout").get(logout);
 
 module.exports = router;
-
-
-
-
-

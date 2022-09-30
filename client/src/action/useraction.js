@@ -96,7 +96,7 @@ try{
   dispatch({type:NEW_FORM_SUCCESS,payload:data});
 }
 catch(error){
-  dispatch({type:NEW_FORM_FAIL})
+  dispatch({type:NEW_FORM_FAIL,payload: error.response.data,})
 }
 }
 export const updateprofile = (updatedata) => async (dispatch) => {

@@ -586,7 +586,7 @@ export const BankForm = () => {
   };
   return (
     <>
-      <div style={{ position: "absolute", right: "40px" }}>
+      <div  style={{ position: "absolute", right: "40px" }}>
         {" "}
         <span className="home_btn">
           {isAuthenticated === true ? (
@@ -611,7 +611,7 @@ export const BankForm = () => {
         </span>
       </div>
       
-      <div className="containe">
+      <div className="container">
         <form action="" encType="multipart/form-data" onSubmit={form_submit}>
           <div className="flexsearchX ">
             <p>SHGID </p>
