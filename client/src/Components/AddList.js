@@ -21,7 +21,7 @@ export const AddList = () => {
     navigate("/");
   }
   useEffect(() => {
-    if (res) {
+    if (res.message!=="") {
       alert.success(res.message);
       dispatch(clearErrors());
     }
@@ -29,7 +29,7 @@ export const AddList = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [ alert, dispatch, error]);
+  }, [ alert, dispatch, error,res.message]);
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
