@@ -3,6 +3,7 @@ import "./AdminLogin.css";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login } from "../action/useraction";
 import { useAlert } from "react-alert";
+import { LOader } from "./LOader";
 
 export const AdminLogin = () => {
   const alert = useAlert();
@@ -43,7 +44,7 @@ export const AdminLogin = () => {
   return (
     <>
    
-   {loading?("loading..."):(   <div className="container">
+   {loading?(<LOader/>):(   <div className="container">
         <div className="contentAdmin">
           <h3>Admin Login</h3>
           <form action="" onSubmit={Submittion}>
