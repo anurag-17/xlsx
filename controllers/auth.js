@@ -5,8 +5,8 @@ const Employy = require("../model/employuser");
 const jwt = require("jsonwebtoken");
 const Excell = require("../model/xlsx");
 const UploadFormData = require("../model/Form");
-const path = require('path');
-const { log } = require("console");
+const path = require("path");
+
 
 async function isEmailValid(email) {
   return emailValidator.validate(email);
@@ -28,7 +28,7 @@ async function isEmailValid(email) {
 //   fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
 // };
 exports.employregister = catchAsyncerror(async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { email, password, role } = req.body;
 
   if (!email || !password) {
@@ -64,7 +64,7 @@ exports.employregister = catchAsyncerror(async (req, res, next) => {
   }
 });
 exports.register = catchAsyncerror(async (req, res, next) => {
-  console.log(req.body);
+  // console.log(req.body);
   const { email, password, role } = req.body;
 
   if (!email || !password) {
@@ -177,9 +177,9 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
 });
 exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
   const sghid = req.body;
-  console.log(sghid);
-  const data = await UploadFormData.find(sghid,{_id:0});
-  console.log(data);  
+  // console.log(sghid);
+  const data = await UploadFormData.find(sghid, { _id: 0 });
+  // console.log(data);
   return res.status(200).json(data);
   // data.map(async(item,index)=>{
   //   console.log(item);
@@ -188,25 +188,23 @@ exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
 });
 // const sghidsearch=  UploadFormData.find({ 'SHG ID': "'0930890110095" })
 // console.log(sghidsearch);
-exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
-  console.log(req.body);
-  const sghid = req.body.SHGID;
-  const data = await UploadFormData.findOne({ "Name of the District": ["Name of the District"] }, { _id: 0, __v: 0 });
-  return res.status(200).json(data);
-});
+// exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
+//   // console.log(req.body);
+//   const sghid = req.body.SHGID;
+//   const data = await UploadFormData.findOne(
+//     { "Name of the District": ["Name of the District"] },
+//     { _id: 0, __v: 0 }
+//   );
+//   return res.status(200).json(data);
+// });
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
-  console.log(req.body.data);
-
-
-
-  
-
+  // console.log(req.body.data);
   try {
-    let savedData = await UploadFormData.insertMany(req.body.data); 
+    let savedData = await UploadFormData.insertMany(req.body.data);
     return res.status(201).json({
       success: true,
       message: savedData.length + " rows added to the database",
-      data:savedData
+      data: savedData,
     });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
