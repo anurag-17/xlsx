@@ -400,7 +400,7 @@ export const BankForm = () => {
     SHGID = e.target.value;
     console.log(SHGID);
     setsghid(SHGID);
-    const res = await axios.post("http://localhost:5000/api/auth/finddata", {
+    const res = await axios.post("/api/auth/finddata", {
       SHGID,
     });
     console.log(res.data);
