@@ -23,7 +23,7 @@ export const SideNavigation = () => {
           <h4>Check Grade</h4>
           <h5>{`>`}</h5>
         </div>
-        <Link to="/checkgrade" className="nav-link navbar-link">
+        <Link to="/filter" className="nav-link navbar-link">
           <div className="flexA">
             <h4>Filter</h4>
             <h5>{`>`}</h5>

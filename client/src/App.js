@@ -27,7 +27,7 @@ import { BankForm } from "./Components/BankForm";
 import { Header } from "./Components/Header";
 import { EmployeeLogin } from "./Components/EmployeeLogin";
 import { apidata } from "./action/apiaction";
-import { Checkgrade } from "./Components/Checkgrade";
+import { Filter } from "./Components/Filter";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ function App() {
           <Route path="/addlist" element={<AddList/>}/>
           <Route path="/viewlist" element={<Viewlist/>}/>
           <Route path="/bankform" element={<BankForm/>}/>
-          <Route path="/checkgrade" element={<Checkgrade/>}/>
+          <Route path="/filter" element={<Filter/>}/>
           <Route path="/employeelogin" element={<Protectedroute><EmployeeLogin/></Protectedroute>}/>
         </Routes>
       </BrowserRouter>

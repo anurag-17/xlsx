@@ -3,8 +3,14 @@ import axios from "axios";
 
 import { SideNavigation } from "./SideNavigation";
 import "./viewlist.css";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-export const Checkgrade = () => {
+export const Filter = () => {
+  const { user, isAuthenticated, res, error,loading } = useSelector(
+    (state) => state.user
+  );
+  const navigate = useNavigate();
   const [district, setdistrict] = useState("");
   const [ward, setward] = useState("");
   const [muci, setmuci] = useState("");
@@ -12,6 +18,9 @@ export const Checkgrade = () => {
   const [filterdata, setfilterdata] = useState([]);
  const [finalsgid, setfinalsgid] = useState()
 
+ if (isAuthenticated === false) {
+   navigate("/");
+ }
   const handle = (e) => {
     console.log(e.target.value);
   };
@@ -81,6 +90,7 @@ const rooo= Object.keys(filterdata[0]).filter((item,index)=>{
       console.log(error);
     }
   };
+
   return (
     <div>
       <SideNavigation />
