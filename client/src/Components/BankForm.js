@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-
+import Select from "react-select";
 import "./BankForm.css";
 import {
+  clearErrors,
   loaduser,
   logout,
   updateprofile,
@@ -11,17 +12,23 @@ import {
 } from "../action/useraction";
 import { useNavigate } from "react-router-dom";
 import { Header } from "./Header";
+import { useAlert } from "react-alert";
 
 export const BankForm = () => {
   const [formdata, setFormdata] = useState([{}])
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { user, isAuthenticated } = useSelector((state) => state.user);
+  const alert = useAlert();
+  const { user, isAuthenticated,error } = useSelector((state) => state.user);
   if (user === null) {
     navigate("/employeelogin");
   }
-  useEffect(() => {}, [isAuthenticated, user]);
+  useEffect(() => {
+    if(error){
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  }, [isAuthenticated, user,error]);
 
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
@@ -41,6 +48,8 @@ export const BankForm = () => {
     acc_number: "",
     
   });
+  const [year, setYear] = useState();
+  
   const [saving, setSaving] = useState({
     opening_savings: "",
     current_year_savings: "",
@@ -397,6 +406,7 @@ export const BankForm = () => {
   };
   
   const searchSHG = async (e) => {
+    e.preventDefault()
     // SHGID = e.target.value;
     // console.log(SHGID);
     // setsghid(SHGID);
@@ -405,7 +415,7 @@ export const BankForm = () => {
       sghid,
     });
     console.log(res);
-    console.log(res.data);
+    console.log(res);
     setBankdetail({
       ...bankdetail,
       bank_name: res.data["Bank name"],
@@ -517,72 +527,72 @@ export const BankForm = () => {
     );
     setOpeningBankBalance(openingBankBalance);
 
-        setSaving({
-            opening_savings: "",
-            current_year_savings: "",
-            total_savings: ""
-        })
-        setSlfloan({
-            opening_loans: "",
-            current_year_sanctioned: "",
-            current_year_recovery: "",
-            total_loan_outstanding: "",
-        })
-        setBankloan({
-            bank_opening_bank_loan: "",
-            bank_current_year_sanctioned: "",
-            bank_current_year_recovery: "",
-            bank_total_loan_outstanding: "",
-        })
-        setSrinidhiLoan({
-            srinidhi_opening_loan: "",
-            srinidhi_current_year_sanctioned: "",
-            srinidhi_current_year_recovery: "",
-            srinidhi_total_loan_outstanding: ""
-    })
-        setCovidloan({
-            covid_opening_loan: "",
-            covid_current_year_sanctioned: "",
-            covid_current_year_recovery: "",
-            covid_total_loan_outstanding: ""
-        })
-        setInternalMemberLoan({
-            iml_opening_loan: "",
-            iml_current_year_sanctioned: "",
-            iml_current_year_recovery: "",
-            iml_total_loan_outstanding: ""
-        })
-        setSlfMemberLoan({
-            slfm_opening_loan: "",
-            slfm_current_year_sanctioned: "",
-            slfm_current_year_recovery: "",
-            slfm_total_loan_outstanding: ""
-        })
-        setBankLinkageMemberLoan({
-            blml_opening_loan: "",
-            blml_current_year_sanctioned: "",
-            blml_current_year_recovery: "",
-            blml_total_loan_outstanding: ""
-        })
-        setSrinidhiMemberLoan({
-            srim_opening_loan: "",
-            srim_current_year_sanctioned: "",
-            srim_current_year_recovery: "",
-            srim_total_loan_outstanding: ""
-        })
-        setCovidMemberLoans({
-            cml_opening_loan: "",
-            cml_current_year_sanctioned: "",
-            cml_current_year_recovery: "",
-            cml_total_loan_outstanding: ""
-        })
-        setOpeningBankBalance({
-            opening_bank_balance: "",
-            opening_cash: "",
-            closing_bank_balance: "",
-            closing_cash: "",
-            surplus: ""
-        })
+    //     setSaving({
+    //         opening_savings: "",
+    //         current_year_savings: "",
+    //         total_savings: ""
+    //     })
+    //     setSlfloan({
+    //         opening_loans: "",
+    //         current_year_sanctioned: "",
+    //         current_year_recovery: "",
+    //         total_loan_outstanding: "",
+    //     })
+    //     setBankloan({
+    //         bank_opening_bank_loan: "",
+    //         bank_current_year_sanctioned: "",
+    //         bank_current_year_recovery: "",
+    //         bank_total_loan_outstanding: "",
+    //     })
+    //     setSrinidhiLoan({
+    //         srinidhi_opening_loan: "",
+    //         srinidhi_current_year_sanctioned: "",
+    //         srinidhi_current_year_recovery: "",
+    //         srinidhi_total_loan_outstanding: ""
+    // })
+    //     setCovidloan({
+    //         covid_opening_loan: "",
+    //         covid_current_year_sanctioned: "",
+    //         covid_current_year_recovery: "",
+    //         covid_total_loan_outstanding: ""
+    //     })
+    //     setInternalMemberLoan({
+    //         iml_opening_loan: "",
+    //         iml_current_year_sanctioned: "",
+    //         iml_current_year_recovery: "",
+    //         iml_total_loan_outstanding: ""
+    //     })
+    //     setSlfMemberLoan({
+    //         slfm_opening_loan: "",
+    //         slfm_current_year_sanctioned: "",
+    //         slfm_current_year_recovery: "",
+    //         slfm_total_loan_outstanding: ""
+    //     })
+    //     setBankLinkageMemberLoan({
+    //         blml_opening_loan: "",
+    //         blml_current_year_sanctioned: "",
+    //         blml_current_year_recovery: "",
+    //         blml_total_loan_outstanding: ""
+    //     })
+    //     setSrinidhiMemberLoan({
+    //         srim_opening_loan: "",
+    //         srim_current_year_sanctioned: "",
+    //         srim_current_year_recovery: "",
+    //         srim_total_loan_outstanding: ""
+    //     })
+    //     setCovidMemberLoans({
+    //         cml_opening_loan: "",
+    //         cml_current_year_sanctioned: "",
+    //         cml_current_year_recovery: "",
+    //         cml_total_loan_outstanding: ""
+    //     })
+    //     setOpeningBankBalance({
+    //         opening_bank_balance: "",
+    //         opening_cash: "",
+    //         closing_bank_balance: "",
+    //         closing_cash: "",
+    //         surplus: ""
+    //     })
    
     
       dispatch(
@@ -590,7 +600,7 @@ export const BankForm = () => {
           [{sghid,accnu,bank_name ,opening_savings,
             current_year_savings,
             total_savings,
-
+year,
             opening_loans,
             Slum_Id,
             Name_of_the_District,
@@ -679,6 +689,7 @@ export const BankForm = () => {
     dispatch(logout());
     navigate("/employeelogin");
   };
+  // console.log(year);
   return (
     <>
       <div  style={{ position: "absolute", right: "40px" }}>
@@ -707,17 +718,17 @@ export const BankForm = () => {
       </div>
       
       <div className="container">
-        <form action=""  encType="multipart/form-data" onSubmit={form_submit}>
-          <div className="flexsearchX ">
+          <form onSubmit={searchSHG} className="flexsearchX ">
             <p>SHGID </p>
             <input 
+            required
               type="text"
               onChange={(e)=>{ setsghid(e.target.value);}}
               placeholder="search by SHG ID"
               name="search"
             />
-            <button onClick={searchSHG}>Seacrh </button>
-            <select >
+            <select required onChange={(e)=>{setYear(e.target.value)}}>
+            <option selected disabled value={""}>year</option>
               <option>2020</option>
               <option>2021</option>
               <option>2022</option>
@@ -730,7 +741,9 @@ export const BankForm = () => {
               <option>2029</option>
               <option>2030</option>
             </select>
-          </div>
+            <button onClick={searchSHG}>Seacrh </button>
+          </form >
+        <form action=""  encType="multipart/form-data" onSubmit={form_submit}>
           <div className="sectionA">
                         <div className="flexAX">
                             <div className="flexBXf">
@@ -739,11 +752,11 @@ export const BankForm = () => {
 
                                     <div className="flexC givmargin givpad">
                                         <p>Bank name</p>
-                                        <input required type="text" name='bank_name' onChange={inputA} value={bankdetail.bank_name} />
+                                        <input  type="text" name='bank_name' onChange={inputA} value={bankdetail.bank_name} />
                                     </div>
                                     <div className="flexC givmargin givpadd">
                                         <p>Account Number</p>
-                                        <input required type="text" name='acc_number' onChange={inputA} value={bankdetail.acc_number} />
+                                        <input  type="text" name='acc_number' onChange={inputA} value={bankdetail.acc_number} />
                                     </div>
                                 </div>
                             </div>

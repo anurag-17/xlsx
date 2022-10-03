@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const Excell = require("../model/xlsx");
 const UploadFormData = require("../model/Form");
 const path = require("path");
-
+const { log } = require("console");
 
 async function isEmailValid(email) {
   return emailValidator.validate(email);
@@ -171,11 +171,9 @@ exports.xlsxget = catchAsyncerror(async (req, res, next) => {
 });
 
 exports.filterdata = catchAsyncerror(async (req, res, next) => {
-  const sghid = req.body.sghid;
+  const sghid = req.body.sghid  ;
   console.log(sghid);
-
   const data = await Excell.findOne({ "SHG ID": sghid });
-  console.log(data);
   return res.status(200).json(data);
 });
 exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
@@ -191,24 +189,34 @@ exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
 });
 // const sghidsearch=  UploadFormData.find({ 'SHG ID': "'0930890110095" })
 // console.log(sghidsearch);
-// exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
-//   // console.log(req.body);
-//   const sghid = req.body.SHGID;
-//   const data = await UploadFormData.findOne(
-//     { "Name of the District": ["Name of the District"] },
-//     { _id: 0, __v: 0 }
-//   );
-//   return res.status(200).json(data);
-// });
+exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
+  // console.log(req.body);
+  const sghid = req.body.SHGID;
+  const data = await UploadFormData.findOne(
+    { "Name of the District": ["Name of the District"] },
+    { _id: 0, __v: 0 }
+  );
+  return res.status(200).json(data);
+});
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
-  // console.log(req.body.data);
+  let data=req.body.data
+  let sgid=data[0]["sghid"]
+  console.log(sgid);
+
+
   try {
-    let savedData = await UploadFormData.insertMany(req.body.data);
-    return res.status(201).json({
-      success: true,
-      message: savedData.length + " rows added to the database",
-      data: savedData,
-    });
+    const user = await UploadFormData.find({sgid});
+      if (user) {
+        return res.status(500).json("Sghid already exist");
+      } else {
+        let savedData = await UploadFormData.insertMany(req.body.data);
+        return res.status(201).json({
+          success: true,
+          message: savedData.length + " rows added to the database",
+          data: savedData,
+        });
+      }
+    // });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
