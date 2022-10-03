@@ -205,14 +205,16 @@ exports.uploadform = catchAsyncerror(async (req, res, next) => {
 
 
   try {
-    const user = await UploadFormData.find({sgid});
+    const user = await UploadFormData.findOne({sghid:sgid});
+    console.log(user);
+    // return
       if (user) {
         return res.status(500).json("Sghid already exist");
       } else {
         let savedData = await UploadFormData.insertMany(req.body.data);
         return res.status(201).json({
           success: true,
-          message: savedData.length + " rows added to the database",
+          message: "data upload",
           data: savedData,
         });
       }
