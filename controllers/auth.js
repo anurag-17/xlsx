@@ -171,8 +171,11 @@ exports.xlsxget = catchAsyncerror(async (req, res, next) => {
 });
 
 exports.filterdata = catchAsyncerror(async (req, res, next) => {
-  const sghid = req.body.SHGID;
+  const sghid = req.body.sghid;
+  console.log(sghid);
+
   const data = await Excell.findOne({ "SHG ID": sghid });
+  console.log(data);
   return res.status(200).json(data);
 });
 exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
