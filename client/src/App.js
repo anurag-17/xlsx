@@ -32,7 +32,7 @@ import { Checkgrade } from "./Components/Checkgrade";
 function App() {
   const dispatch = useDispatch();
   dispatch(loaduser());
-dispatch(apidata())
+// dispatch(apidata())
 
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState(null);

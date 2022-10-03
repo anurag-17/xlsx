@@ -102,11 +102,12 @@ catch(error){
 export const updateprofile = (updatedata) => async (dispatch) => {
   try {
     console.log(updatedata)
+    
     dispatch({ type: UPDATE_PROFIE_REQUEST });
-    const config = { headers: { "Content-Type": "multipart/form-data" } };
+    const config = { headers: { "Content-Type": "application/json" } };
       const data = await axios.post(
         `/api/auth/uploadForm`,
-        updatedata
+        {"data":updatedata}
         
       );
     // console.log(updatedata);

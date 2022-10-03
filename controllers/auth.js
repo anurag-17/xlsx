@@ -5,7 +5,8 @@ const Employy = require("../model/employuser");
 const jwt = require("jsonwebtoken");
 const Excell = require("../model/xlsx");
 const UploadFormData = require("../model/Form");
-const path = require('path')
+const path = require('path');
+const { log } = require("console");
 
 async function isEmailValid(email) {
   return emailValidator.validate(email);
@@ -175,20 +176,33 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
   return res.status(200).json(data);
 });
 exports.sghidsearch = catchAsyncerror(async (req, res, next) => {
+  const sghid = req.body;
+  // console.log(sghid);
+  const data = await Excell.find(sghid,{_id:0});
+  // console.log(data);  
+  return res.status(200).json(data);
+  // data.map(async(item,index)=>{
+  //   console.log(item);
+  // })
+  // console.log(sghidsearch);
+});
+// const sghidsearch=  UploadFormData.find({ 'SHG ID': "'0930890110095" })
+// console.log(sghidsearch);
+exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
   console.log(req.body);
   const sghid = req.body.SHGID;
-  const data = await UploadFormData.findOne({ "sghid": sghid });
+  const data = await UploadFormData.findOne({ "Name of the District": ["Name of the District"] }, { _id: 0, __v: 0 });
   return res.status(200).json(data);
 });
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
-  console.log(req.body);
+  console.log(req.body.data);
 
- const{sghid}=req.body
+
 
   
 
   try {
-    let savedData = await UploadFormData.insertMany(req.body[0]); 
+    let savedData = await UploadFormData.insertMany(req.body.data); 
     return res.status(201).json({
       success: true,
       message: savedData.length + " rows added to the database",
