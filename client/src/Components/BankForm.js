@@ -35,12 +35,11 @@ export const BankForm = () => {
   const [checked9, setChecked9] = useState(false);
   const [checked10, setChecked10] = useState(false);
   const [sghid, setsghid] = useState("");
-
-  let SHGID = "";
+ 
   const [bankdetail, setBankdetail] = useState({
     bank_name: "",
     acc_number: "",
-    ["Slum Id"]:"",
+    
   });
   const [saving, setSaving] = useState({
     opening_savings: "",
@@ -108,7 +107,55 @@ export const BankForm = () => {
     closing_cash: "",
     surplus: "",
   });
-
+  let accnu=bankdetail.acc_number
+  let bank_name=bankdetail.bank_name
+  let Slum_Id=bankdetail["Slum Id"]
+  // console.log(Slum_Id);
+  let opening_savings=saving.opening_savings
+  let current_year_savings=saving.current_year_savings
+  let total_savings=saving.total_savings
+  let opening_loans=slfloan.opening_loans
+  let current_year_sanctioned=slfloan.current_year_sanctioned
+  let current_year_recovery=slfloan.current_year_recovery
+  let total_loan_outstanding=slfloan.total_loan_outstanding
+  let bank_opening_bank_loan=bankloan.bank_opening_bank_loan
+  let bank_current_year_sanctioned=bankloan.bank_current_year_sanctioned
+  let bank_current_year_recovery=bankloan.bank_current_year_recovery
+  let bank_total_loan_outstanding=bankloan.bank_total_loan_outstanding
+  let srinidhi_opening_loan=srinidhiLoan.srinidhi_opening_loan
+  let srinidhi_current_year_sanctioned=srinidhiLoan.srinidhi_current_year_sanctioned
+  let srinidhi_current_year_recovery=srinidhiLoan.srinidhi_current_year_recovery
+  let srinidhi_total_loan_outstanding=srinidhiLoan.srinidhi_total_loan_outstanding
+  let covid_opening_loan=covidloan.covid_opening_loan
+  let covid_current_year_sanctioned=covidloan.covid_current_year_sanctioned
+  let covid_current_year_recovery=covidloan.covid_current_year_recovery
+  let covid_total_loan_outstanding=covidloan.covid_total_loan_outstanding
+  let iml_opening_loan=internalMemberLoan.iml_opening_loan
+  let iml_current_year_sanctioned=internalMemberLoan.iml_current_year_sanctioned
+  let iml_current_year_recovery=internalMemberLoan.iml_current_year_recovery
+  let iml_total_loan_outstanding=internalMemberLoan.iml_total_loan_outstanding
+  let slfm_opening_loan=slfMemberLoan.slfm_opening_loan
+  let slfm_current_year_sanctioned=slfMemberLoan.slfm_current_year_sanctioned
+  let slfm_current_year_recovery=slfMemberLoan.slfm_current_year_recovery
+  let slfm_total_loan_outstanding=slfMemberLoan.slfm_total_loan_outstanding
+  let blml_opening_loan=bankLinkageMemberLoan.blml_opening_loan
+  let blml_current_year_sanctioned=bankLinkageMemberLoan.blml_current_year_sanctioned
+  let blml_current_year_recovery=bankLinkageMemberLoan.blml_current_year_recovery
+  let blml_total_loan_outstanding=bankLinkageMemberLoan.blml_total_loan_outstanding
+  let srim_opening_loan=srinidhiMemberLoan.srim_opening_loan
+  let srim_current_year_sanctioned=srinidhiMemberLoan.srim_current_year_sanctioned
+  let srim_current_year_recovery=srinidhiMemberLoan.srim_current_year_recovery
+  let srim_total_loan_outstanding=srinidhiMemberLoan.srim_total_loan_outstanding
+  let cml_opening_loan=covidMemberLoans.cml_opening_loan
+  let cml_current_year_sanctioned=covidMemberLoans.cml_current_year_sanctioned
+  let cml_current_year_recovery=covidMemberLoans.cml_current_year_recovery
+  let cml_total_loan_outstanding=covidMemberLoans.cml_total_loan_outstanding
+  let opening_bank_balance=openingBankBalance.opening_bank_balance
+  let opening_cash=openingBankBalance.opening_cash
+  let closing_bank_balance=openingBankBalance.closing_bank_balance
+  let closing_cash=openingBankBalance.closing_cash
+  let surplus=openingBankBalance.surplus
+  let SHGID = "";
   // const inputsgh=(e)=>{setSHGID(e.target.value);searchSHG()}
   const inputA = (e) => {
     setBankdetail({ ...bankdetail, [e.target.name]: e.target.value });
@@ -160,6 +207,7 @@ export const BankForm = () => {
       ...openingBankBalance,
       [e.target.name]: e.target.value,
     });
+   
   };
 
   const chkb1 = (e) => {
@@ -345,7 +393,7 @@ export const BankForm = () => {
       });
     }
   };
-
+  
   const searchSHG = async (e) => {
     SHGID = e.target.value;
     console.log(SHGID);
@@ -354,17 +402,23 @@ export const BankForm = () => {
       SHGID,
     });
     console.log(res.data);
-    console.log(bankdetail);
     setBankdetail({
       ...bankdetail,
       bank_name: res.data["Bank name"],
       acc_number: res.data["SB Account No"],
-      Slum :res.data["Slum Id"]
-
+      ["Slum Id"] :res.data["Slum Id"]
+      
     });
-  };
+  }; 
+//  useEffect(() => {
+   
+//   setFormdata( )
+//  });
+ 
+  // console.log(bankdetail);
   const form_submit = (e) => {
     e.preventDefault();
+
     setBankdetail(bankdetail);
     setSaving(
       saving,
@@ -523,7 +577,58 @@ export const BankForm = () => {
     //         closing_cash: "",
     //         surplus: ""
     //     })
+   
     
+      dispatch(
+        updateprofile(
+          [{sghid,accnu,bank_name ,opening_savings,
+            current_year_savings,
+            total_savings,
+            opening_loans,
+            Slum_Id,
+            current_year_sanctioned,
+            current_year_recovery,
+            total_loan_outstanding,
+            bank_opening_bank_loan,
+            bank_current_year_sanctioned,
+            bank_current_year_recovery,
+            bank_total_loan_outstanding,
+            srinidhi_opening_loan,
+            srinidhi_current_year_sanctioned,
+            srinidhi_current_year_recovery,
+            srinidhi_total_loan_outstanding,
+            covid_opening_loan,
+            covid_current_year_sanctioned,
+            covid_current_year_recovery,
+            covid_total_loan_outstanding,
+            iml_opening_loan,
+            iml_current_year_sanctioned,
+            iml_current_year_recovery,
+            iml_total_loan_outstanding,
+            slfm_opening_loan,
+            slfm_current_year_sanctioned,
+            slfm_current_year_recovery,
+            slfm_total_loan_outstanding,
+            blml_opening_loan,
+            blml_current_year_sanctioned,
+            blml_current_year_recovery,
+            blml_total_loan_outstanding,
+            srim_opening_loan,
+            srim_current_year_sanctioned,
+            srim_current_year_recovery,
+            srim_total_loan_outstanding,
+            cml_opening_loan,
+            cml_current_year_sanctioned,
+            cml_current_year_recovery,
+            cml_total_loan_outstanding,
+            opening_bank_balance,
+            opening_cash,
+            closing_bank_balance,
+            closing_cash,
+            surplus}]
+        )
+      )
+      console.log(formdata);
     console.log(SHGID);
     console.log(bankdetail.acc_number);
     console.log(saving);
@@ -550,136 +655,14 @@ export const BankForm = () => {
     setChecked8(false);
     setChecked9(false);
     setChecked10(false);
-    let formData = new FormData();
-    formData.set("SHGID", SHGID);
-    formData.set("bankdetail", bankdetail.acc_number);
-    formData.set("saving", saving);
-    formData.set("slfloan", slfloan);
-    formData.set("bankloan", bankloan);
-    formData.set("srinidhiLoan", srinidhiLoan);
-    formData.set("covidloan", covidloan);
-    formData.set("internalMemberLoan", internalMemberLoan);
-    formData.set("slfMemberLoan", slfMemberLoan);
-    formData.set("bankLinkageMemberLoan", bankLinkageMemberLoan);
-    formData.set("srinidhiMemberLoan", srinidhiMemberLoan);
-    formData.set("covidMemberLoans", covidMemberLoans);
-    formData.set("openingBankBalance", openingBankBalance);
-    console.log(formData.SHGID);
-    let accnu=bankdetail.acc_number
-    let bank_name=bankdetail.bank_name
-    let Slum_Id=bankdetail["Slum Id"]
-    let opening_savings=saving.opening_savings
-    let current_year_savings=saving.current_year_savings
-    let total_savings=saving.total_savings
-    let opening_loans=slfloan.opening_loans
-    let current_year_sanctioned=slfloan.current_year_sanctioned
-    let current_year_recovery=slfloan.current_year_recovery
-    let total_loan_outstanding=slfloan.total_loan_outstanding
-    let bank_opening_bank_loan=bankloan.bank_opening_bank_loan
-    let bank_current_year_sanctioned=bankloan.bank_current_year_sanctioned
-    let bank_current_year_recovery=bankloan.bank_current_year_recovery
-    let bank_total_loan_outstanding=bankloan.bank_total_loan_outstanding
-    let srinidhi_opening_loan=srinidhiLoan.srinidhi_opening_loan
-    let srinidhi_current_year_sanctioned=srinidhiLoan.srinidhi_current_year_sanctioned
-    let srinidhi_current_year_recovery=srinidhiLoan.srinidhi_current_year_recovery
-    let srinidhi_total_loan_outstanding=srinidhiLoan.srinidhi_total_loan_outstanding
-    let covid_opening_loan=covidloan.covid_opening_loan
-    let covid_current_year_sanctioned=covidloan.covid_current_year_sanctioned
-    let covid_current_year_recovery=covidloan.covid_current_year_recovery
-    let covid_total_loan_outstanding=covidloan.covid_total_loan_outstanding
-    let iml_opening_loan=internalMemberLoan.iml_opening_loan
-    let iml_current_year_sanctioned=internalMemberLoan.iml_current_year_sanctioned
-    let iml_current_year_recovery=internalMemberLoan.iml_current_year_recovery
-    let iml_total_loan_outstanding=internalMemberLoan.iml_total_loan_outstanding
-    let slfm_opening_loan=slfMemberLoan.slfm_opening_loan
-    let slfm_current_year_sanctioned=slfMemberLoan.slfm_current_year_sanctioned
-    let slfm_current_year_recovery=slfMemberLoan.slfm_current_year_recovery
-    let slfm_total_loan_outstanding=slfMemberLoan.slfm_total_loan_outstanding
-    let blml_opening_loan=bankLinkageMemberLoan.blml_opening_loan
-    let blml_current_year_sanctioned=bankLinkageMemberLoan.blml_current_year_sanctioned
-    let blml_current_year_recovery=bankLinkageMemberLoan.blml_current_year_recovery
-    let blml_total_loan_outstanding=bankLinkageMemberLoan.blml_total_loan_outstanding
-    let srim_opening_loan=srinidhiMemberLoan.srim_opening_loan
-    let srim_current_year_sanctioned=srinidhiMemberLoan.srim_current_year_sanctioned
-    let srim_current_year_recovery=srinidhiMemberLoan.srim_current_year_recovery
-    let srim_total_loan_outstanding=srinidhiMemberLoan.srim_total_loan_outstanding
-    let cml_opening_loan=covidMemberLoans.cml_opening_loan
-    let cml_current_year_sanctioned=covidMemberLoans.cml_current_year_sanctioned
-    let cml_current_year_recovery=covidMemberLoans.cml_current_year_recovery
-    let cml_total_loan_outstanding=covidMemberLoans.cml_total_loan_outstanding
-    let opening_bank_balance=openingBankBalance.opening_bank_balance
-    let opening_cash=openingBankBalance.opening_cash
-    let closing_bank_balance=openingBankBalance.closing_bank_balance
-    let closing_cash=openingBankBalance.closing_cash
-    let surplus=openingBankBalance.surplus
+ 
+ 
    
-    setFormdata([{sghid,accnu,bank_name ,opening_savings,
-      current_year_savings,
-      total_savings,
-      opening_loans,
-      Slum_Id,
-      current_year_sanctioned,
-      current_year_recovery,
-      total_loan_outstanding,
-      bank_opening_bank_loan,
-      bank_current_year_sanctioned,
-      bank_current_year_recovery,
-      bank_total_loan_outstanding,
-      srinidhi_opening_loan,
-      srinidhi_current_year_sanctioned,
-      srinidhi_current_year_recovery,
-      srinidhi_total_loan_outstanding,
-      covid_opening_loan,
-      covid_current_year_sanctioned,
-      covid_current_year_recovery,
-      covid_total_loan_outstanding,
-      iml_opening_loan,
-      iml_current_year_sanctioned,
-      iml_current_year_recovery,
-      iml_total_loan_outstanding,
-      slfm_opening_loan,
-      slfm_current_year_sanctioned,
-      slfm_current_year_recovery,
-      slfm_total_loan_outstanding,
-      blml_opening_loan,
-      blml_current_year_sanctioned,
-      blml_current_year_recovery,
-      blml_total_loan_outstanding,
-      srim_opening_loan,
-      srim_current_year_sanctioned,
-      srim_current_year_recovery,
-      srim_total_loan_outstanding,
-      cml_opening_loan,
-      cml_current_year_sanctioned,
-      cml_current_year_recovery,
-      cml_total_loan_outstanding,
-      opening_bank_balance,
-      opening_cash,
-      closing_bank_balance,
-      closing_cash,
-      surplus}] )
-    dispatch(
-      updateprofile(
-        // [{sghid,
-        //   bankdetail,
-        // saving,
-        // slfloan,
-        // bankloan,
-        // srinidhiLoan,
-        // covidloan,
-        // internalMemberLoan,
-        // slfMemberLoan,
-        // bankLinkageMemberLoan,
-        // srinidhiMemberLoan,
-        // covidMemberLoans,
-        // openingBankBalance}]
-        formdata
-      )
-    );
+   
+   
     console.log(sghid,accnu,bank_name);
   };
   // console.log();
-  console.log(formdata);
   const buut = () => {};
   const uppercaseWords = (str) =>
     str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
