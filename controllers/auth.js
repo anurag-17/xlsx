@@ -175,11 +175,11 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
   const data = await Excell.findOne({ "SHG ID": sghid });
   return res.status(200).json(data);
 });
-exports.sghidsearch = catchAsyncerror(async (req, res, next) => {
+exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
   const sghid = req.body;
-  // console.log(sghid);
-  const data = await Excell.find(sghid,{_id:0});
-  // console.log(data);  
+  console.log(sghid);
+  const data = await UploadFormData.find(sghid,{_id:0});
+  console.log(data);  
   return res.status(200).json(data);
   // data.map(async(item,index)=>{
   //   console.log(item);

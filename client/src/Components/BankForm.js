@@ -110,6 +110,8 @@ export const BankForm = () => {
   let accnu=bankdetail.acc_number
   let bank_name=bankdetail.bank_name
   let Slum_Id=bankdetail["Slum Id"]
+  let Name_of_the_District =bankdetail["Name of the District"]
+  let ward_Name =bankdetail["ward Name"]
   // console.log(Slum_Id);
   let opening_savings=saving.opening_savings
   let current_year_savings=saving.current_year_savings
@@ -406,7 +408,9 @@ export const BankForm = () => {
       ...bankdetail,
       bank_name: res.data["Bank name"],
       acc_number: res.data["SB Account No"],
-      ["Slum Id"] :res.data["Slum Id"]
+      ["Slum Id"] :res.data["Slum Id"],
+      ["Name of the District"] :res.data["Name of the District"],
+      ["ward Name"] :res.data["ward Name"]
       
     });
   }; 
@@ -584,8 +588,11 @@ export const BankForm = () => {
           [{sghid,accnu,bank_name ,opening_savings,
             current_year_savings,
             total_savings,
+
             opening_loans,
             Slum_Id,
+            Name_of_the_District,
+            ward_Name,
             current_year_sanctioned,
             current_year_recovery,
             total_loan_outstanding,

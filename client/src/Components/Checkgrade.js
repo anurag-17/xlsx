@@ -15,16 +15,35 @@ export const Checkgrade = () => {
   const handle = (e) => {
     console.log(e.target.value);
   };
-  let SHGID = "";
-  const searchSHG = async (e) => {
-    SHGID = e.target.value;
-    console.log(SHGID);
-    const res = await axios.post("http://localhost:5000/api/auth/sghidsearch", {
-      "Slum Id":SHGID,
+  let slumid = "";
+  const searchslumid = async (e) => {
+    slumid = e.target.value;
+    console.log(slumid);
+    const res = await axios.post("http://localhost:5000/api/auth/slumidsearch", {
+      "Slum_Id":slumid,
     });
     setfilterdata(res.data);
-    const re = await axios.post("http://localhost:5000/api/auth/finddata");
-    setfinalsgid(re.data)
+   
+  };
+  let ward_Name=""
+  const wardnumber = async (e) => {
+    ward_Name = e.target.value;
+    console.log(ward_Name);
+    const res = await axios.post("http://localhost:5000/api/auth/slumidsearch", {
+      "ward_Name":ward_Name,
+    });
+    setfilterdata(res.data);
+   
+  };
+  let districtname=""
+  const searchdistrictname = async (e) => {
+    districtname = e.target.value;
+    console.log(districtname);
+    const res = await axios.post("http://localhost:5000/api/auth/slumidsearch", {
+      "Name_of_the_District":districtname,
+    });
+    setfilterdata(res.data);
+   
   };
   console.log(filterdata);
   console.log(finalsgid);
@@ -75,19 +94,19 @@ const rooo= Object.keys(filterdata[0]).filter((item,index)=>{
           </select>
           <div className="formgroup">
             <label htmlFor="slumid">slumid</label>
-          <input onChange={searchSHG} className="slumid" />
+          <input onChange={searchslumid} className="slumid" />
           </div>
           <div className="formgroup">
             <label htmlFor="muncipalty">muncipalty</label>
-            <input className="muncipalty" id="muncipalty" />
+            <input  className="muncipalty" id="muncipalty" />
           </div>
           <div className="formgroup">
             <label htmlFor="wardno">ward no</label>
-            <input className="wardno" id="wardno" />
+            <input onChange={wardnumber} className="wardno" id="wardno" />
           </div>
           <div className="formgroup">
             <label htmlFor="district">district</label>
-            <input className="district" id="district" />
+            <input onChange={searchdistrictname}className="district" id="district" />
           </div>
 
           <div style={{ width: "100%" }}>
