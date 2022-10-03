@@ -111,8 +111,7 @@ export const userReducer = (state =INTIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        isUpdated: true,
-        res:action.payload
+        isUpdated:action.payload
         
       };
     case UPDATE_PASSWORD_FAIL:
@@ -132,7 +131,7 @@ export const userReducer = (state =INTIAL_STATE, action) => {
         return {
           ...state,
           loading: false,
-          isUpdated: action.payload ,
+          isUpdated: action.payload.data ,
           // res: 
         };
     default:

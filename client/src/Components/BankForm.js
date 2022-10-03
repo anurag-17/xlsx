@@ -19,7 +19,7 @@ export const BankForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
-  const { user, isAuthenticated,error } = useSelector((state) => state.user);
+  const { user, isAuthenticated,error ,isUpdated} = useSelector((state) => state.user);
   if (user === null) {
     navigate("/employeelogin");
   }
@@ -28,7 +28,11 @@ export const BankForm = () => {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [isAuthenticated, user,error]);
+    if(isUpdated){
+      alert.success(isUpdated.message)
+      dispatch(clearErrors())
+    }
+  }, [isAuthenticated, user,error,isUpdated]);
 
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
@@ -720,6 +724,7 @@ year,
       <div className="container">
           <form onSubmit={searchSHG} className="flexsearchX ">
             <p>SHGID </p>
+           
             <input 
             required
               type="text"
@@ -727,20 +732,7 @@ year,
               placeholder="search by SHG ID"
               name="search"
             />
-            <select required onChange={(e)=>{setYear(e.target.value)}}>
-            <option selected disabled value={""}>year</option>
-              <option>2020</option>
-              <option>2021</option>
-              <option>2022</option>
-              <option>2023</option>
-              <option>2024</option>
-              <option>2025</option>
-              <option>2026</option>
-              <option>2027</option>
-              <option>2028</option>
-              <option>2029</option>
-              <option>2030</option>
-            </select>
+            
             <button onClick={searchSHG}>Seacrh </button>
           </form >
         <form action=""  encType="multipart/form-data" onSubmit={form_submit}>
@@ -1451,7 +1443,22 @@ year,
                     onChange={inputG}
                     value={openingBankBalance.surplus}
                   />
+                  
                 </div>
+                <select required onChange={(e)=>{setYear(e.target.value)}}>
+            <option  disabled >year</option>
+              <option>2020</option>
+              <option>2021</option>
+              <option>2022</option>
+              <option>2023</option>
+              <option>2024</option>
+              <option>2025</option>
+              <option>2026</option>
+              <option>2027</option>
+              <option>2028</option>
+              <option>2029</option>
+              <option>2030</option>
+            </select>
               </div>
             </div>
           </div>

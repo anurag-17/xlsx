@@ -111,7 +111,7 @@ export const updateprofile = (updatedata) => async (dispatch) => {
         
       );
     // console.log(updatedata);
-    dispatch({ type: UPDATE_PROFIE_SUCCESS, payload: data.success });
+    dispatch({ type: UPDATE_PROFIE_SUCCESS, payload: data.data });
   } catch (error) {
     dispatch({
       type: UPDATE_PROFIE_FAIL,
