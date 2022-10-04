@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import Select from "react-select";
+// import Select from "react-select";
 import "./BankForm.css";
 import {
   clearErrors,
@@ -15,25 +15,93 @@ import { Header } from "./Header";
 import { useAlert } from "react-alert";
 
 export const BankForm = () => {
-  const [formdata, setFormdata] = useState([{}])
+  const [formdata, setFormdata] = useState([{}]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
-  const { user, isAuthenticated,error ,isUpdated} = useSelector((state) => state.user);
+  const { user, isAuthenticated, error, isUpdated } = useSelector(
+    (state) => state.user
+  );
   if (user === null) {
     navigate("/employeelogin");
   }
   useEffect(() => {
-    if(error){
-      alert.error(error);
+    if (error) {
+      alert.error(error.message);
       dispatch(clearErrors());
     }
-    if(isUpdated){
-      alert.success(isUpdated.message)
-      dispatch(clearErrors())
+    if (isUpdated) {
+      alert.success(isUpdated.message);
+      dispatch(clearErrors());
+      setSaving({
+        opening_savings: "",
+        current_year_savings: "",
+        total_savings: "",
+      });
+      setSlfloan({
+        opening_loans: "",
+        current_year_sanctioned: "",
+        current_year_recovery: "",
+        total_loan_outstanding: "",
+      });
+      setBankloan({
+        bank_opening_bank_loan: "",
+        bank_current_year_sanctioned: "",
+        bank_current_year_recovery: "",
+        bank_total_loan_outstanding: "",
+      });
+      setSrinidhiLoan({
+        srinidhi_opening_loan: "",
+        srinidhi_current_year_sanctioned: "",
+        srinidhi_current_year_recovery: "",
+        srinidhi_total_loan_outstanding: "",
+      });
+      setCovidloan({
+        covid_opening_loan: "",
+        covid_current_year_sanctioned: "",
+        covid_current_year_recovery: "",
+        covid_total_loan_outstanding: "",
+      });
+      setInternalMemberLoan({
+        iml_opening_loan: "",
+        iml_current_year_sanctioned: "",
+        iml_current_year_recovery: "",
+        iml_total_loan_outstanding: "",
+      });
+      setSlfMemberLoan({
+        slfm_opening_loan: "",
+        slfm_current_year_sanctioned: "",
+        slfm_current_year_recovery: "",
+        slfm_total_loan_outstanding: "",
+      });
+      setBankLinkageMemberLoan({
+        blml_opening_loan: "",
+        blml_current_year_sanctioned: "",
+        blml_current_year_recovery: "",
+        blml_total_loan_outstanding: "",
+      });
+      setSrinidhiMemberLoan({
+        srim_opening_loan: "",
+        srim_current_year_sanctioned: "",
+        srim_current_year_recovery: "",
+        srim_total_loan_outstanding: "",
+      });
+      setCovidMemberLoans({
+        cml_opening_loan: "",
+        cml_current_year_sanctioned: "",
+        cml_current_year_recovery: "",
+        cml_total_loan_outstanding: "",
+      });
+      setOpeningBankBalance({
+        opening_bank_balance: "",
+        opening_cash: "",
+        closing_bank_balance: "",
+        closing_cash: "",
+        surplus: "",
+      });
     }
-  }, [isAuthenticated, user,error,isUpdated]);
-
+  }, [isAuthenticated, user, error, isUpdated, alert, dispatch]);
+  
   const [checked, setChecked] = useState(false);
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(false);
@@ -46,14 +114,13 @@ export const BankForm = () => {
   const [checked9, setChecked9] = useState(false);
   const [checked10, setChecked10] = useState(false);
   const [sghid, setsghid] = useState("");
- 
+
   const [bankdetail, setBankdetail] = useState({
     bank_name: "",
     acc_number: "",
-    
   });
   const [year, setYear] = useState();
-  
+
   const [saving, setSaving] = useState({
     opening_savings: "",
     current_year_savings: "",
@@ -120,56 +187,72 @@ export const BankForm = () => {
     closing_cash: "",
     surplus: "",
   });
-  let accnu=bankdetail.acc_number
-  let bank_name=bankdetail.bank_name
-  let Slum_Id=bankdetail["Slum Id"]
-  let Name_of_the_District =bankdetail["Name of the District"]
-  let ward_Name =bankdetail["ward Name"]
-  // console.log(Slum_Id);
-  let opening_savings=saving.opening_savings
-  let current_year_savings=saving.current_year_savings
-  let total_savings=saving.total_savings
-  let opening_loans=slfloan.opening_loans
-  let current_year_sanctioned=slfloan.current_year_sanctioned
-  let current_year_recovery=slfloan.current_year_recovery
-  let total_loan_outstanding=slfloan.total_loan_outstanding
-  let bank_opening_bank_loan=bankloan.bank_opening_bank_loan
-  let bank_current_year_sanctioned=bankloan.bank_current_year_sanctioned
-  let bank_current_year_recovery=bankloan.bank_current_year_recovery
-  let bank_total_loan_outstanding=bankloan.bank_total_loan_outstanding
-  let srinidhi_opening_loan=srinidhiLoan.srinidhi_opening_loan
-  let srinidhi_current_year_sanctioned=srinidhiLoan.srinidhi_current_year_sanctioned
-  let srinidhi_current_year_recovery=srinidhiLoan.srinidhi_current_year_recovery
-  let srinidhi_total_loan_outstanding=srinidhiLoan.srinidhi_total_loan_outstanding
-  let covid_opening_loan=covidloan.covid_opening_loan
-  let covid_current_year_sanctioned=covidloan.covid_current_year_sanctioned
-  let covid_current_year_recovery=covidloan.covid_current_year_recovery
-  let covid_total_loan_outstanding=covidloan.covid_total_loan_outstanding
-  let iml_opening_loan=internalMemberLoan.iml_opening_loan
-  let iml_current_year_sanctioned=internalMemberLoan.iml_current_year_sanctioned
-  let iml_current_year_recovery=internalMemberLoan.iml_current_year_recovery
-  let iml_total_loan_outstanding=internalMemberLoan.iml_total_loan_outstanding
-  let slfm_opening_loan=slfMemberLoan.slfm_opening_loan
-  let slfm_current_year_sanctioned=slfMemberLoan.slfm_current_year_sanctioned
-  let slfm_current_year_recovery=slfMemberLoan.slfm_current_year_recovery
-  let slfm_total_loan_outstanding=slfMemberLoan.slfm_total_loan_outstanding
-  let blml_opening_loan=bankLinkageMemberLoan.blml_opening_loan
-  let blml_current_year_sanctioned=bankLinkageMemberLoan.blml_current_year_sanctioned
-  let blml_current_year_recovery=bankLinkageMemberLoan.blml_current_year_recovery
-  let blml_total_loan_outstanding=bankLinkageMemberLoan.blml_total_loan_outstanding
-  let srim_opening_loan=srinidhiMemberLoan.srim_opening_loan
-  let srim_current_year_sanctioned=srinidhiMemberLoan.srim_current_year_sanctioned
-  let srim_current_year_recovery=srinidhiMemberLoan.srim_current_year_recovery
-  let srim_total_loan_outstanding=srinidhiMemberLoan.srim_total_loan_outstanding
-  let cml_opening_loan=covidMemberLoans.cml_opening_loan
-  let cml_current_year_sanctioned=covidMemberLoans.cml_current_year_sanctioned
-  let cml_current_year_recovery=covidMemberLoans.cml_current_year_recovery
-  let cml_total_loan_outstanding=covidMemberLoans.cml_total_loan_outstanding
-  let opening_bank_balance=openingBankBalance.opening_bank_balance
-  let opening_cash=openingBankBalance.opening_cash
-  let closing_bank_balance=openingBankBalance.closing_bank_balance
-  let closing_cash=openingBankBalance.closing_cash
-  let surplus=openingBankBalance.surplus
+  let accnu = bankdetail.acc_number;
+  let bank_name = bankdetail.bank_name;
+  let Slum_Id = bankdetail["Slum Id"];
+  let Name_of_the_District = bankdetail["Name of the District"];
+  let ward_Name = bankdetail["ward Name"];
+  let Name_of_ulb = bankdetail["Name of the ULB"];
+  let SHG_Name = bankdetail["SHG Name"];
+  let TLF_NAME = bankdetail["TLF NAME"];
+  let SHG_ID = bankdetail["SHG ID"];
+  let SLF_NAME = bankdetail["SLF NAME"];
+  let opening_savings = saving.opening_savings;
+  let current_year_savings = saving.current_year_savings;
+  let total_savings = saving.total_savings;
+  let opening_loans = slfloan.opening_loans;
+  let current_year_sanctioned = slfloan.current_year_sanctioned;
+  let current_year_recovery = slfloan.current_year_recovery;
+  let total_loan_outstanding = slfloan.total_loan_outstanding;
+  let bank_opening_bank_loan = bankloan.bank_opening_bank_loan;
+  let bank_current_year_sanctioned = bankloan.bank_current_year_sanctioned;
+  let bank_current_year_recovery = bankloan.bank_current_year_recovery;
+  let bank_total_loan_outstanding = bankloan.bank_total_loan_outstanding;
+  let srinidhi_opening_loan = srinidhiLoan.srinidhi_opening_loan;
+  let srinidhi_current_year_sanctioned =
+  srinidhiLoan.srinidhi_current_year_sanctioned;
+  let srinidhi_current_year_recovery =
+    srinidhiLoan.srinidhi_current_year_recovery;
+    let srinidhi_total_loan_outstanding =
+    srinidhiLoan.srinidhi_total_loan_outstanding;
+    let covid_opening_loan = covidloan.covid_opening_loan;
+    let covid_current_year_sanctioned = covidloan.covid_current_year_sanctioned;
+  let covid_current_year_recovery = covidloan.covid_current_year_recovery;
+  let covid_total_loan_outstanding = covidloan.covid_total_loan_outstanding;
+  let iml_opening_loan = internalMemberLoan.iml_opening_loan;
+  let iml_current_year_sanctioned =
+    internalMemberLoan.iml_current_year_sanctioned;
+    let iml_current_year_recovery = internalMemberLoan.iml_current_year_recovery;
+  let iml_total_loan_outstanding =
+  internalMemberLoan.iml_total_loan_outstanding;
+  let slfm_opening_loan = slfMemberLoan.slfm_opening_loan;
+  let slfm_current_year_sanctioned = slfMemberLoan.slfm_current_year_sanctioned;
+  let slfm_current_year_recovery = slfMemberLoan.slfm_current_year_recovery;
+  let slfm_total_loan_outstanding = slfMemberLoan.slfm_total_loan_outstanding;
+  let blml_opening_loan = bankLinkageMemberLoan.blml_opening_loan;
+  let blml_current_year_sanctioned =
+  bankLinkageMemberLoan.blml_current_year_sanctioned;
+  let blml_current_year_recovery =
+    bankLinkageMemberLoan.blml_current_year_recovery;
+  let blml_total_loan_outstanding =
+  bankLinkageMemberLoan.blml_total_loan_outstanding;
+  let srim_opening_loan = srinidhiMemberLoan.srim_opening_loan;
+  let srim_current_year_sanctioned =
+    srinidhiMemberLoan.srim_current_year_sanctioned;
+    let srim_current_year_recovery =
+    srinidhiMemberLoan.srim_current_year_recovery;
+    let srim_total_loan_outstanding =
+    srinidhiMemberLoan.srim_total_loan_outstanding;
+    let cml_opening_loan = covidMemberLoans.cml_opening_loan;
+    let cml_current_year_sanctioned =
+    covidMemberLoans.cml_current_year_sanctioned;
+  let cml_current_year_recovery = covidMemberLoans.cml_current_year_recovery;
+  let cml_total_loan_outstanding = covidMemberLoans.cml_total_loan_outstanding;
+  let opening_bank_balance = openingBankBalance.opening_bank_balance;
+  let opening_cash = openingBankBalance.opening_cash;
+  let closing_bank_balance = openingBankBalance.closing_bank_balance;
+  let closing_cash = openingBankBalance.closing_cash;
+  let surplus = openingBankBalance.surplus;
   let SHGID = "";
   // const inputsgh=(e)=>{setSHGID(e.target.value);searchSHG()}
   const inputA = (e) => {
@@ -190,6 +273,7 @@ export const BankForm = () => {
   const inputD = (e) => {
     setCovidloan({ ...covidloan, [e.target.name]: e.target.value });
   };
+  console.log(SLF_NAME);
   const inputD_d = (e) => {
     setInternalMemberLoan({
       ...internalMemberLoan,
@@ -222,7 +306,6 @@ export const BankForm = () => {
       ...openingBankBalance,
       [e.target.name]: e.target.value,
     });
-   
   };
 
   const chkb1 = (e) => {
@@ -408,9 +491,9 @@ export const BankForm = () => {
       });
     }
   };
-  
+
   const searchSHG = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // SHGID = e.target.value;
     // console.log(SHGID);
     // setsghid(SHGID);
@@ -424,18 +507,22 @@ export const BankForm = () => {
       ...bankdetail,
       bank_name: res.data["Bank name"],
       acc_number: res.data["SB Account No"],
-      ["Slum Id"] :res.data["Slum Id"],
-      ["Name of the District"] :res.data["Name of the District"],
-      ["ward Name"] :res.data["ward Name"]
-      
+      "Slum Id": res.data["Slum Id"],
+      "Name of the District": res.data["Name of the District"],
+      "ward Name": res.data["ward Name"],
+      "SHG Name": res.data["SHG Name"],
+      "Name of the ULB": res.data["Name of the ULB"],
+      "TLF NAME": res.data["TLF Name"],
+      "SLF NAME": res.data["SLF Name"],
+      "SGH ID": res.data["SGH ID"],
     });
-  }; 
-//  useEffect(() => {
-   
-//   setFormdata( )
-//  });
- 
-  // console.log(bankdetail);
+  };
+  //  useEffect(() => {
+
+  //   setFormdata( )
+  //  });
+
+  console.log(bankdetail);
   const form_submit = (e) => {
     e.preventDefault();
 
@@ -531,127 +618,70 @@ export const BankForm = () => {
     );
     setOpeningBankBalance(openingBankBalance);
 
-    //     setSaving({
-    //         opening_savings: "",
-    //         current_year_savings: "",
-    //         total_savings: ""
-    //     })
-    //     setSlfloan({
-    //         opening_loans: "",
-    //         current_year_sanctioned: "",
-    //         current_year_recovery: "",
-    //         total_loan_outstanding: "",
-    //     })
-    //     setBankloan({
-    //         bank_opening_bank_loan: "",
-    //         bank_current_year_sanctioned: "",
-    //         bank_current_year_recovery: "",
-    //         bank_total_loan_outstanding: "",
-    //     })
-    //     setSrinidhiLoan({
-    //         srinidhi_opening_loan: "",
-    //         srinidhi_current_year_sanctioned: "",
-    //         srinidhi_current_year_recovery: "",
-    //         srinidhi_total_loan_outstanding: ""
-    // })
-    //     setCovidloan({
-    //         covid_opening_loan: "",
-    //         covid_current_year_sanctioned: "",
-    //         covid_current_year_recovery: "",
-    //         covid_total_loan_outstanding: ""
-    //     })
-    //     setInternalMemberLoan({
-    //         iml_opening_loan: "",
-    //         iml_current_year_sanctioned: "",
-    //         iml_current_year_recovery: "",
-    //         iml_total_loan_outstanding: ""
-    //     })
-    //     setSlfMemberLoan({
-    //         slfm_opening_loan: "",
-    //         slfm_current_year_sanctioned: "",
-    //         slfm_current_year_recovery: "",
-    //         slfm_total_loan_outstanding: ""
-    //     })
-    //     setBankLinkageMemberLoan({
-    //         blml_opening_loan: "",
-    //         blml_current_year_sanctioned: "",
-    //         blml_current_year_recovery: "",
-    //         blml_total_loan_outstanding: ""
-    //     })
-    //     setSrinidhiMemberLoan({
-    //         srim_opening_loan: "",
-    //         srim_current_year_sanctioned: "",
-    //         srim_current_year_recovery: "",
-    //         srim_total_loan_outstanding: ""
-    //     })
-    //     setCovidMemberLoans({
-    //         cml_opening_loan: "",
-    //         cml_current_year_sanctioned: "",
-    //         cml_current_year_recovery: "",
-    //         cml_total_loan_outstanding: ""
-    //     })
-    //     setOpeningBankBalance({
-    //         opening_bank_balance: "",
-    //         opening_cash: "",
-    //         closing_bank_balance: "",
-    //         closing_cash: "",
-    //         surplus: ""
-    //     })
-   
-    
-      dispatch(
-        updateprofile(
-          [{sghid,accnu,bank_name ,opening_savings,
-            current_year_savings,
-            total_savings,
-year,
-            opening_loans,
-            Slum_Id,
-            Name_of_the_District,
-            ward_Name,
-            current_year_sanctioned,
-            current_year_recovery,
-            total_loan_outstanding,
-            bank_opening_bank_loan,
-            bank_current_year_sanctioned,
-            bank_current_year_recovery,
-            bank_total_loan_outstanding,
-            srinidhi_opening_loan,
-            srinidhi_current_year_sanctioned,
-            srinidhi_current_year_recovery,
-            srinidhi_total_loan_outstanding,
-            covid_opening_loan,
-            covid_current_year_sanctioned,
-            covid_current_year_recovery,
-            covid_total_loan_outstanding,
-            iml_opening_loan,
-            iml_current_year_sanctioned,
-            iml_current_year_recovery,
-            iml_total_loan_outstanding,
-            slfm_opening_loan,
-            slfm_current_year_sanctioned,
-            slfm_current_year_recovery,
-            slfm_total_loan_outstanding,
-            blml_opening_loan,
-            blml_current_year_sanctioned,
-            blml_current_year_recovery,
-            blml_total_loan_outstanding,
-            srim_opening_loan,
-            srim_current_year_sanctioned,
-            srim_current_year_recovery,
-            srim_total_loan_outstanding,
-            cml_opening_loan,
-            cml_current_year_sanctioned,
-            cml_current_year_recovery,
-            cml_total_loan_outstanding,
-            opening_bank_balance,
-            opening_cash,
-            closing_bank_balance,
-            closing_cash,
-            surplus}]
-        )
-      )
-      console.log(formdata);
+    console.log(year);
+    dispatch(
+      updateprofile([
+        {
+          sghid,
+          accnu,
+          bank_name,
+          opening_savings,
+          current_year_savings,
+          total_savings,
+          year,
+          opening_loans,
+          Slum_Id,
+          TLF_NAME,
+          SLF_NAME,
+          SHG_ID,
+          SHG_Name,
+          Name_of_ulb,
+          Name_of_the_District,
+          ward_Name,
+          current_year_sanctioned,
+          current_year_recovery,
+          total_loan_outstanding,
+          bank_opening_bank_loan,
+          bank_current_year_sanctioned,
+          bank_current_year_recovery,
+          bank_total_loan_outstanding,
+          srinidhi_opening_loan,
+          srinidhi_current_year_sanctioned,
+          srinidhi_current_year_recovery,
+          srinidhi_total_loan_outstanding,
+          covid_opening_loan,
+          covid_current_year_sanctioned,
+          covid_current_year_recovery,
+          covid_total_loan_outstanding,
+          iml_opening_loan,
+          iml_current_year_sanctioned,
+          iml_current_year_recovery,
+          iml_total_loan_outstanding,
+          slfm_opening_loan,
+          slfm_current_year_sanctioned,
+          slfm_current_year_recovery,
+          slfm_total_loan_outstanding,
+          blml_opening_loan,
+          blml_current_year_sanctioned,
+          blml_current_year_recovery,
+          blml_total_loan_outstanding,
+          srim_opening_loan,
+          srim_current_year_sanctioned,
+          srim_current_year_recovery,
+          srim_total_loan_outstanding,
+          cml_opening_loan,
+          cml_current_year_sanctioned,
+          cml_current_year_recovery,
+          cml_total_loan_outstanding,
+          opening_bank_balance,
+          opening_cash,
+          closing_bank_balance,
+          closing_cash,
+          surplus,
+        },
+      ])
+    );
+    console.log(formdata);
     console.log(SHGID);
     console.log(bankdetail.acc_number);
     console.log(saving);
@@ -678,12 +708,8 @@ year,
     setChecked8(false);
     setChecked9(false);
     setChecked10(false);
- 
- 
-   
-   
-   
-    console.log(sghid,accnu,bank_name);
+
+    console.log(sghid, accnu, bank_name);
   };
   // console.log();
   const buut = () => {};
@@ -696,7 +722,7 @@ year,
   // console.log(year);
   return (
     <>
-      <div  style={{ position: "absolute", right: "40px" }}>
+      <div style={{ position: "absolute", right: "40px" }}>
         {" "}
         <span className="home_btn">
           {isAuthenticated === true ? (
@@ -720,41 +746,51 @@ year,
           )}
         </span>
       </div>
-      
-      <div className="container">
-          <form onSubmit={searchSHG} className="flexsearchX ">
-            <p>SHGID </p>
-           
-            <input 
-            required
-              type="text"
-              onChange={(e)=>{ setsghid(e.target.value);}}
-              placeholder="search by SHG ID"
-              name="search"
-            />
-            
-            <button onClick={searchSHG}>Seacrh </button>
-          </form >
-        <form action=""  encType="multipart/form-data" onSubmit={form_submit}>
-          <div className="sectionA">
-                        <div className="flexAX">
-                            <div className="flexBXf">
-                                <h4>Bank Details</h4>
-                                <div className="flexTopX ">
 
-                                    <div className="flexC givmargin givpad">
-                                        <p>Bank name</p>
-                                        <input  type="text" name='bank_name' onChange={inputA} value={bankdetail.bank_name} />
-                                    </div>
-                                    <div className="flexC givmargin givpadd">
-                                        <p>Account Number</p>
-                                        <input  type="text" name='acc_number' onChange={inputA} value={bankdetail.acc_number} />
-                                    </div>
-                                </div>
-                            </div>
-                         
-                        </div>
-                    </div>
+      <div className="container">
+        <form onSubmit={searchSHG} className="flexsearchX ">
+          <p>SHGID </p>
+
+          <input
+            required
+            type="text"
+            onChange={(e) => {
+              setsghid(e.target.value);
+            }}
+            placeholder="search by SHG ID"
+            name="search"
+          />
+          <button onClick={searchSHG}>Seacrh </button>
+        </form>
+        <label>{bankdetail["SHG Name"]}</label>
+        <form action="" encType="multipart/form-data" onSubmit={form_submit}>
+          <div className="sectionA">
+            <div className="flexAX">
+              <div className="flexBXf">
+                <h4>Bank Details</h4>
+                <div className="flexTopX ">
+                  <div className="flexC givmargin givpad">
+                    <p>Bank name</p>
+                    <input
+                      type="text"
+                      name="bank_name"
+                      onChange={inputA}
+                      value={bankdetail.bank_name}
+                    />
+                  </div>
+                  <div className="flexC givmargin givpadd">
+                    <p>Account Number</p>
+                    <input
+                      type="text"
+                      name="acc_number"
+                      onChange={inputA}
+                      value={bankdetail.acc_number}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////              */}
           {/* sectionB */}
           <div className="sectionB">
@@ -763,7 +799,7 @@ year,
                 <div className="flexT">
                   <h4>Saving</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkB1"
@@ -776,7 +812,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Opening Savings</p>
-                  <input required
+                  <input
+                    required
                     type="text"
                     name="opening_savings"
                     value={saving.opening_savings}
@@ -785,7 +822,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Savings</p>
-                  <input required
+                  <input
+                    required
                     type="text"
                     name="current_year_savings"
                     value={saving.current_year_savings}
@@ -794,7 +832,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Savings</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="total_savings"
                     onChange={inputB}
@@ -810,7 +849,7 @@ year,
                 <div className="flexT">
                   <h4>SLF Member Loans</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkB2"
@@ -825,7 +864,8 @@ year,
 
                 <div className="flexC">
                   <p>Opening Bank Loans</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="slfm_opening_loan"
                     onChange={inputE}
@@ -834,7 +874,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Sanctioned</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="slfm_current_year_sanctioned"
                     onChange={inputE}
@@ -843,7 +884,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Recovery</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="slfm_current_year_recovery"
                     onChange={inputE}
@@ -852,7 +894,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Loan Outstanding</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="slfm_total_loan_outstanding"
                     readOnly
@@ -877,7 +920,7 @@ year,
                 <div className="flexT">
                   <h4>Bank Loans</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkC1"
@@ -891,7 +934,8 @@ year,
 
                 <div className="flexC">
                   <p>Opening Bank Loan</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="bank_opening_bank_loan"
                     onChange={inputC}
@@ -900,7 +944,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Sanctioned</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="bank_current_year_sanctioned"
                     onChange={inputC}
@@ -909,7 +954,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Recovery</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="bank_current_year_recovery"
                     onChange={inputC}
@@ -918,7 +964,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Loan Outstanding</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="bank_total_loan_outstanding"
                     value={
@@ -937,7 +984,7 @@ year,
                 <div className="flexT">
                   <h4>Srinidhi Member Loans</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkC2"
@@ -951,7 +998,8 @@ year,
 
                 <div className="flexC">
                   <p>Opening Loans</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="srim_opening_loan"
                     onChange={inputF}
@@ -960,7 +1008,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Sanctioned</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="srim_current_year_sanctioned"
                     onChange={inputF}
@@ -969,7 +1018,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Recovery</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="srim_current_year_recovery"
                     onChange={inputF}
@@ -978,7 +1028,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Loan Outstanding</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="srim_total_loan_outstanding"
                     readOnly
@@ -1007,7 +1058,7 @@ year,
                   <h4>Covid Loans</h4>
 
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkD1"
@@ -1021,7 +1072,8 @@ year,
 
                 <div className="flexC">
                   <p>Opening Loans</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="covid_opening_loan"
                     onChange={inputD}
@@ -1030,7 +1082,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Sanctioned</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="covid_current_year_sanctioned"
                     onChange={inputD}
@@ -1039,7 +1092,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Recovery</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="covid_current_year_recovery"
                     onChange={inputD}
@@ -1048,7 +1102,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Loan Outstanding</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="covid_total_loan_outstanding"
                     readOnly
@@ -1066,7 +1121,7 @@ year,
                 <div className="flexT">
                   <h4>Internal Member Loan</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkD2"
@@ -1079,7 +1134,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Opening Loan </p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="iml_opening_loan"
                     onChange={inputD_d}
@@ -1088,7 +1144,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Sanctioned</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="iml_current_year_sanctioned"
                     onChange={inputD_d}
@@ -1097,7 +1154,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Recovery</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="iml_current_year_recovery"
                     onChange={inputD_d}
@@ -1106,7 +1164,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Loan Outstanding</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="iml_total_loan_outstanding"
                     readOnly
@@ -1132,7 +1191,7 @@ year,
                 <div className="flexT">
                   <h4>SLF Loans</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkE1"
@@ -1145,7 +1204,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Opening Loans </p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="opening_loans"
                     onChange={inputB_b}
@@ -1154,7 +1214,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Sanctioned</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="current_year_sanctioned"
                     onChange={inputB_b}
@@ -1163,7 +1224,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Recovery</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="current_year_recovery"
                     onChange={inputB_b}
@@ -1172,7 +1234,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Loan Outstanding</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="total_loan_outstanding"
                     readOnly
@@ -1192,7 +1255,7 @@ year,
                 <div className="flexT">
                   <h4>Bank Linkage Member Loans</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkE2"
@@ -1205,7 +1268,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Opening Loan </p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="blml_opening_loan"
                     onChange={inputE_e}
@@ -1214,7 +1278,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Sanctioned</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="blml_current_year_sanctioned"
                     onChange={inputE_e}
@@ -1223,7 +1288,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Recovery</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="blml_current_year_recovery"
                     onChange={inputE_e}
@@ -1232,7 +1298,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Loan Outstanding</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="blml_total_loan_outstanding"
                     readOnly
@@ -1260,7 +1327,7 @@ year,
                 <div className="flexT">
                   <h4>Srinidhi Loans</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkF1"
@@ -1273,7 +1340,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Opening Loan </p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="srinidhi_opening_loan"
                     onChange={inputC_c}
@@ -1282,7 +1350,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Sanctioned</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="srinidhi_current_year_sanctioned"
                     onChange={inputC_c}
@@ -1291,7 +1360,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Recovery</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="srinidhi_current_year_recovery"
                     onChange={inputC_c}
@@ -1300,7 +1370,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Loan Outstanding</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="srinidhi_total_loan_outstanding"
                     readOnly
@@ -1320,7 +1391,7 @@ year,
                 <div className="flexT">
                   <h4>Covid Member Loans</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkF2"
@@ -1333,7 +1404,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Opening Loan </p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="cml_opening_loan"
                     onChange={inputF_f}
@@ -1342,7 +1414,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Sanctioned</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="cml_current_year_sanctioned"
                     onChange={inputF_f}
@@ -1351,7 +1424,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Current Year Recovery</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="cml_current_year_recovery"
                     onChange={inputF_f}
@@ -1360,7 +1434,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Total Loan Outstanding</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="cml_total_loan_outstanding"
                     readOnly
@@ -1384,7 +1459,7 @@ year,
                 <div className="flexT">
                   <h4>Balances</h4>
                   <div className="flexD">
-                    <input 
+                    <input
                       type="checkbox"
                       name="default"
                       id="chkG1"
@@ -1398,7 +1473,8 @@ year,
 
                 <div className="flexC">
                   <p>Opening Bank Balance</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="opening_bank_balance"
                     onChange={inputG}
@@ -1407,7 +1483,8 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Opening Cash in Hand</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="opening_cash"
                     onChange={inputG}
@@ -1416,19 +1493,20 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Closing Bank Balance</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="closing_bank_balance"
                     onChange={inputG}
                     value={openingBankBalance.closing_bank_balance}
                   />
                 </div>
-              
               </div>
               <div className="flexBaX">
-              <div className="flexC ccin_margin">
+                <div className="flexC ccin_margin">
                   <p>Closing Cash in Hand</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="closing_cash"
                     onChange={inputG}
@@ -1437,33 +1515,45 @@ year,
                 </div>
                 <div className="flexC">
                   <p>Surplus</p>
-                  <input required
+                  <input
+                    required
                     type="number"
                     name="surplus"
                     onChange={inputG}
                     value={openingBankBalance.surplus}
                   />
-                  
                 </div>
-                <select required onChange={(e)=>{setYear(e.target.value)}}>
-            <option  disabled >year</option>
-              <option>2020</option>
-              <option>2021</option>
-              <option>2022</option>
-              <option>2023</option>
-              <option>2024</option>
-              <option>2025</option>
-              <option>2026</option>
-              <option>2027</option>
-              <option>2028</option>
-              <option>2029</option>
-              <option>2030</option>
-            </select>
+                <select
+                  required
+                  onChange={(e) => {
+                    setYear(e.target.value);
+                  }}
+                >
+                  <option selected disabled>
+                    year
+                  </option>
+                  <option>2020</option>
+                  <option>2021</option>
+                  <option>2022</option>
+                  <option>2023</option>
+                  <option>2024</option>
+                  <option>2025</option>
+                  <option>2026</option>
+                  <option>2027</option>
+                  <option>2028</option>
+                  <option>2029</option>
+                  <option>2030</option>
+                </select>
               </div>
             </div>
           </div>
           <div className="endbutton">
-            <input required type="submit" value="Submit" className="btn btn-success" />
+            <input
+              required
+              type="submit"
+              value="Submit"
+              className="btn btn-success"
+            />
           </div>
         </form>
       </div>

@@ -19,43 +19,68 @@ export const Filter = () => {
     navigate("/");
   }
   const handle = (e) => {
+    setfilterdata("")
     console.log(e.target.value);
     setfilter(e.target.value)
     // setfilterdata()
   };
   console.log(filter);
-  let slumid = "";
-  const searchslumid = async (e) => {
-    slumid = e.target.value;
-    console.log(slumid);
+  let district = "";
+  const searchdistrict = async (e) => {
+    district = e.target.value;
+    console.log(district);
     const res = await axios.post(
       "/api/auth/slumidsearch",
       {
-        Slum_Id: slumid,
+        Name_of_the_District: district,
       }
     );
     setfilterdata(res.data);
   };
-  let ward_Name = "";
-  const wardnumber = async (e) => {
-    ward_Name = e.target.value;
-    console.log(ward_Name);
+  let ulb = "";
+  const searchulb = async (e) => {
+    ulb = e.target.value;
+    console.log(ulb);
     const res = await axios.post(
       "/api/auth/slumidsearch",
       {
-        ward_Name: ward_Name,
+        Name_of_ulb: ulb,
       }
     );
     setfilterdata(res.data);
   };
-  let districtname = "";
-  const searchdistrictname = async (e) => {
-    districtname = e.target.value;
-    console.log(districtname);
+  let Tlf_Name = "";
+  const searchtlf = async (e) => {
+    Tlf_Name = e.target.value;
+    console.log(Tlf_Name);
     const res = await axios.post(
       "/api/auth/slumidsearch",
       {
-        Name_of_the_District: districtname,
+        TLF_NAME: Tlf_Name,
+      }
+    );
+    setfilterdata(res.data);
+  };
+  let Slf_Name = "";
+  const searchSlfName = async (e) => {
+    Slf_Name = e.target.value;
+    console.log(Slf_Name);
+    const res = await axios.post(
+      "/api/auth/slumidsearch",
+      {
+        SLF_NAME: Slf_Name,
+      }
+    );
+    setfilterdata(res.data);
+  };
+  let SHG = "";
+  const searchSHG = async (e) => {
+    SHG = e.target.value;
+    console.log(SHG);
+    const res = await axios.post(
+      "/api/auth/slumidsearch",
+      {
+        sghid: SHG,
       }
     );
     setfilterdata(res.data);
@@ -73,7 +98,7 @@ export const Filter = () => {
             {Object.keys(filterdata[0]).map((key, index) => {
               // console.log(row["SHG ID"]);
               const rooo = Object.keys(filterdata[0]).filter((item, index) => {
-                console.log(item);
+                // console. log(item);
               });
               return <td>{row[key]}</td>;
             })}
@@ -111,30 +136,39 @@ export const Filter = () => {
               Filter
             </option>
             <option className="option">District</option>
-            <option>Muciplaty</option>
-            <option>Ward no</option>
-            <option>Slum id</option>
+            <option>ulb</option>
+            <option>Tlf Name</option>
+            <option>Slf Name</option>
+            <option>SHG ID</option>
           </select>
 
-         {filter==="Slum id"?(<> <div className="formgroup">
-            <label htmlFor="slumid">slumid</label>
-            <input onChange={searchslumid} className="slumid" />
+         {filter==="District"?(<> <div className="formgroup">
+            <label htmlFor="district">District</label>
+            <input onChange={searchdistrict} className="district" />
           </div></>):("")}
-       {filter==="Muciplaty"?(<>   <div className="formgroup">
-            <label htmlFor="muncipalty">muncipalty</label>
-            <input className="muncipalty" id="muncipalty" />
+       {filter==="ulb"?(<>   <div className="formgroup">
+            <label htmlFor="muncipalty">Ulb</label>
+            <input onChange={searchulb} className="muncipalty" id="muncipalty" />
           </div></>):("")}
-         {filter==="Ward no"?(<> <div className="formgroup">
-            <label htmlFor="wardno">ward no</label>
-            <input onChange={wardnumber} className="wardno" id="wardno" />
+         {filter==="Tlf Name"?(<> <div className="formgroup">
+            <label htmlFor="wardno">Tlf Name</label>
+            <input onChange={searchtlf} className="wardno" id="wardno" />
           </div></>):("")}
         
-        {filter==="District"?(<>  <div className="formgroup">
-            <label htmlFor="district">district</label>
+        {filter==="Slf Name"?(<>  <div className="formgroup">
+            <label htmlFor="slfname">SLF name</label>
             <input
-              onChange={searchdistrictname}
-              className="district"
-              id="district"
+              onChange={searchSlfName}
+              className="slfname"
+              id="slfname"
+            />
+          </div></>):("")}
+        {filter==="SHG ID"?(<>  <div className="formgroup">
+            <label htmlFor="SHG">SHG ID</label>
+            <input
+              onChange={searchSHG}
+              className="SHG"
+              id="SHG"
             />
           </div></>):("")}
 

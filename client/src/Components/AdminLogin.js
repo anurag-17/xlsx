@@ -36,10 +36,11 @@ export const AdminLogin = () => {
   };
   useEffect(() => {
     if (error) {
-      alert.error(error);
+      console.log(error);
+      // alert.error(error[message]);
       dispatch(clearErrors());
     }
-  }, [error]);
+  }, [error,dispatch,alert]);
 
   return (
     <>

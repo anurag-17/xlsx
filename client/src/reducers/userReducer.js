@@ -121,6 +121,7 @@ export const userReducer = (state =INTIAL_STATE, action) => {
         ...state,
         loading: false,
         error: action.payload,
+        isUpdated:false
       };
     case UPDATE_PASSWORD_RESET:
       return {

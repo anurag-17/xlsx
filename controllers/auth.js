@@ -171,7 +171,7 @@ exports.xlsxget = catchAsyncerror(async (req, res, next) => {
 });
 
 exports.filterdata = catchAsyncerror(async (req, res, next) => {
-  const sghid = req.body.sghid  ;
+  const sghid = req.body.sghid;
   console.log(sghid);
   const data = await Excell.findOne({ "SHG ID": sghid });
   return res.status(200).json(data);
@@ -199,25 +199,30 @@ exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
   return res.status(200).json(data);
 });
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
-  let data=req.body.data
-  let sgid=data[0]["sghid"]
-  console.log(sgid);
+  let data = req.body.data;
+  let sgid = data[0]["sghid"];
+  console.log(data[0]["year"]);
 
-
+  // return
   try {
-    const user = await UploadFormData.findOne({sghid:sgid});
+    const user = await UploadFormData.findOne({ sghid: sgid });
+    const year = await UploadFormData.findOne({
+      sghid: sgid,
+      year: data[0]["year"],
+    });
     console.log(user);
-    // return
-      if (user) {
-        return res.status(500).json("Sghid already exist");
-      } else {
-        let savedData = await UploadFormData.insertMany(req.body.data);
-        return res.status(201).json({
-          success: true,
-          message: "data upload",
-          data: savedData,
-        });
-      }
+    if (data[0]["year"] === undefined) {
+      return res.status(500).json({message:"plz enter year",success:false});
+    }
+    if (year) {
+      return res.status(500).json({message:"already Sghid with same year",success:false});
+    }
+    if (user === "") {
+      return res.status(500).json({message:"Sghid already exist",success:false});
+    } else {
+      let savedData = await UploadFormData.insertMany(req.body.data);
+      return res.status(201).json({message:"data upload successfull",success:true});
+    }
     // });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
