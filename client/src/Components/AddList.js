@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { LOader } from "./LOader";
 import { useAlert } from "react-alert";
-import { clearErrors, uploadsheet } from "../action/useraction";
+import { clearErrors, logout, uploadsheet } from "../action/useraction";
 
 export const AddList = () => {
   const [selectedfile, setselectedfile] = useState();
@@ -19,6 +19,10 @@ export const AddList = () => {
   const dispatch = useDispatch();
   if (isAuthenticated === false) {
     navigate("/");
+  }
+  if(user.role==="user"){
+    dispatch(logout())
+    navigate("/employeelogin")
   }
   useEffect(() => {
     if (res ) {

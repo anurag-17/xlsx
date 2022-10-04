@@ -3,13 +3,15 @@ import axios from "axios";
 
 import { SideNavigation } from "./SideNavigation";
 import "./viewlist.css";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../action/useraction";
 
 export const Filter = () => {
   const { user, isAuthenticated, res, error, loading } = useSelector(
     (state) => state.user
   );
+  const dispatch =useDispatch()
   const navigate = useNavigate();
   const [filter, setfilter] = useState("");
     const [filterdata, setfilterdata] = useState([]);
@@ -17,6 +19,10 @@ export const Filter = () => {
 
   if (isAuthenticated === false) {
     navigate("/");
+  }
+  if(user.role==="user"){
+    dispatch(logout())
+    navigate("/employeelogin")
   }
   const handle = (e) => {
     setfilterdata("")

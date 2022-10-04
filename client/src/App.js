@@ -21,7 +21,7 @@ import { AdminLogin } from "./Components/AdminLogin";
 import { useDispatch, useSelector } from "react-redux";
 import { SideNavigation } from "./Components/SideNavigation";
 import { AddList } from "./Components/AddList";
-import { loaduser } from "./action/useraction";
+import { loaduser, logout } from "./action/useraction";
 import { Viewlist } from "./Components/Viewlist";
 import { BankForm } from "./Components/BankForm";
 import { Header } from "./Components/Header";
@@ -48,12 +48,12 @@ function App() {
       {/* <Upload/> */}
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Protectedroute><AdminLogin /></Protectedroute>}/>
+          <Route path="/" element={<Protectedrouteadmin><AdminLogin /></Protectedrouteadmin>}/>
           <Route path="/addlist" element={<AddList/>}/>
           <Route path="/viewlist" element={<Viewlist/>}/>
           <Route path="/bankform" element={<BankForm/>}/>
           <Route path="/filter" element={<Filter/>}/>
-          <Route path="/employeelogin" element={<Protectedroute><EmployeeLogin/></Protectedroute>}/>
+          <Route path="/employeelogin" element={<Protectedrouteuser><EmployeeLogin/></Protectedrouteuser>}/>
         </Routes>
       </BrowserRouter>
     </div>
@@ -62,13 +62,33 @@ function App() {
 
 export default App;
 
-export function Protectedroute(props) {
+export function Protectedrouteadmin(props) {
+  const dispatch = useDispatch();
+
   const { user,isAuthenticated } = useSelector((state) => state.user);
   if (user) {
     if (user.role === "admin") {
       return <Navigate to="/addlist" />;
     }
     else if(user.role==="user"){
+      dispatch(logout())
+      return <Navigate to="/employeelogin" />
+    }
+  } else {
+    return props.children;
+  }
+}
+export function Protectedrouteuser(props) {
+  const dispatch = useDispatch();
+
+  const { user,isAuthenticated } = useSelector((state) => state.user);
+  if (user) {
+    if (user.role === "admin") {
+      dispatch(logout())
+      return <Navigate to="/employeelogin" />;
+    }
+    else if(user.role==="user"){
+      
       return <Navigate to="/bankform" />
     }
   } else {

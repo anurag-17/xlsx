@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { apidata } from "../action/apiaction";
+import { logout } from "../action/useraction";
 import { LOader } from "./LOader";
 import { Pagination } from "./Pagination";
 import { SideNavigation } from "./SideNavigation";
@@ -22,6 +24,7 @@ export const Viewlist = () => {
 
   let currentRecords = filedata.slice(indexOfFirstRecord, indexOfLastRecord);
   const dispatch =useDispatch()
+  const navigate =useNavigate()
   const { user, isAuthenticated, } = useSelector((state) =>state.user);
 
   const getdata = async () => {
@@ -36,7 +39,10 @@ export const Viewlist = () => {
     // });
   };
   let pagelimit=20
-
+  if(user.role==="user"){
+    dispatch(logout())
+    navigate("/employeelogin")
+  }
  console.log(filedata);
   useEffect(() => {
 

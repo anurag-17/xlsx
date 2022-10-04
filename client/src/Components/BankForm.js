@@ -25,6 +25,10 @@ export const BankForm = () => {
   if (user === null) {
     navigate("/employeelogin");
   }
+  if(user.role==="admin"){
+    dispatch(logout())
+    navigate("/employeelogin")
+  }
   useEffect(() => {
     if (error) {
       alert.error(error.message);
