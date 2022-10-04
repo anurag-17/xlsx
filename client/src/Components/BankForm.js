@@ -38,6 +38,20 @@ export const BankForm = () => {
     if (isUpdated) {
       alert.success(isUpdated.message);
       dispatch(clearErrors());
+      setBankdetail({
+        sghid:'',
+        bank_name: '',
+         acc_number: '',
+        "Slum Id": '',
+        "Name of the District": '',
+        "ward Name": '',
+        "SHG Name": '',
+        "Name of the ULB": '',
+        "TLF NAME": '',
+        "SLF NAME": '',
+        "SGH ID": '',        
+      })
+      setsghid("")
       setSaving({
         opening_savings: "",
         current_year_savings: "",
@@ -260,17 +274,12 @@ export const BankForm = () => {
   let closing_bank_balance = openingBankBalance.closing_bank_balance;
   let closing_cash = openingBankBalance.closing_cash;
   let surplus = openingBankBalance.surplus;
-  let Total_fund_Recived = parseInt(opening_savings) + parseInt(surplus);
+  let Total_fund_Recived = parseInt(parseInt(saving.opening_savings) +
+        parseInt(saving.current_year_savings)) + parseInt(surplus);
   let SHGID = "";
-
   let total_fund_Available=parseInt(openingBankBalance.closing_bank_balance) +
   parseInt(openingBankBalance.closing_cash)
-  let variation =
-    parseInt(bankLinkageMemberLoan.blml_opening_loan) +
-    parseInt(
-      parseInt(bankLinkageMemberLoan.blml_current_year_sanctioned) -
-        parseInt(bankLinkageMemberLoan.blml_current_year_recovery)
-    );
+  let variation =total_fund_Available-Total_fund_Recived
   let bank_linkage_variation =
     parseInt(bankloan.bank_opening_bank_loan) +
     parseInt(
@@ -412,7 +421,6 @@ export const BankForm = () => {
       });
     }
   };
-console.log(Total_fund_Recived);
   const chkd1 = () => {
     let checkboxD1 = document.getElementById("chkD1");
     if (checkboxD1.checked === true) {
@@ -531,7 +539,6 @@ console.log(Total_fund_Recived);
       });
     }
   };
-
   const searchSHG = async (e) => {
     e.preventDefault();
     // SHGID = e.target.value;
@@ -542,6 +549,7 @@ console.log(Total_fund_Recived);
  
     setBankdetail({
       ...bankdetail,
+      sghid:res.data[sghid],
       bank_name: res.data["Bank name"],
       acc_number: res.data["SB Account No"],
       "Slum Id": res.data["Slum Id"],
@@ -784,6 +792,7 @@ Grade,
                 onChange={(e) => {
                   setsghid(e.target.value);
                 }}
+                value={sghid}
                 placeholder="search by SHG ID"
                 name="search"
               />
@@ -1505,7 +1514,8 @@ Grade,
                     <div className="flexC">
                       <label>Total fund Recived</label>
                       <input type="number"
-                        readOnly value={Total_fund_Recived}/>
+                        readOnly
+                         value={Total_fund_Recived}/>
                         
                     </div>
                     <div className="flexC">
@@ -1566,7 +1576,7 @@ Grade,
                       />
                     </div>
                     <div className="flexC">
-                      <p>Cloasing Bank Balance</p>
+                      <p>Closing  Bank Balance</p>
                       <input
                         type="number"
                         name="closing_bank_balance"

@@ -179,7 +179,8 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
 exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
   const sghid = req.body;
   // console.log(sghid);
-  const data = await UploadFormData.find(sghid, { _id: 0 });
+  // const data = await UploadFormData.find(sghid, { _id: 0 });
+  const data = await UploadFormData.find();
   console.log(data);
   if (data ===[]) {
     return res.status(500).json({message:"no data found",success: false});
