@@ -13,13 +13,14 @@ import {
 import { useNavigate } from "react-router-dom";
 import { Header } from "./Header";
 import { useAlert } from "react-alert";
+import { LOader } from "./LOader";
 
 export const BankForm = () => {
   const [formdata, setFormdata] = useState([{}]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const alert = useAlert();
-  const { user, isAuthenticated, error, isUpdated } = useSelector(
+  const { user, isAuthenticated, error, isUpdated,loading } = useSelector(
     (state) => state.user
   );
   if (user === null) {
@@ -725,8 +726,9 @@ export const BankForm = () => {
   };
   // console.log(year);
   return (
+    
     <>
-      <div style={{ position: "absolute", right: "40px" }}>
+    {loading?(<LOader/>):(<><div style={{ position: "absolute", right: "40px" }}>
         {" "}
         <span className="home_btn">
           {isAuthenticated === true ? (
@@ -1560,7 +1562,8 @@ export const BankForm = () => {
             />
           </div>
         </form>
-      </div>
+      </div></>)}
+      
     </>
   );
 };

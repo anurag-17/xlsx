@@ -32,7 +32,7 @@ import { Filter } from "./Components/Filter";
 function App() {
   const dispatch = useDispatch();
   dispatch(loaduser());
-// dispatch(apidata())
+dispatch(apidata())
 
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState(null);
@@ -90,6 +90,20 @@ export function Protectedrouteuser(props) {
     else if(user.role==="user"){
       
       return <Navigate to="/bankform" />
+    }
+  } else {
+    return props.children;
+  }
+}
+export function Protectedadmin(props) {
+  const dispatch = useDispatch();
+
+  const { user,isAuthenticated } = useSelector((state) => state.user);
+  if (user) {
+    if(user.role==="user"){
+      dispatch(logout())
+      
+      return <Navigate to="/employeelogin" />
     }
   } else {
     return props.children;

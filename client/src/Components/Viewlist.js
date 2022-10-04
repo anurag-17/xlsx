@@ -39,13 +39,16 @@ export const Viewlist = () => {
     // });
   };
   let pagelimit=20
+  if(isAuthenticated=== false){
+    navigate("/")
+  }
   if(user.role==="user"){
     dispatch(logout())
     navigate("/employeelogin")
   }
  console.log(filedata);
   useEffect(() => {
-
+    getdata()
   }, []);
   const fmap = () => {
     try {
