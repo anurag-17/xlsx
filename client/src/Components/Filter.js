@@ -59,13 +59,13 @@ export const Filter = () => {
   const searchtlf = async (e) => {
     Tlf_Name = e.target.value;
     console.log(Tlf_Name);
-    // const res = await axios.post(
-    //   "/api/auth/slumidsearch",
-    //   {
-    //     TLF_NAME: Tlf_Name,
-    //   }
-    // );
-    // setfilterdata(res.data);
+    const res = await axios.post(
+      "/api/auth/slumidsearch",
+      {
+        TLF_NAME: Tlf_Name,
+      }
+    );
+    setfilterdata(res.data);
   };
   let Slf_Name = "";
   const searchSlfName = async (e) => {
@@ -83,9 +83,6 @@ export const Filter = () => {
   const searchSHG = async (e) => {
     SHG = e.target.value;
     console.log(SHG);
-
-  };
-  const getdata=async()=>{
     const res = await axios.post(
       "/api/auth/slumidsearch",
       {
@@ -93,7 +90,7 @@ export const Filter = () => {
       }
     );
     setfilterdata(res.data);
-  }
+  };
   console.log(filterdata);
   console.log(finalsgid);
   const fmap = () => {
@@ -154,7 +151,7 @@ export const Filter = () => {
 
          {filter==="District"?(<> <div className="formgroup">
             <label htmlFor="district">District</label>
-            <input type="search"onChange={searchdistrict} className="district" />
+            <input onChange={searchdistrict} className="district" />
           </div></>):("")}
        {filter==="ulb"?(<>   <div className="formgroup">
             <label htmlFor="muncipalty">Ulb</label>
