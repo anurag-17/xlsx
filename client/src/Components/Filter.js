@@ -126,8 +126,9 @@ export const Filter = () => {
     <div>
       <SideNavigation />
       <div className="AddFlex">
-        <div style={{ width: "100%", marginLeft: "23%" }}>
+        <div style={{ width: "70%", marginLeft: "23%",marginTop:"10%" }}>
           <select
+          style={{width:"50%"}}
             onChange={handle}
             className="form-select form-select-lg mb-3"
             aria-label="Default select example"
@@ -176,7 +177,7 @@ export const Filter = () => {
             {filterdata.length >=1 ? (
               <>
                 <div
-                  style={{ overflow: "scroll", width: "70%" }}
+                  style={{ overflow: "scroll" }}
                   className="table-responsive"
                 >
                   <table className="table" responsive="true">
