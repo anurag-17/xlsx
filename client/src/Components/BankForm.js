@@ -279,18 +279,20 @@ export const BankForm = () => {
   let total_fund_Available=parseInt(openingBankBalance.closing_bank_balance) +
   parseInt(openingBankBalance.closing_cash)
   let variation =total_fund_Available-Total_fund_Recived
-  let bank_linkage_variation =
-  parseInt(bankloan.bank_opening_bank_loan) +
+  
+  
+  let Total_Bank_Loan_Outstanding= parseInt(bankloan.bank_opening_bank_loan) +
   parseInt(
     parseInt(bankloan.bank_current_year_sanctioned) -
-      parseInt(bankloan.bank_current_year_recovery)
-  )-parseInt(bankLinkageMemberLoan.blml_opening_loan) +
+    parseInt(bankloan.bank_current_year_recovery)
+  )
+  let Total_Bank_Member_Loan_Outstanding= parseInt(bankLinkageMemberLoan.blml_opening_loan) +
   parseInt(
     parseInt(bankLinkageMemberLoan.blml_current_year_sanctioned) -
       parseInt(bankLinkageMemberLoan.blml_current_year_recovery)
-  )
-  ;
-  console.log();
+      )
+      let bank_linkage_variation =Total_Bank_Loan_Outstanding-Total_Bank_Member_Loan_Outstanding
+      console.log(Total_Bank_Loan_Outstanding,Total_Bank_Member_Loan_Outstanding);
   // const inputsgh=(e)=>{setSHGID(e.target.value);searchSHG()}
   const inputA = (e) => {
     setBankdetail({ ...bankdetail, [e.target.name]: e.target.value });
@@ -303,6 +305,8 @@ export const BankForm = () => {
   };
   const inputC = (e) => {
     setBankloan({ ...bankloan, [e.target.name]: e.target.value });
+    console.log(bankloan);
+    
   };
   const inputC_c = (e) => {
     setSrinidhiLoan({ ...srinidhiLoan, [e.target.name]: e.target.value });
@@ -470,7 +474,7 @@ export const BankForm = () => {
       });
     }
   };
-
+  
   const chke2 = () => {
     let checkboxE2 = document.getElementById("chkE2");
     if (checkboxE2.checked === true) {
@@ -487,7 +491,7 @@ export const BankForm = () => {
       });
     }
   };
-
+  
   const chkf1 = () => {
     let checkboxF1 = document.getElementById("chkF1");
     if (checkboxF1.checked === true) {
@@ -547,7 +551,7 @@ export const BankForm = () => {
     const res = await axios.post("/api/auth/finddata", {
       sghid,
     });
- 
+    
     setBankdetail({
       ...bankdetail,
       sghid:res.data[sghid],
@@ -563,108 +567,117 @@ export const BankForm = () => {
       "SGH ID": res.data["SGH ID"],
     });
   };
-  //  useEffect(() => {
-
-  //   setFormdata( )
-  //  });
-
-
-  const form_submit = (e) => {
-    e.preventDefault();
-
-    setBankdetail(bankdetail);
-    setSaving(
-      saving,
-      (saving.total_savings =
-        parseInt(saving.opening_savings) +
-        parseInt(saving.current_year_savings))
-    );
-    setSlfloan(
-      slfloan,
-      (slfloan.total_loan_outstanding =
-        parseInt(slfloan.opening_loans) +
+  const total_loan_outstanding_changes =()=>{
+    
+    bankloan.bank_total_loan_outstanding=bankloan.bank_total_loan_outstanding =
+    parseInt(bankloan.bank_opening_bank_loan) +
+    parseInt(
+      parseInt(bankloan.bank_current_year_sanctioned) -
+      parseInt(bankloan.bank_current_year_recovery)
+      )
+      return bankloan.bank_total_loan_outstanding  }
+      const blml_total_loan_outstandin=()=>{
+        bankLinkageMemberLoan.blml_total_loan_outstanding=parseInt(bankLinkageMemberLoan.blml_opening_loan) +
         parseInt(
           parseInt(
+            bankLinkageMemberLoan.blml_current_year_sanctioned
+            ) -
+            parseInt(
+              bankLinkageMemberLoan.blml_current_year_recovery
+      )
+  )
+}
+
+
+
+const form_submit = (e) => {
+  e.preventDefault();
+  
+  setBankdetail(bankdetail);
+  setSaving(
+    saving,
+    (saving.total_savings =
+      parseInt(saving.opening_savings) +
+      parseInt(saving.current_year_savings))
+      );
+      setSlfloan(
+        slfloan,
+        (slfloan.total_loan_outstanding =
+          parseInt(slfloan.opening_loans) +
+          parseInt(
+            parseInt(
             parseInt(slfloan.current_year_sanctioned) -
-              parseInt(slfloan.current_year_recovery)
-          )
-        ))
-    );
-    setBankloan(
-      bankloan,
-      (bankloan.bank_total_loan_outstanding =
-        parseInt(bankloan.bank_opening_bank_loan) +
-        parseInt(
-          parseInt(bankloan.bank_current_year_sanctioned) -
-            parseInt(bankloan.bank_current_year_recovery)
-        ))
-    );
-    setSrinidhiLoan(
-      srinidhiLoan,
-      (srinidhiLoan.srinidhi_total_loan_outstanding =
-        parseInt(srinidhiLoan.srinidhi_opening_loan) +
-        parseInt(
-          parseInt(srinidhiLoan.srinidhi_current_year_sanctioned) -
+            parseInt(slfloan.current_year_recovery)
+            )
+            ))
+            );
+            
+            setSrinidhiLoan(
+              srinidhiLoan,
+              (srinidhiLoan.srinidhi_total_loan_outstanding =
+                parseInt(srinidhiLoan.srinidhi_opening_loan) +
+                parseInt(
+                  parseInt(srinidhiLoan.srinidhi_current_year_sanctioned) -
             parseInt(srinidhiLoan.srinidhi_current_year_recovery)
-        ))
-    );
-    setCovidloan(
+            ))
+            );
+            setCovidloan(
       covidloan,
       (covidloan.covid_total_loan_outstanding =
         parseInt(covidloan.covid_opening_loan) +
         parseInt(
           parseInt(covidloan.covid_current_year_sanctioned) -
-            parseInt(covidloan.covid_current_year_recovery)
+          parseInt(covidloan.covid_current_year_recovery)
         ))
-    );
-    setInternalMemberLoan(
-      internalMemberLoan,
+        );
+        setInternalMemberLoan(
+          internalMemberLoan,
       (internalMemberLoan.iml_total_loan_outstanding =
         parseInt(internalMemberLoan.iml_opening_loan) +
         parseInt(
           parseInt(internalMemberLoan.iml_current_year_sanctioned) -
             parseInt(internalMemberLoan.iml_current_year_recovery)
-        ))
-    );
+            ))
+            );
     setSlfMemberLoan(
       slfMemberLoan,
       (slfMemberLoan.slfm_total_loan_outstanding =
         parseInt(slfMemberLoan.slfm_opening_loan) +
         parseInt(
           parseInt(slfMemberLoan.slfm_current_year_sanctioned) -
-            parseInt(slfMemberLoan.slfm_current_year_recovery)
-        ))
-    );
-    setBankLinkageMemberLoan(
-      bankLinkageMemberLoan,
+          parseInt(slfMemberLoan.slfm_current_year_recovery)
+          ))
+          );
+          setBankLinkageMemberLoan(
+            bankLinkageMemberLoan,
       (bankLinkageMemberLoan.blml_total_loan_outstanding =
         parseInt(bankLinkageMemberLoan.blml_opening_loan) +
         parseInt(
           parseInt(bankLinkageMemberLoan.blml_current_year_sanctioned) -
-            parseInt(bankLinkageMemberLoan.blml_current_year_recovery)
-        ))
-    );
+          parseInt(bankLinkageMemberLoan.blml_current_year_recovery)
+          ))
+          );
     setSrinidhiMemberLoan(
       srinidhiMemberLoan,
       (srinidhiMemberLoan.srim_total_loan_outstanding =
         parseInt(srinidhiMemberLoan.srim_opening_loan) +
         parseInt(
           parseInt(srinidhiMemberLoan.srim_current_year_sanctioned) -
-            parseInt(srinidhiMemberLoan.srim_current_year_recovery)
-        ))
-    );
-    setCovidMemberLoans(
-      covidMemberLoans,
-      (covidMemberLoans.cml_total_loan_outstanding =
-        parseInt(covidMemberLoans.cml_opening_loan) +
-        parseInt(
-          parseInt(covidMemberLoans.cml_current_year_sanctioned) -
-            parseInt(covidMemberLoans.cml_current_year_recovery)
-        ))
-    );
-    setOpeningBankBalance(openingBankBalance);
-    dispatch(
-      updateprofile([
+          parseInt(srinidhiMemberLoan.srim_current_year_recovery)
+          ))
+          );
+          setCovidMemberLoans(
+            covidMemberLoans,
+            (covidMemberLoans.cml_total_loan_outstanding =
+              parseInt(covidMemberLoans.cml_opening_loan) +
+              parseInt(
+                parseInt(covidMemberLoans.cml_current_year_sanctioned) -
+                parseInt(covidMemberLoans.cml_current_year_recovery)
+                ))
+                );
+                setOpeningBankBalance(openingBankBalance);
+                dispatch(
+                  updateprofile([
         {
           sghid,
           accnu,
@@ -686,7 +699,7 @@ export const BankForm = () => {
 variation,
 bank_linkage_variation,
 Grade,
-          current_year_sanctioned,
+current_year_sanctioned,
           current_year_recovery,
           total_loan_outstanding,
           bank_opening_bank_loan,
@@ -728,26 +741,27 @@ Grade,
           surplus,
         },
       ])
-    );
+      );
 
-  
-
-    setChecked(false);
-    setChecked1(false);
-    setChecked2(false);
-    setChecked3(false);
-    setChecked4(false);
-    setChecked5(false);
-    setChecked6(false);
+      
+      
+      setChecked(false);
+      setChecked1(false);
+      setChecked2(false);
+      setChecked3(false);
+      setChecked4(false);
+      setChecked5(false);
+      setChecked6(false);
     setChecked7(false);
     setChecked8(false);
     setChecked9(false);
     setChecked10(false);
-
+    
   };
 
+  console.log(bankloan.bank_total_loan_outstanding);
   const uppercaseWords = (str) =>
-    str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
+  str.replace(/^(.)|\s+(.)/g, (c) => c.toUpperCase());
   const logoutUser = () => {
     dispatch(logout());
     navigate("/employeelogin");
@@ -1014,13 +1028,8 @@ Grade,
                         required
                         type="number"
                         name="bank_total_loan_outstanding"
-                        value={
-                          parseInt(bankloan.bank_opening_bank_loan) +
-                          parseInt(
-                            parseInt(bankloan.bank_current_year_sanctioned) -
-                              parseInt(bankloan.bank_current_year_recovery)
-                          )
-                        }
+                        // onChange={()=>{}}
+                        value={total_loan_outstanding_changes()}
                         readOnly
                       />
                     </div>
@@ -1353,16 +1362,17 @@ Grade,
                         type="number"
                         name="blml_total_loan_outstanding"
                         readOnly
+                        onChangeCapture={()=>{ console.log(bankloan);}}
                         value={
-                          parseInt(bankLinkageMemberLoan.blml_opening_loan) +
-                          parseInt(
-                            parseInt(
-                              bankLinkageMemberLoan.blml_current_year_sanctioned
-                            ) -
-                              parseInt(
-                                bankLinkageMemberLoan.blml_current_year_recovery
-                              )
-                          )
+                          (parseInt(bankLinkageMemberLoan.blml_opening_loan) +
+  parseInt(
+    parseInt(
+      bankLinkageMemberLoan.blml_current_year_sanctioned
+    ) -
+      parseInt(
+        bankLinkageMemberLoan.blml_current_year_recovery
+      ))
+  )
                         }
                       />
                     </div>
@@ -1532,7 +1542,7 @@ Grade,
                       <input type="number" readOnly value={variation} />
                     </div>
                     <div className="flexC">
-                      <label>Bank Linage Variation</label>
+                      <label>bank_linkage_variation</label>
                       <input
                         type="number"
                         readOnly
