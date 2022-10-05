@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { apidata } from "../action/apiaction";
 import { logout } from "../action/useraction";
+import { Header } from "./Header";
 import { LOader } from "./LOader";
 import { Pagination } from "./Pagination";
 import { SideNavigation } from "./SideNavigation";
@@ -82,13 +83,15 @@ export const Viewlist = () => {
   };
   return (
     <div>
+      <Header/>
+
         <SideNavigation/>
       {loading?(<LOader/>):(<><div className="AddFlex">
         <div style={{width:"100%"}}>
           {filedata.length >1 ? (
             <>
               <div
-                style={{ overflow: "scroll", width: "70%", margin: "0 21%" }}
+                style={{ overflow: "scroll", width: "70%", margin: "80px 21%" }}
                 className="table-responsive"
               >
                 <table className="table" responsive="true">

@@ -6,6 +6,7 @@ import "./viewlist.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../action/useraction";
+import { Header } from "./Header";
 export const Checkgrade = () => {
   const [filterdata, setfilterdata] = useState([]);
   const [filter, setfilter] = useState("");
@@ -61,6 +62,7 @@ export const Checkgrade = () => {
     <div>
       
       <div>
+      <Header/>
         <SideNavigation />
         <div className="AddFlex">
           <div style={{ width: "70%", marginLeft: "23%", marginTop: "10%" }}>

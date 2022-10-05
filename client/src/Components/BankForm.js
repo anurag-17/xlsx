@@ -1542,7 +1542,7 @@ current_year_sanctioned,
                       <input type="number" readOnly value={variation} />
                     </div>
                     <div className="flexC">
-                      <label>bank_linkage_variation</label>
+                      <label>Bank linkage variation</label>
                       <input
                         type="number"
                         readOnly
