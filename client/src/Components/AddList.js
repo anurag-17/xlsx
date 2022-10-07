@@ -11,7 +11,7 @@ import { clearErrors, logout, uploadsheet } from "../action/useraction";
 
 export const AddList = () => {
   const [selectedfile, setselectedfile] = useState();
-  const { user, isAuthenticated, res, error,loading } = useSelector(
+  const { user, isAuthenticated,error,loading ,success,isUpdated} = useSelector(
     (state) => state.user
   );
   const navigate = useNavigate();
@@ -25,15 +25,16 @@ export const AddList = () => {
     navigate("/employeelogin")
   }
   useEffect(() => {
-    if (res ) {
-      alert.success(res.message);
-      dispatch(clearErrors());
-    }
-    if (error) {
+ 
+    if (isUpdated === false ) {
       alert.error(error);
       dispatch(clearErrors());
     }
-  }, [ alert, dispatch, error,res]);
+    if (success) {
+      alert.success(success);
+      dispatch(clearErrors());
+    }
+  }, [ success,error]);
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
@@ -45,16 +46,7 @@ export const AddList = () => {
           "Content-type": "multipart/form-data",
         },
       };
-      // const res = await axios.post(
-      //   "https://excelconvert.herokuapp.com/upload",
-      //   formdata,
-      //   {
-      //     headers: {
-      //     'Content-Type': "multipart/form-data"
-      //     }
-      //   }
-      // );
-      // console.log(res.data.success);
+     
       dispatch(uploadsheet(formdata));
     } catch (error) {
       alert.error(error);
@@ -76,7 +68,8 @@ export const AddList = () => {
             <div style={{ margin: "5% auto auto" }}>
               <form onSubmit={handlesubmit} action="">
                 <input
-                  type="file"
+                  type="file" 
+                  accept='.xlsx'
                   onChange={(e) => setselectedfile(e.target.files[0])}
                 />
                 <input type="submit" value="Upload" />
