@@ -277,7 +277,7 @@ export const BankForm = () => {
         parseInt(saving.current_year_savings)) + parseInt(surplus);
         let SHGID = "";
   let total_fund_Available=parseInt(openingBankBalance.closing_bank_balance) +
-  parseInt(openingBankBalance.closing_cash)
+  parseInt(openingBankBalance.closing_cash) + parseInt(internalMemberLoan.iml_total_loan_outstanding)
   let variation =total_fund_Available-Total_fund_Recived
   
   
@@ -813,7 +813,7 @@ current_year_sanctioned,
               />
               <button onClick={searchSHG}>Search </button>
             </form>
-            <label>{bankdetail["SHG Name"]}</label>
+            <label>SHG Name: {bankdetail["SHG Name"]}</label>
             <form
               action=""
               encType="multipart/form-data"
@@ -905,29 +905,27 @@ current_year_sanctioned,
                   </div>
                   <div className="flexBaX">
                     <div className="flexT">
-                      <h4>SLF Member Loans</h4>
+                      <h4>Internal Member Loan</h4>
                       <div className="flexD">
                         <input
                           type="checkbox"
                           name="default"
-                          id="chkB2"
-                          onClick={chkb2}
-                          className="chkbox"
-                          checked={checked1}
-                          onChange={(e) => setChecked1(e.target.checked)}
+                          id="chkD2"
+                          onClick={chkd2}
+                          checked={checked5}
+                          onChange={(e) => setChecked5(e.target.checked)}
                         />
                         <p>Default Value</p>
                       </div>
                     </div>
-
                     <div className="flexC">
-                      <p>Opening Bank Loans</p>
+                      <p>Opening Loan </p>
                       <input
                         required
                         type="number"
-                        name="slfm_opening_loan"
-                        onChange={inputE}
-                        value={slfMemberLoan.slfm_opening_loan}
+                        name="iml_opening_loan"
+                        onChange={inputD_d}
+                        value={internalMemberLoan.iml_opening_loan}
                       />
                     </div>
                     <div className="flexC">
@@ -935,9 +933,9 @@ current_year_sanctioned,
                       <input
                         required
                         type="number"
-                        name="slfm_current_year_sanctioned"
-                        onChange={inputE}
-                        value={slfMemberLoan.slfm_current_year_sanctioned}
+                        name="iml_current_year_sanctioned"
+                        onChange={inputD_d}
+                        value={internalMemberLoan.iml_current_year_sanctioned}
                       />
                     </div>
                     <div className="flexC">
@@ -945,9 +943,9 @@ current_year_sanctioned,
                       <input
                         required
                         type="number"
-                        name="slfm_current_year_recovery"
-                        onChange={inputE}
-                        value={slfMemberLoan.slfm_current_year_recovery}
+                        name="iml_current_year_recovery"
+                        onChange={inputD_d}
+                        value={internalMemberLoan.iml_current_year_recovery}
                       />
                     </div>
                     <div className="flexC">
@@ -955,15 +953,17 @@ current_year_sanctioned,
                       <input
                         required
                         type="number"
-                        name="slfm_total_loan_outstanding"
+                        name="iml_total_loan_outstanding"
                         readOnly
                         value={
-                          parseInt(slfMemberLoan.slfm_opening_loan) +
+                          parseInt(internalMemberLoan.iml_opening_loan) +
                           parseInt(
                             parseInt(
-                              slfMemberLoan.slfm_current_year_sanctioned
+                              internalMemberLoan.iml_current_year_sanctioned
                             ) -
-                              parseInt(slfMemberLoan.slfm_current_year_recovery)
+                              parseInt(
+                                internalMemberLoan.iml_current_year_recovery
+                              )
                           )
                         }
                       />
@@ -1037,279 +1037,6 @@ current_year_sanctioned,
                   {/* ..................................................................... */}
                   <div className="flexBaX">
                     <div className="flexT">
-                      <h4>Srinidhi Member Loans</h4>
-                      <div className="flexD">
-                        <input
-                          type="checkbox"
-                          name="default"
-                          id="chkC2"
-                          onClick={chkc2}
-                          checked={checked3}
-                          onChange={(e) => setChecked3(e.target.checked)}
-                        />
-                        <p>Default Value</p>
-                      </div>
-                    </div>
-
-                    <div className="flexC">
-                      <p>Opening Loans</p>
-                      <input
-                        required
-                        type="number"
-                        name="srim_opening_loan"
-                        onChange={inputF}
-                        value={srinidhiMemberLoan.srim_opening_loan}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Current Year Sanctioned</p>
-                      <input
-                        required
-                        type="number"
-                        name="srim_current_year_sanctioned"
-                        onChange={inputF}
-                        value={srinidhiMemberLoan.srim_current_year_sanctioned}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Current Year Recovery</p>
-                      <input
-                        required
-                        type="number"
-                        name="srim_current_year_recovery"
-                        onChange={inputF}
-                        value={srinidhiMemberLoan.srim_current_year_recovery}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Total Loan Outstanding</p>
-                      <input
-                        required
-                        type="number"
-                        name="srim_total_loan_outstanding"
-                        readOnly
-                        value={
-                          parseInt(srinidhiMemberLoan.srim_opening_loan) +
-                          parseInt(
-                            parseInt(
-                              srinidhiMemberLoan.srim_current_year_sanctioned
-                            ) -
-                              parseInt(
-                                srinidhiMemberLoan.srim_current_year_recovery
-                              )
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////         */}
-              {/* sectionD */}
-              <div className="sectionD">
-                <div className="flexAX">
-                  <div className="flexBX">
-                    <div className="flexT">
-                      <h4>Covid Loans</h4>
-
-                      <div className="flexD">
-                        <input
-                          type="checkbox"
-                          name="default"
-                          id="chkD1"
-                          onClick={chkd1}
-                          checked={checked4}
-                          onChange={(e) => setChecked4(e.target.checked)}
-                        />
-                        <p>Default Value</p>
-                      </div>
-                    </div>
-
-                    <div className="flexC">
-                      <p>Opening Loans</p>
-                      <input
-                        required
-                        type="number"
-                        name="covid_opening_loan"
-                        onChange={inputD}
-                        value={covidloan.covid_opening_loan}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Current Year Sanctioned</p>
-                      <input
-                        required
-                        type="number"
-                        name="covid_current_year_sanctioned"
-                        onChange={inputD}
-                        value={covidloan.covid_current_year_sanctioned}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Current Year Recovery</p>
-                      <input
-                        required
-                        type="number"
-                        name="covid_current_year_recovery"
-                        onChange={inputD}
-                        value={covidloan.covid_current_year_recovery}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Total Loan Outstanding</p>
-                      <input
-                        required
-                        type="number"
-                        name="covid_total_loan_outstanding"
-                        readOnly
-                        value={
-                          parseInt(covidloan.covid_opening_loan) +
-                          parseInt(
-                            parseInt(covidloan.covid_current_year_sanctioned) -
-                              parseInt(covidloan.covid_current_year_recovery)
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div className="flexBaX">
-                    <div className="flexT">
-                      <h4>Internal Member Loan</h4>
-                      <div className="flexD">
-                        <input
-                          type="checkbox"
-                          name="default"
-                          id="chkD2"
-                          onClick={chkd2}
-                          checked={checked5}
-                          onChange={(e) => setChecked5(e.target.checked)}
-                        />
-                        <p>Default Value</p>
-                      </div>
-                    </div>
-                    <div className="flexC">
-                      <p>Opening Loan </p>
-                      <input
-                        required
-                        type="number"
-                        name="iml_opening_loan"
-                        onChange={inputD_d}
-                        value={internalMemberLoan.iml_opening_loan}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Current Year Sanctioned</p>
-                      <input
-                        required
-                        type="number"
-                        name="iml_current_year_sanctioned"
-                        onChange={inputD_d}
-                        value={internalMemberLoan.iml_current_year_sanctioned}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Current Year Recovery</p>
-                      <input
-                        required
-                        type="number"
-                        name="iml_current_year_recovery"
-                        onChange={inputD_d}
-                        value={internalMemberLoan.iml_current_year_recovery}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Total Loan Outstanding</p>
-                      <input
-                        required
-                        type="number"
-                        name="iml_total_loan_outstanding"
-                        readOnly
-                        value={
-                          parseInt(internalMemberLoan.iml_opening_loan) +
-                          parseInt(
-                            parseInt(
-                              internalMemberLoan.iml_current_year_sanctioned
-                            ) -
-                              parseInt(
-                                internalMemberLoan.iml_current_year_recovery
-                              )
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-              {/* sectionE */}
-              <div className="sectionE">
-                <div className="flexAX">
-                  <div className="flexBX">
-                    <div className="flexT">
-                      <h4>SLF Loans</h4>
-                      <div className="flexD">
-                        <input
-                          type="checkbox"
-                          name="default"
-                          id="chkE1"
-                          onClick={chke1}
-                          checked={checked6}
-                          onChange={(e) => setChecked6(e.target.checked)}
-                        />
-                        <p>Default Value</p>
-                      </div>
-                    </div>
-                    <div className="flexC">
-                      <p>Opening Loans </p>
-                      <input
-                        required
-                        type="number"
-                        name="opening_loans"
-                        onChange={inputB_b}
-                        value={slfloan.opening_loans}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Current Year Sanctioned</p>
-                      <input
-                        required
-                        type="number"
-                        name="current_year_sanctioned"
-                        onChange={inputB_b}
-                        value={slfloan.current_year_sanctioned}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Current Year Recovery</p>
-                      <input
-                        required
-                        type="number"
-                        name="current_year_recovery"
-                        onChange={inputB_b}
-                        value={slfloan.current_year_recovery}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <p>Total Loan Outstanding</p>
-                      <input
-                        required
-                        type="number"
-                        name="total_loan_outstanding"
-                        readOnly
-                        value={
-                          parseInt(slfloan.opening_loans) +
-                          parseInt(
-                            parseInt(
-                              parseInt(slfloan.current_year_sanctioned) -
-                                parseInt(slfloan.current_year_recovery)
-                            )
-                          )
-                        }
-                      />
-                    </div>
-                  </div>
-                  <div className="flexBaX">
-                    <div className="flexT">
                       <h4>Bank Linkage Member Loans</h4>
                       <div className="flexD">
                         <input
@@ -1379,9 +1106,145 @@ current_year_sanctioned,
                   </div>
                 </div>
               </div>
-              {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-              {/* sectionF */}
-              <div className="sectionF">
+              {/* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////         */}
+              {/* sectionD */}
+              <div className="sectionD">
+                <div className="flexAX">
+                  <div className="flexBX">
+                    <div className="flexT">
+                      <h4>SLF Loans</h4>
+                      <div className="flexD">
+                        <input
+                          type="checkbox"
+                          name="default"
+                          id="chkE1"
+                          onClick={chke1}
+                          checked={checked6}
+                          onChange={(e) => setChecked6(e.target.checked)}
+                        />
+                        <p>Default Value</p>
+                      </div>
+                    </div>
+                    <div className="flexC">
+                      <p>Opening Loans </p>
+                      <input
+                        required
+                        type="number"
+                        name="opening_loans"
+                        onChange={inputB_b}
+                        value={slfloan.opening_loans}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Current Year Sanctioned</p>
+                      <input
+                        required
+                        type="number"
+                        name="current_year_sanctioned"
+                        onChange={inputB_b}
+                        value={slfloan.current_year_sanctioned}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Current Year Recovery</p>
+                      <input
+                        required
+                        type="number"
+                        name="current_year_recovery"
+                        onChange={inputB_b}
+                        value={slfloan.current_year_recovery}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Total Loan Outstanding</p>
+                      <input
+                        required
+                        type="number"
+                        name="total_loan_outstanding"
+                        readOnly
+                        value={
+                          parseInt(slfloan.opening_loans) +
+                          parseInt(
+                            parseInt(
+                              parseInt(slfloan.current_year_sanctioned) -
+                                parseInt(slfloan.current_year_recovery)
+                            )
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="flexBaX">
+                    <div className="flexT">
+                      <h4>SLF Member Loans</h4>
+                      <div className="flexD">
+                        <input
+                          type="checkbox"
+                          name="default"
+                          id="chkB2"
+                          onClick={chkb2}
+                          className="chkbox"
+                          checked={checked1}
+                          onChange={(e) => setChecked1(e.target.checked)}
+                        />
+                        <p>Default Value</p>
+                      </div>
+                    </div>
+
+                    <div className="flexC">
+                      <p>Opening Bank Loans</p>
+                      <input
+                        required
+                        type="number"
+                        name="slfm_opening_loan"
+                        onChange={inputE}
+                        value={slfMemberLoan.slfm_opening_loan}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Current Year Sanctioned</p>
+                      <input
+                        required
+                        type="number"
+                        name="slfm_current_year_sanctioned"
+                        onChange={inputE}
+                        value={slfMemberLoan.slfm_current_year_sanctioned}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Current Year Recovery</p>
+                      <input
+                        required
+                        type="number"
+                        name="slfm_current_year_recovery"
+                        onChange={inputE}
+                        value={slfMemberLoan.slfm_current_year_recovery}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Total Loan Outstanding</p>
+                      <input
+                        required
+                        type="number"
+                        name="slfm_total_loan_outstanding"
+                        readOnly
+                        value={
+                          parseInt(slfMemberLoan.slfm_opening_loan) +
+                          parseInt(
+                            parseInt(
+                              slfMemberLoan.slfm_current_year_sanctioned
+                            ) -
+                              parseInt(slfMemberLoan.slfm_current_year_recovery)
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
+              {/* sectionE */}
+              <div className="sectionE">
                 <div className="flexAX">
                   <div className="flexBX">
                     <div className="flexT">
@@ -1444,6 +1307,144 @@ current_year_sanctioned,
                               parseInt(
                                 srinidhiLoan.srinidhi_current_year_recovery
                               )
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="flexBaX">
+                    <div className="flexT">
+                      <h4>Srinidhi Member Loans</h4>
+                      <div className="flexD">
+                        <input
+                          type="checkbox"
+                          name="default"
+                          id="chkC2"
+                          onClick={chkc2}
+                          checked={checked3}
+                          onChange={(e) => setChecked3(e.target.checked)}
+                        />
+                        <p>Default Value</p>
+                      </div>
+                    </div>
+
+                    <div className="flexC">
+                      <p>Opening Loans</p>
+                      <input
+                        required
+                        type="number"
+                        name="srim_opening_loan"
+                        onChange={inputF}
+                        value={srinidhiMemberLoan.srim_opening_loan}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Current Year Sanctioned</p>
+                      <input
+                        required
+                        type="number"
+                        name="srim_current_year_sanctioned"
+                        onChange={inputF}
+                        value={srinidhiMemberLoan.srim_current_year_sanctioned}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Current Year Recovery</p>
+                      <input
+                        required
+                        type="number"
+                        name="srim_current_year_recovery"
+                        onChange={inputF}
+                        value={srinidhiMemberLoan.srim_current_year_recovery}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Total Loan Outstanding</p>
+                      <input
+                        required
+                        type="number"
+                        name="srim_total_loan_outstanding"
+                        readOnly
+                        value={
+                          parseInt(srinidhiMemberLoan.srim_opening_loan) +
+                          parseInt(
+                            parseInt(
+                              srinidhiMemberLoan.srim_current_year_sanctioned
+                            ) -
+                              parseInt(
+                                srinidhiMemberLoan.srim_current_year_recovery
+                              )
+                          )
+                        }
+                      />
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              {/* ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
+              {/* sectionF */}
+              <div className="sectionF">
+                <div className="flexAX">
+                  <div className="flexBX">
+                    <div className="flexT">
+                      <h4>Covid Loans</h4>
+
+                      <div className="flexD">
+                        <input
+                          type="checkbox"
+                          name="default"
+                          id="chkD1"
+                          onClick={chkd1}
+                          checked={checked4}
+                          onChange={(e) => setChecked4(e.target.checked)}
+                        />
+                        <p>Default Value</p>
+                      </div>
+                    </div>
+
+                    <div className="flexC">
+                      <p>Opening Loans</p>
+                      <input
+                        required
+                        type="number"
+                        name="covid_opening_loan"
+                        onChange={inputD}
+                        value={covidloan.covid_opening_loan}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Current Year Sanctioned</p>
+                      <input
+                        required
+                        type="number"
+                        name="covid_current_year_sanctioned"
+                        onChange={inputD}
+                        value={covidloan.covid_current_year_sanctioned}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Current Year Recovery</p>
+                      <input
+                        required
+                        type="number"
+                        name="covid_current_year_recovery"
+                        onChange={inputD}
+                        value={covidloan.covid_current_year_recovery}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <p>Total Loan Outstanding</p>
+                      <input
+                        required
+                        type="number"
+                        name="covid_total_loan_outstanding"
+                        readOnly
+                        value={
+                          parseInt(covidloan.covid_opening_loan) +
+                          parseInt(
+                            parseInt(covidloan.covid_current_year_sanctioned) -
+                              parseInt(covidloan.covid_current_year_recovery)
                           )
                         }
                       />
@@ -1522,35 +1523,6 @@ current_year_sanctioned,
               <div className="sectionG">
                 <div className="flexAX">
                   <div className="flexBX">
-                    <div className="flexC">
-                      <label>Total fund Recived</label>
-                      <input type="number"
-                        readOnly
-                         value={Total_fund_Recived}/>
-                        
-                    </div>
-                    <div className="flexC">
-                      <label>Total fund Available</label>
-                      <input
-                        type="number"
-                        readOnly
-                        value={total_fund_Available}
-                      />
-                    </div>
-                    <div className="flexC">
-                      <label>variation</label>
-                      <input type="number" readOnly value={variation} />
-                    </div>
-                    <div className="flexC">
-                      <label>Bank linkage variation</label>
-                      <input
-                        type="number"
-                        readOnly
-                        value={bank_linkage_variation}
-                      />
-                    </div>
-                  </div>
-                  <div className="flexBaX">
                     <div className="flexT">
                       <h4>Balances</h4>
                       <div className="flexD">
@@ -1563,18 +1535,7 @@ current_year_sanctioned,
                           onChange={(e) => setChecked10(e.target.checked)}
                         />
                         <p>Default Value</p>
-                      </div>
-                    </div>
-
-                    <div className="flexC">
-                      <p>Opening Bank Balance</p>
-                      <input
-                        required
-                        type="number"
-                        name="opening_bank_balance"
-                        onChange={inputG}
-                        value={openingBankBalance.opening_bank_balance}
-                      />
+                      </div>    
                     </div>
                     <div className="flexC">
                       <p>Opening Cash in Hand</p>
@@ -1587,12 +1548,13 @@ current_year_sanctioned,
                       />
                     </div>
                     <div className="flexC">
-                      <p>Closing  Bank Balance</p>
+                      <p>Opening Bank Balance</p>
                       <input
+                        required
                         type="number"
-                        name="closing_bank_balance"
+                        name="opening_bank_balance"
                         onChange={inputG}
-                        value={openingBankBalance.closing_bank_balance}
+                        value={openingBankBalance.opening_bank_balance}
                       />
                     </div>
                     <div className="flexC ">
@@ -1605,6 +1567,15 @@ current_year_sanctioned,
                         value={openingBankBalance.closing_cash}
                       />
                     </div>
+                    <div className="flexC">
+                      <p>Closing  Bank Balance</p>
+                      <input
+                        type="number"
+                        name="closing_bank_balance"
+                        onChange={inputG}
+                        value={openingBankBalance.closing_bank_balance}
+                      />
+                    </div>        
                     <div className="flexC">
                       <p>Surplus</p>
                       <input
@@ -1636,6 +1607,46 @@ current_year_sanctioned,
                       <option>2029</option>
                       <option>2030</option>
                     </select>
+
+                  
+
+                  </div>
+                  <div className="flexBaX">
+                    <div className="flexC">
+                      <label>Total fund Recived</label>
+                      <input type="number"
+                        readOnly
+                         value={Total_fund_Recived}/>
+                        
+                    </div>
+                    <div className="flexC">
+                      <label>Total fund Available</label>
+                      <input
+                        type="number"
+                        readOnly
+                        value={total_fund_Available}
+                      />
+                    </div>
+                    <div className="flexC">
+                      <label>variation</label>
+                      <input type="number" readOnly value={variation} />
+                    </div>
+                    <div className="flexC">
+                      <label>Bank linkage variation</label>
+                      <input
+                        type="number"
+                        readOnly
+                        value={bank_linkage_variation}
+                      />
+                    </div>
+                    <div className = "flexC">
+                        <p> Grade </p>
+                        <input required
+                         name="grade"
+                         readOnly
+                         value={""}
+                         />
+                    </div>
                   </div>
                 </div>
               </div>
