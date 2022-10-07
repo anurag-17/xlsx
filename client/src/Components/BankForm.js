@@ -30,7 +30,10 @@ export const BankForm = () => {
     dispatch(logout());
     navigate("/employeelogin");
   }
+
+  
   useEffect(() => {
+    
     if (error) {
       alert.error(error.message);
       dispatch(clearErrors());
@@ -364,15 +367,7 @@ export const BankForm = () => {
       ...openingBankBalance,
       [e.target.name]: e.target.value,
     });
-    if (variation >= -10000) {
-      setGrade("A");
-    } else if ((variation < -20000) & (variation > -10000)) {
-      setGrade("B");
-    } else if ((variation < -30000) & (variation > -20000)) {
-      setGrade("C");
-    } else if (variation > -30000) {
-      setGrade("D");
-    }
+   
   };
   console.log(Grade);
   console.log(variation);
@@ -777,6 +772,22 @@ export const BankForm = () => {
     dispatch(logout());
     navigate("/employeelogin");
   };
+  useEffect(() => {
+    if (variation >= -10000) {
+      setGrade("A");
+      console.log(Grade);
+    } else if ((variation >= -20000) && (variation < -10000)) {
+      setGrade("B");
+      console.log(Grade);
+    } else if ((variation >= -30000) & (variation < -20000)) {
+      setGrade("C");
+      console.log(Grade);
+    }
+     else if (variation < -30000) {
+      setGrade("D");
+      console.log(Grade);
+    }
+  }, [variation]);
   return (
     <>
       {loading ? (
