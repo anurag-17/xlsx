@@ -29,6 +29,7 @@ import { EmployeeLogin } from "./Components/EmployeeLogin";
 import { apidata } from "./action/apiaction";
 import { Filter } from "./Components/Filter";
 import { Register } from "./Components/Register";
+import { Checkgrade } from "./Components/Checkgrade";
 
 function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ dispatch(apidata())
           <Route path="/bankform" element={<BankForm/>}/>
           <Route path="/register" element={<Register/>}/>
           <Route path="/filter" element={<Filter/>}/>
+          <Route path="/checkgrade" element={<Checkgrade/>}/>
           <Route path="/employeelogin" element={<Protectedrouteuser><EmployeeLogin/></Protectedrouteuser>}/>
         </Routes>
       </BrowserRouter>

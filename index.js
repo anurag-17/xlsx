@@ -21,53 +21,7 @@ app.use(bodyparser.urlencoded({ extended: true }));
 //connect router
 app.use("/api/auth", require("./route/roter"))
 
- //  step 1: ReAD EXCEL FILE
- 
-//  const WB =xlsx.readFile('SampleData(3).xlsx',{dateNF:"mm/dd/yyyy"})
-//  //  step 2: ReAD SHEET FROM WORKBOOKEXCEL FILE
-//   const ws= WB.Sheets.Sheet1;
 
-//  // step 3:READ SGHEET DATA AND CONVERT IT JSON
-// console.log(ws);
-//  const data= xlsx.utils.sheet_to_json(ws,{raw:false})
-// //  console.log(data);
-// //  STEP-5  WRITE JSON DATA INTO JSON FILE BY STRINGIFY DATA
-// fs.writeFileSync("./data.json",JSON.stringify(data,null,2))
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads");
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-var upload = multer({storage:storage})
-const uploadXLSX = async(req, res, next) => {
-  console.log(req.file);
-  try{
-    let path = req.file.path;
-    var workbook = XLSX.readFile(path);
-    var sheet_name_list = workbook.SheetNames;
-    let jsonData = XLSX.utils.sheet_to_json(
-      workbook.Sheets[sheet_name_list[0]]
-    );
-    if(jsonData.length === 0) {
-      return res.status(400).json({
-        success: false,
-        message: "xml sheet has no data",
-      });
-    }
-    let savedData = await Excell.insertMany(jsonData);
-
-    return res.status(201).json({
-      success: true,
-      message: savedData.length + " rows added to the database",
-      data:savedData
-    });
-  } catch (err) {
-    return res.status(500).json({ success: false, message: err.message });
-  }
-};
 // --------------------------deployment------------------------------
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "./client/build")));
@@ -84,7 +38,7 @@ if (process.env.NODE_ENV === "production") {
 
 // --------------------------deployment------------------------------
 
-app.post("/upload", upload.single("xlsx"),uploadXLSX);
+
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running on ${process.env.PORT}`);

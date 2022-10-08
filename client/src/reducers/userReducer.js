@@ -120,7 +120,7 @@ export const userReducer = (state =INTIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        error: action.payload,
+        error: action.payload.message,
         isUpdated:false
       };
     case UPDATE_PASSWORD_RESET:
@@ -132,8 +132,8 @@ export const userReducer = (state =INTIAL_STATE, action) => {
         return {
           ...state,
           loading: false,
-          isUpdated: action.payload.data ,
-          // res: 
+          success:action.payload.message,
+          isUpdated: true,
         };
     default:
       return state;

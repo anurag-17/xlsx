@@ -32,8 +32,15 @@ export const EmployeeLogin = () => {
           alert.error(error);
           dispatch(clearErrors());
         }
-      }, [error]);
-    
+      }, [error,alert,dispatch]);
+      function myFunction() {
+        var x = document.getElementById("floatingPassword");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
   return (
     <>
             <div className="container">
@@ -46,7 +53,12 @@ export const EmployeeLogin = () => {
                         </div>
                         <div className="flexboxA">
                             <h5>Password</h5>
-                            <input type="password" name="userpwd" placeholder='Enter password' onChange={Input_Handler}value={employeeData.userpwd} />
+                            <input type="password" name="userpwd" id='floatingPassword' placeholder='Enter password' onChange={Input_Handler}value={employeeData.userpwd} />
+                            <i
+                  className="fa fa-eye"
+                  style={{margin:"20px -31px"}}
+                  onClick={myFunction}
+                ></i>
                         </div>
                         <div className="buton">
                             <input type="submit" value="Login" className='btn btn-success' id='buttonSubmit' />

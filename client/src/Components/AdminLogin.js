@@ -14,7 +14,6 @@ export const AdminLogin = () => {
   const [adminData, setAdminData] = useState({
     username: "",
     userpwd: "",
-    
   });
   const Input_Handler = (e) => {
     setAdminData({ ...adminData, [e.target.name]: e.target.value });
@@ -37,49 +36,68 @@ export const AdminLogin = () => {
   useEffect(() => {
     if (error) {
       console.log(error);
-      // alert.error(error[message]);
+      alert.error(error);
       dispatch(clearErrors());
     }
-  }, [error,dispatch,alert]);
-
+  }, [error, dispatch, alert]);
+  function myFunction() {
+    var x = document.getElementById("floatingPassword");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
   return (
     <>
-   
-   {loading?(<LOader/>):(   <div className="container">
-        <div className="contentAdmin">
-          <h3>Admin Login</h3>
-          <form action="" onSubmit={Submittion}>
-            <div className="flexbox">
-              <h5>User name</h5>
-              <input
-                type="text"
-                name="username"
-                placeholder="Enter user name"
-                onChange={Input_Handler}
-                value={adminData.username}
-              />
-            </div>
-            <div className="flexboxA">
-              <h5>Password</h5>
-              <input
-                type="text"
-                name="userpwd"
-                placeholder="Enter password"
-                onChange={Input_Handler}
-                value={adminData.userpwd}
-              />
-            </div>
-            <div className="buton">
-              <input
-                type="submit"
-                value="Login"
-                className="btn btn-success"
-                id="buttonSubmit"
-              />
-            </div>
-          </form>
+      {loading ? (
+        <LOader />
+      ) : (
+        <div className="container">
+          <div className="contentAdmin">
+            <h3>Admin Login</h3>
+            <form action="" onSubmit={Submittion}>
+              <div className="flexboxA  mb-3">
+                <h5>User name</h5>
+                <input
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Enter user name"
+                  onChange={Input_Handler}
+                  className="form-control"
+                  value={adminData.username}
+                />
+              </div>
+              <div className="flexboxA  mb-3">
+                <h5>Password</h5>
+                <input
+                  type="password"
+                  id="floatingPassword"
+                  name="userpwd"
+                  onChange={Input_Handler}
+                  className="form-control"
+                  value={adminData.userpwd}
+                />
+
+                <i
+                  className="fa fa-eye"
+                  style={{margin:"20px -31px"}}
+                  onClick={myFunction}
+                ></i>
+              </div>
+              <div className="buton">
+                <input
+                  type="submit"
+                  value="Login"
+                  className="btn btn-success"
+                  id="buttonSubmit"
+                />
+              </div>
+            </form>
+          </div>
         </div>
-      </div>)}
+      )}
     </>
   );
 };
