@@ -28,6 +28,7 @@ import { Header } from "./Components/Header";
 import { EmployeeLogin } from "./Components/EmployeeLogin";
 import { apidata } from "./action/apiaction";
 import { Filter } from "./Components/Filter";
+import { Register } from "./Components/Register";
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +53,7 @@ dispatch(apidata())
           <Route path="/addlist" element={<AddList/>}/>
           <Route path="/viewlist" element={<Viewlist/>}/>
           <Route path="/bankform" element={<BankForm/>}/>
+          <Route path="/register" element={<Register/>}/>
           <Route path="/filter" element={<Filter/>}/>
           <Route path="/employeelogin" element={<Protectedrouteuser><EmployeeLogin/></Protectedrouteuser>}/>
         </Routes>

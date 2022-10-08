@@ -28,7 +28,7 @@ async function isEmailValid(email) {
 //   fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
 // };
 exports.employregister = catchAsyncerror(async (req, res, next) => {
-  // console.log(req.body);
+  console.log(req.body);
   const { email, password, role } = req.body;
 
   if (!email || !password) {
@@ -42,11 +42,7 @@ exports.employregister = catchAsyncerror(async (req, res, next) => {
       const { valid, reason, validators } = await isEmailValid(email);
       // console.log(validators);
 
-      if (!valid) {
-        return res
-          .status(500)
-          .json("email is invalid please enter a valid email");
-      } else if (user) {
+  if (user) {
         return res.status(500).json("user already registered");
       } else {
         const userData = await Employy.create({
@@ -64,7 +60,7 @@ exports.employregister = catchAsyncerror(async (req, res, next) => {
   }
 });
 exports.register = catchAsyncerror(async (req, res, next) => {
-  // console.log(req.body);
+  console.log(req.body);
   const { email, password, role } = req.body;
 
   if (!email || !password) {
