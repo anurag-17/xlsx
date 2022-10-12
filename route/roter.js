@@ -50,7 +50,7 @@ router.route("/employlogin").post(employylogin);
 router.route("/getxlsxfile").get(xlsxget);
 router.route("/finddata").post(filterdata);
 router.route("/slumidsearch").post(slumidsearch);
-// router.route("/searchsgidwithdist").post(searchsgidwithdist);
+router.route("/searchall").get(searchsgidwithdist);
 router.route("/uploadForm").post(uploadform);
 router.route("/upload").post(upload.single("xlsx"),uploadXLSX);
 router.route("/me").get(isAuthuser, dashboard);

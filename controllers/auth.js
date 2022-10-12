@@ -11,22 +11,7 @@ const { log } = require("console");
 async function isEmailValid(email) {
   return emailValidator.validate(email);
 }
-// exports.register = (req, res, next) => {
-//   // res.send("hello people");
 
-//   //  step 1: ReAD EXCEL FILE
-
-//   const WB = xlsx.readFile("SampleData(3).xlsx", { dateNF: "mm/dd/yyyy" });
-//   //  step 2: ReAD SHEET FROM WORKBOOKEXCEL FILE
-//   const ws = WB.Sheets.Sheet1;
-
-//   // step 3:READ SGHEET DATA AND CONVERT IT JSON
-//   console.log(ws);
-//   const data = xlsx.utils.sheet_to_json(ws, { raw: false });
-//   console.log(data);
-//   //  STEP-5  WRITE JSON DATA INTO JSON FILE BY STRINGIFY DATA
-//   fs.writeFileSync("./data.json", JSON.stringify(data, null, 2));
-// };
 exports.employregister = catchAsyncerror(async (req, res, next) => {
   console.log(req.body);
   const { email, password, role } = req.body;
@@ -135,32 +120,6 @@ exports.login = catchAsyncerror(async (req, res, next) => {
   }
 });
 
-// exports.uploadXLSX=catchAsyncerror(async(req,res,next)=>{
-//   try{
-//     let path = req.file.path;
-//     var workbook = XLSX.readFile(path);
-//     var sheet_name_list = workbook.SheetNames;
-//     let jsonData = XLSX.utils.sheet_to_json(
-//       workbook.Sheets[sheet_name_list[0]]
-//     );
-//     if(jsonData.length === 0) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "xml sheet has no data",
-//       });
-//     }
-//     // console.log(jsonData)
-//     let savedData = await Excell.insertMany(jsonData);
-
-//     return res.status(201).json({
-//       success: true,
-//       message: savedData.length + " rows added to the database",
-//       data:savedData
-//     });
-//   } catch (err) {
-//     return res.status(500).json({ success: false, message: err.message });
-//   }
-// })
 exports.xlsxget = catchAsyncerror(async (req, res, next) => {
   const data = await Excell.find({}, { _id: 0, __v: 0 });
   return res.status(200).json(data);
@@ -183,20 +142,10 @@ exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
   } else {
   }
   return res.status(200).json(data);
-  // data.map(async(item,index)=>{
-  //   console.log(item);
-  // })
-  // console.log(sghidsearch);
+ 
 });
-// const sghidsearch=  UploadFormData.find({ 'SHG ID': "'0930890110095" })
-// console.log(sghidsearch);
 exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
-  // console.log(req.body);
-  const sghid = req.body.SHGID;
-  const data = await UploadFormData.findOne(
-    { "Name of the District": ["Name of the District"] },
-    { _id: 0, __v: 0 }
-  );
+  const data = await UploadFormData.find();
   return res.status(200).json(data);
 });
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
@@ -204,7 +153,6 @@ exports.uploadform = catchAsyncerror(async (req, res, next) => {
   let sgid = data[0]["sghid"];
   console.log(data[0]["year"]);
 
-  // return
   try {
     const user = await UploadFormData.findOne({ sghid: sgid });
     const year = await UploadFormData.findOne({
