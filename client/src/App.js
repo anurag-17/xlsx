@@ -30,7 +30,11 @@ import { apidata } from "./action/apiaction";
 import { Filter } from "./Components/Filter";
 import { Register } from "./Components/Register";
 import { Checkgrade } from "./Components/Checkgrade";
-import  {Filters} from "./Components/Filters";
+import  { Filtersdistrict} from "./Components/Filtersdistrict";
+import { FIlterulb } from "./Components/FIlterulb";
+import { Filtertlf } from "./Filtertlf";
+import { Filterslf } from "./Components/Filterslf";
+import { Filtershg } from "./Components/Filtershg";
 
 function App() {
   const dispatch = useDispatch();
@@ -59,7 +63,11 @@ dispatch(apidata())
           <Route path="/filter" element={<Filter/>}/>
           <Route path="/checkgrade" element={<Checkgrade/>}/>
           <Route path="/employeelogin" element={<Protectedrouteuser><EmployeeLogin/></Protectedrouteuser>}/>
-          <Route path="/search" element={<Filters/>}/>
+          <Route path="/search" element={<Filtersdistrict/>}/>
+          <Route path="/search/:district" element={<FIlterulb/>}/>
+          <Route path="/search/:district/:ulb" element={<Filtertlf/>}/>
+          <Route path="/search/:district/:ulb/:tlfname" element={<Filterslf/>}/>
+          <Route path="/search/:district/:ulb/:slfname/:slf" element={<Filtershg/>}/>
         </Routes>
       </BrowserRouter>
     </div>

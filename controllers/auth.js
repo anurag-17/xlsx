@@ -132,20 +132,18 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
   return res.status(200).json(data);
 });
 exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
-  const sghid = req.body;
-  // console.log(sghid);
-  const data = await UploadFormData.find(sghid, { _id: 0 });
+  const sghid = Object.keys(req.body)[0]
+  const data = await UploadFormData.find({}, { _id: 0 });
   // const data = await UploadFormData.find();
-  console.log(data);
-  if (data ===[]) {
-    return res.status(500).json({message:"no data found",success: false});
-  } else {
-  }
+
   return res.status(200).json(data);
  
 });
 exports.searchsgidwithdist = catchAsyncerror(async (req, res, next) => {
-  const data = await UploadFormData.find();
+  let reqdata=req.body
+  // console.log(reqdata);
+  const data = await UploadFormData.find(reqdata,{_id:0});
+  // console.log(data);
   return res.status(200).json(data);
 });
 exports.uploadform = catchAsyncerror(async (req, res, next) => {
