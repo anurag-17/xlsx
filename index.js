@@ -38,7 +38,19 @@ if (process.env.NODE_ENV === "production") {
 
 // --------------------------deployment------------------------------
 
-
+app.post("/edit", async(req,res)=>{
+  let uid =req.body.id;
+  console.log(req);
+  let data = await Excell.findById(({_id:uid}))
+  console.log(data);
+  return res.json(data)
+})
+app.put("/update",async(req,res)=>{
+  let objid = req.body._id;
+  // console.log(req.body);
+  let updatadata = await Excell.findByIdAndUpdate(objid,{name:req.body.name,eamil:req.body.eamil,dob:req.body.dob,rollno:req.body.rollno})
+  res.json({success:'update'})
+})
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running on ${process.env.PORT}`);

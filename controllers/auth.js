@@ -121,7 +121,7 @@ exports.login = catchAsyncerror(async (req, res, next) => {
 });
 
 exports.xlsxget = catchAsyncerror(async (req, res, next) => {
-  const data = await Excell.find({}, { _id: 0, __v: 0 });
+  const data = await Excell.find({}, { __v: 0 });
   return res.status(200).json(data);
 });
 
@@ -133,7 +133,7 @@ exports.filterdata = catchAsyncerror(async (req, res, next) => {
 });
 exports.slumidsearch = catchAsyncerror(async (req, res, next) => {
   const sghid = Object.keys(req.body)[0]
-  const data = await UploadFormData.find({}, { _id: 0 });
+  const data = await UploadFormData.findOne();
   // const data = await UploadFormData.find();
 
   return res.status(200).json(data);
