@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Header } from "./Header";
+import { SideNavigation } from "./SideNavigation";
 
 export const Filterslf = () => {
   const {tlfname}= useParams()
@@ -49,14 +51,15 @@ export const Filterslf = () => {
           return (
         
             <div>
-             
+               <Header/>
+      <SideNavigation />
               <div className="AddFlex">
                 <div style={{ width: "70%", marginLeft: "23%",marginTop:"10%" }}>
                
         
                 
         
-                  <div style={{ width: "100%" }}>
+                  <div style={{ width: "20%" }}>
                     {filterdata.length >=1 ? (
                       <>
                         <div

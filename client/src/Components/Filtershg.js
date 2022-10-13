@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { Header } from "./Header";
+import { SideNavigation } from "./SideNavigation";
 
 export const Filtershg = () => {
           const [data, setData] = useState([]);
@@ -61,7 +63,8 @@ export const Filtershg = () => {
           return (
         
             <div>
-             
+               <Header/>
+      <SideNavigation />
               <div className="AddFlex">
                 <div style={{ width: "70%", marginLeft: "23%",marginTop:"10%" }}>
                

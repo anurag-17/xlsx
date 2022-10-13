@@ -60,14 +60,14 @@ dispatch(apidata())
           <Route path="/viewlist" element={<Viewlist/>}/>
           <Route path="/bankform" element={<BankForm/>}/>
           <Route path="/register" element={<Register/>}/>
-          <Route path="/filter" element={<Filter/>}/>
+          {/* <Route path="/filter" element={<Filter/>}/> */}
           <Route path="/checkgrade" element={<Checkgrade/>}/>
           <Route path="/employeelogin" element={<Protectedrouteuser><EmployeeLogin/></Protectedrouteuser>}/>
-          <Route path="/search" element={<Filtersdistrict/>}/>
-          <Route path="/search/:district" element={<FIlterulb/>}/>
-          <Route path="/search/:district/:ulb" element={<Filtertlf/>}/>
-          <Route path="/search/:district/:ulb/:tlfname" element={<Filterslf/>}/>
-          <Route path="/search/:district/:ulb/:slfname/:slf" element={<Filtershg/>}/>
+          <Route path="/filter" element={<Filtersdistrict/>}/>
+          <Route path="/filter/:district" element={<FIlterulb/>}/>
+          <Route path="/filter/:district/:ulb" element={<Filtertlf/>}/>
+          <Route path="/filter/:district/:ulb/:tlfname" element={<Filterslf/>}/>
+          <Route path="/filter/:district/:ulb/:slfname/:slf" element={<Filtershg/>}/>
         </Routes>
       </BrowserRouter>
     </div>
