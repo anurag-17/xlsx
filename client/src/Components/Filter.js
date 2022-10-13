@@ -86,7 +86,7 @@ export const Filter = () => {
 
   const autocompleteRef = useRef();
   const api = async () => {
-    const res = await axios.get("http://localhost:5000/api/auth/searchall");
+    const res = await axios.post("http://localhost:5000/api/auth/slumidsearch");
     setdata(res.data);
   };
 
