@@ -1621,7 +1621,7 @@ export const BankForm = () => {
                   </div>
                   <div className="flexBaX">
                     <div className="flexC">
-                      <label>Total fund Recived</label>
+                      <label>Total fund Received</label>
                       <input
                         type="number"
                         readOnly
